@@ -1,0 +1,241 @@
+:root {
+  /* Content/General */
+  --color-content-general-primary: #ffffff; /* white/100 */
+  --color-content-general-secondary: rgba(255, 255, 255, 0.75); /* white/75 */
+  --color-content-general-tertiary: rgba(255, 255, 255, 0.6); /* white/60 */
+  --color-content-general-disabled: rgba(255, 255, 255, 0.55); /* white/55 */
+  --color-content-general-inverted-primary: #000000; /* black/100 */
+  --color-content-general-inverted-secondary: rgba(
+    0,
+    0,
+    0,
+    0.75
+  ); /* black/75 */
+  --color-content-general-inverted-tertiary: rgba(0, 0, 0, 0.6); /* black/60 */
+  --color-content-general-inverted-disabled: rgba(0, 0, 0, 0.55); /* black/55 */
+  --color-content-general-black: #000000; /* black/100 */
+  --color-content-general-white: #ffffff; /* white/100 */
+
+  /* Content/Informative */
+  --color-content-informative-primary: #1d70f1; /* blue/blue-500 */
+  --color-content-informative-secondary: #68a0f5; /* blue/blue-300 */
+
+  /* Content/Positive */
+  --color-content-positive-primary: #61af69; /* green/green-400 */
+  --color-content-positive-secondary: #7bc382; /* green/green-300 */
+
+  /* Content/Warning */
+  --color-content-warning-primary: #ffb72b; /* yellow/yellow-500 */
+  --color-content-warning-secondary: #ffce71; /* yellow/yellow-300 */
+
+  /* Content/Negative */
+  --color-content-negative-primary: #f57149; /* red/red-400 */
+  --color-content-negative-secondary: #f78866; /* red/red-300 */
+
+  /* Content/Brand */
+  --color-content-brand-primary: #1d70f1; /* blue/blue-500 */
+  --color-content-brand-secondary: #68a0f5; /* blue/blue-300 */
+
+  /* Border/General */
+  --color-border-general-primary: rgba(255, 255, 255, 0.1); /* white/10 */
+  --color-border-general-primary-inverted: rgba(0, 0, 0, 0.1); /* black/10 */
+  --color-border-general-secondary: rgba(255, 255, 255, 0.2); /* white/20 */
+
+  /* Border/Positive */
+  --color-border-positive-strong: #3a9b44; /* green/green-500 */
+  --color-border-positive-subtile: #a4d1a9; /* green/green-200 */
+
+  /* Border/Warning */
+  --color-border-warning-strong: #ffb72b; /* yellow/yellow-500 */
+  --color-border-warning-subtile: #ffe19d; /* yellow/yellow-200 */
+
+  /* Border/Negative */
+  --color-border-negative-strong: #f34e1b; /* red/red-500 */
+  --color-border-negative-subtile: #f7ad96; /* red/red-200 */
+
+  /* Border/Brand */
+  --color-border-brand-strong: #1d70f1; /* blue/blue-500 */
+  --color-border-brand-subtile: #97bbea; /* blue/blue-200 */
+
+  /* Border/Informative */
+  --color-border-informative-strong: #4a8de8; /* blue/blue-400 */
+  --color-border-informative-subtile: #97bbea; /* blue/blue-200 */
+
+  /* Bg/General */
+  --color-bg-general-primary: #1a1a1a; /* bw/bw-900 */
+  --color-bg-general-primary-inverted: #f2f2f2; /* bw/bw-50 */
+  --color-bg-general-secondary: #262626; /* bw/bw-850 */
+  --color-bg-general-secondary-inverted: #d9d9d9; /* bw/bw-150 */
+  --color-bg-general-tertiary: #333333; /* bw/bw-800 */
+  --color-bg-general-tertiary-inverted: #808080; /* bw/bw-200 */
+
+  /* Bg/Informative */
+  --color-bg-informative-strong: #4a8de8; /* blue/blue-400 */
+  --color-bg-informative-subtile: #103e85; /* blue/blue-800 */
+
+  /* Bg/Positive */
+  --color-bg-positive-strong: #3a9b44; /* green/green-500 */
+  --color-bg-positive-subtile: #205525; /* green/green-800 */
+
+  /* Bg/Warning */
+  --color-bg-warning-strong: #ffb72b; /* yellow/yellow-500 */
+  --color-bg-warning-subtile: #6b4d12; /* yellow/yellow-900 */
+
+  /* Bg/Negative */
+  --color-bg-negative-strong: #dd4719; /* red/red-600 */
+  --color-bg-negative-subtile: #862b0f; /* red/red-800 */
+
+  /* Bg/Brand */
+  --color-bg-brand-strong: #1d70f1; /* blue/blue-500 */
+  --color-bg-brand-subtile: #103e85; /* blue/blue-800 */
+
+  /* Bg/Extra */
+  --color-bg-extra-dimmer: rgba(0, 0, 0, 0.2); /* black/20 */
+  --color-bg-extra-tooltip: #0d0d0d; /* bw/bw-950 */
+  --color-bg-extra-scroll: rgba(255, 255, 255, 0.2); /* white/20 */
+
+  /* Action/Primary */
+  --color-action-primary-normal: #ffffff; /* bw/bw-0 */
+  --color-action-primary-hover: #e6e6e6; /* bw/bw-100 */
+  --color-action-primary-active: #c0c0c0; /* bw/bw-200 */
+  --color-action-primary-disabled: #808080; /* bw/bw-500 */
+  --color-action-primary-on-primary: #000000; /* black/100 */
+  --color-action-primary-subtile-normal: #0d0d0d; /* bw/bw-950 */
+  --color-action-primary-subtile-hover: #262626; /* bw/bw-850 */
+  --color-action-primary-subtile-active: #404040; /* bw/bw-750 */
+
+  /* Action/Secondary */
+  --color-action-secondary-normal: #c0c0c0; /* bw/bw-200 */
+  --color-action-secondary-hover: #e6e6e6; /* bw/bw-100 */
+  --color-action-secondary-active: #ffffff; /* bw/bw-0 */
+  --color-action-secondary-disabled: #808080; /* bw/bw-500 */
+  --color-action-secondary-subtile-normal: rgba(255, 255, 255, 0); /* white/0 */
+  --color-action-secondary-subtile-hover: rgba(
+    255,
+    255,
+    255,
+    0.05
+  ); /* white/5 */
+  --color-action-secondary-subtile-active: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* white/10 */
+  --color-action-secondary-subtile-disabled: rgba(
+    255,
+    255,
+    255,
+    0.05
+  ); /* white/5 */
+
+  /* Action/Secondary Inverted */
+  --color-action-secondary-inverted-normal: rgba(0, 0, 0, 0.8); /* black/80 */
+  --color-action-secondary-inverted-hover: rgba(0, 0, 0, 0.9); /* black/90 */
+  --color-action-secondary-inverted-active: #000000; /* black/100 */
+  --color-action-secondary-inverted-disabled: rgba(
+    0,
+    0,
+    0,
+    0.45
+  ); /* black/45 */
+  --color-action-secondary-inverted-subtile-normal: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* black/10 */
+  --color-action-secondary-inverted-subtile-hover: rgba(
+    0,
+    0,
+    0,
+    0.15
+  ); /* black/15 */
+  --color-action-secondary-inverted-subtile-active: rgba(
+    0,
+    0,
+    0,
+    0.2
+  ); /* black/20 */
+  --color-action-secondary-inverted-subtile-disabled: rgba(
+    0,
+    0,
+    0,
+    0.05
+  ); /* black/5 */
+
+  /* Action/Outline */
+  --color-action-outline-normal: rgba(255, 255, 255, 0.3); /* white/30 */
+  --color-action-outline-hover: rgba(255, 255, 255, 0.4); /* white/40 */
+  --color-action-outline-active: rgba(255, 255, 255, 0.5); /* white/50 */
+  --color-action-outline-disabled: rgba(255, 255, 255, 0.1); /* white/10 */
+  --color-action-outline-subtile-normal: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* white/10 */
+  --color-action-outline-subtile-hover: rgba(
+    255,
+    255,
+    255,
+    0.15
+  ); /* white/15 */
+  --color-action-outline-subtile-active: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* white/20 */
+  --color-action-outline-subtile-inverted-normal: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* black/10 */
+  --color-action-outline-subtile-inverted-hover: rgba(
+    0,
+    0,
+    0,
+    0.15
+  ); /* black/15 */
+  --color-action-outline-subtile-inverted-active: rgba(
+    0,
+    0,
+    0,
+    0.2
+  ); /* black/20 */
+  --color-action-outline-subtile-inverted-disabled: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* black/10 */
+
+  /* Action/Success */
+  --color-action-success-normal: #7bc382; /* green/green-300 */
+  --color-action-success-hover: #61af69; /* green/green-400 */
+  --color-action-success-active: #3a9b44; /* green/green-500 */
+  --color-action-success-disabled: #1a1a1a; /* bw/bw-900 */
+  --color-action-success-subtile-normal: #205525; /* green/green-800 */
+  --color-action-success-subtile-hover: #25622b; /* green/green-750 */
+  --color-action-success-subtile-active: #296e30; /* green/green-700 */
+
+  /* Action/Destructive */
+  --color-action-destructive-normal: #f78866; /* red/red-300 */
+  --color-action-destructive-hover: #f57149; /* red/red-400 */
+  --color-action-destructive-active: #f34e1b; /* red/red-500 */
+  --color-action-destructive-disabled: #1a1a1a; /* bw/bw-900 */
+  --color-action-destructive-subtile-normal: #feefea; /* red/red-50 */
+  --color-action-destructive-subtile-hover: #f7ad96; /* red/red-200 */
+  --color-action-destructive-subtile-active: #f57149; /* red/red-400 */
+
+  /* Action/Brand */
+  --color-action-brand-normal: #ffb72b; /* yellow/yellow-500 */
+  --color-action-brand-hover: #e7a727; /* yellow/yellow-600 */
+  --color-action-brand-active: #cd9423; /* yellow/yellow-650 */
+  --color-action-brand-disabled: #1a1a1a; /* bw/bw-900 */
+  --color-action-brand-subtile-normal: #8c6518; /* yellow/yellow-800 */
+  --color-action-brand-subtile-hover: #a0741c; /* yellow/yellow-750 */
+  --color-action-brand-subtile-active: #b4831f; /* yellow/yellow-700 */
+}
