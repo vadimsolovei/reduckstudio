@@ -270,8 +270,8 @@ header {
 }
 
 .logo svg {
-  width: var(--space-238);
-  height: var(--space-32);
+  width: var(--space-160);
+  height: var(--space-40);
 }
 
 .nav-buttons {
