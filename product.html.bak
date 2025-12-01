@@ -61,11 +61,6 @@
           </defs>
         </svg>
       </div>
-      <button id="burger-menu" class="burger-menu" aria-label="Меню" aria-expanded="false">
-        <span class="burger-line"></span>
-        <span class="burger-line"></span>
-        <span class="burger-line"></span>
-      </button>
       <div class="nav-buttons">
         <div class="nav-button">Ru</div>
         <button

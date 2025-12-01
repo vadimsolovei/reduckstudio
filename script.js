@@ -101,6 +101,75 @@ document.addEventListener('DOMContentLoaded', () => {
         setTheme(e.matches ? THEMES.LIGHT : THEMES.DARK);
       }
     });
+
+  // Burger Menu Toggle
+  const burgerMenu = document.getElementById('burger-menu');
+  const navButtons = document.querySelector('.nav-buttons');
+
+  if (burgerMenu && navButtons) {
+    function toggleMenu() {
+      const isOpen = burgerMenu.getAttribute('aria-expanded') === 'true';
+      burgerMenu.setAttribute('aria-expanded', !isOpen);
+      navButtons.classList.toggle('open');
+
+      // Announce to screen readers
+      const announcement = !isOpen ? 'Меню открыто' : 'Меню закрыто';
+      const ariaLive = document.createElement('div');
+      ariaLive.setAttribute('aria-live', 'polite');
+      ariaLive.setAttribute('aria-atomic', 'true');
+      ariaLive.className = 'sr-only';
+      ariaLive.textContent = announcement;
+      document.body.appendChild(ariaLive);
+      setTimeout(() => document.body.removeChild(ariaLive), 1000);
+    }
+
+    // Toggle menu on burger button click
+    burgerMenu.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const isOpen = burgerMenu.getAttribute('aria-expanded') === 'true';
+      if (
+        isOpen &&
+        !navButtons.contains(e.target) &&
+        !burgerMenu.contains(e.target)
+      ) {
+        toggleMenu();
+      }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const isOpen = burgerMenu.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          toggleMenu();
+          burgerMenu.focus();
+        }
+      }
+    });
+
+    // Close menu when clicking on nav buttons
+    navButtons.addEventListener('click', (e) => {
+      if (e.target.classList.contains('nav-button')) {
+        const isOpen = burgerMenu.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          toggleMenu();
+        }
+      }
+    });
+
+    // Close menu on window resize if switching to desktop view
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        const isOpen = burgerMenu.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          burgerMenu.setAttribute('aria-expanded', 'false');
+          navButtons.classList.remove('open');
+        }
+      }
+    });
+  }
 });
 
 document.querySelectorAll('.phase-column h5').forEach((el) => {
@@ -294,19 +363,33 @@ function alignPhaseSteps() {
   const columns = document.querySelectorAll('.phase-column');
   if (columns.length === 0) return;
 
-  let maxDescriptionHeight = 0;
+  // Only apply alignment on desktop screens (above 768px)
+  const isDesktop = window.innerWidth > 768;
 
-  // First pass: reset and find max height
+  // First pass: always reset to auto
   columns.forEach((col) => {
     const description = col.querySelector('.phase-description');
     if (description) {
       description.style.height = 'auto';
+      description.style.minHeight = 'auto';
+    }
+  });
+
+  // Only calculate and apply heights on desktop
+  if (!isDesktop) return;
+
+  let maxDescriptionHeight = 0;
+
+  // Second pass: find max height
+  columns.forEach((col) => {
+    const description = col.querySelector('.phase-description');
+    if (description) {
       const height = description.offsetHeight;
       maxDescriptionHeight = Math.max(maxDescriptionHeight, height);
     }
   });
 
-  // Second pass: apply max height to all
+  // Third pass: apply max height to all
   columns.forEach((col) => {
     const description = col.querySelector('.phase-description');
     if (description) {
@@ -318,8 +401,14 @@ function alignPhaseSteps() {
 // Initialize alignment
 alignPhaseSteps();
 
-// Recalculate on resize
-window.addEventListener('resize', alignPhaseSteps);
+// Recalculate on resize with debounce
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    alignPhaseSteps();
+  }, 150);
+});
 
 // Recalculate after fonts load
 if (document.fonts) {
