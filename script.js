@@ -414,3 +414,127 @@ window.addEventListener('resize', () => {
 if (document.fonts) {
   document.fonts.ready.then(alignPhaseSteps);
 }
+
+// Contact Form Modal
+document.addEventListener('DOMContentLoaded', () => {
+  const formModal = document.getElementById('contactFormModal');
+  const formOverlay = document.getElementById('contactFormOverlay');
+  const closeFormBtn = document.getElementById('closeFormBtn');
+  const contactForm = document.getElementById('contactForm');
+  const ctaButtons = document.querySelectorAll('.cta-button');
+
+  if (!formModal || !formOverlay) return;
+
+  // Open form function
+  function openContactForm() {
+    formModal.classList.add('open');
+    formOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Focus first input for accessibility
+    const firstInput = formModal.querySelector('input[type="email"]');
+    if (firstInput) {
+      setTimeout(() => firstInput.focus(), 300);
+    }
+  }
+
+  // Close form function
+  function closeContactForm() {
+    formModal.classList.remove('open');
+    formOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Attach click handlers to all CTA buttons
+  ctaButtons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      openContactForm();
+    });
+  });
+
+  // Close button
+  if (closeFormBtn) {
+    closeFormBtn.addEventListener('click', closeContactForm);
+  }
+
+  // Close on overlay click
+  formOverlay.addEventListener('click', closeContactForm);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && formModal.classList.contains('open')) {
+      closeContactForm();
+    }
+  });
+
+  // Form option selection (toggle buttons)
+  const formOptions = document.querySelectorAll('.form-option');
+  formOptions.forEach((option) => {
+    option.addEventListener('click', () => {
+      const optionGroup = option.closest('[data-option-group]');
+      const groupName = optionGroup?.getAttribute('data-option-group');
+
+      // For services group, allow multiple selections with checkmarks
+      if (groupName === 'services') {
+        option.classList.toggle('selected');
+        const svg = option.querySelector('svg');
+        if (svg) {
+          svg.style.display = option.classList.contains('selected')
+            ? 'block'
+            : 'none';
+        }
+      }
+      // For budget group, allow only single selection without checkmarks
+      else if (groupName === 'budget') {
+        // Deselect all other options in the budget group
+        optionGroup.querySelectorAll('.form-option').forEach((btn) => {
+          btn.classList.remove('selected');
+        });
+        // Select the clicked option
+        option.classList.add('selected');
+      }
+    });
+  });
+
+  // Form submission
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Collect form data
+      const formData = new FormData(contactForm);
+      const data = Object.fromEntries(formData);
+
+      // Collect selected services (multiple selections allowed)
+      const selectedServices = Array.from(
+        document.querySelectorAll(
+          '[data-option-group="services"] .form-option.selected'
+        )
+      ).map((opt) => opt.getAttribute('data-value'));
+
+      // Collect selected budget (single selection only)
+      const selectedBudget = document
+        .querySelector('[data-option-group="budget"] .form-option.selected')
+        ?.getAttribute('data-value');
+
+      data.services = selectedServices;
+      data.budget = selectedBudget;
+
+      console.log('Form submitted:', data);
+
+      // Here you would typically send the data to a server
+      // For now, just show a success message and close the form
+      alert('Спасибо! Ваша заявка отправлена.');
+      closeContactForm();
+      contactForm.reset();
+
+      // Reset selected options
+      formOptions.forEach((opt) => {
+        opt.classList.remove('selected');
+        const svg = opt.querySelector('svg');
+        if (svg) svg.style.display = 'none';
+      });
+    });
+  }
+});

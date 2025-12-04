@@ -74,6 +74,8 @@
   /* ~33.8px */
   --space-36: 2.5vw;
   /* 36px */
+  --space-38: 2.64vw;
+  /* ~38px */
   --space-40: 2.78vw;
   /* 40px */
   --space-43: 2.98vw;
@@ -162,6 +164,10 @@
   /* 120px */
   --font-144: 10vw;
   /* 144px */
+
+  /* Form specific variables */
+  --space-840: 58.33vw;
+  /* 840px - form width */
 }
 
 /* RESET STYLES */
@@ -1522,6 +1528,312 @@ header {
   transform: translateY(0);
 }
 
+/* Contact Form Modal */
+.contact-form-modal {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: var(--space-840);
+  height: 100vh;
+  background-color: var(--color-bg-general-primary);
+  z-index: 2000;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+}
+
+.contact-form-modal.open {
+  right: 0;
+}
+
+.contact-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.contact-form-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.contact-form-content {
+  padding: var(--space-60) var(--space-64);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto';
+}
+
+.contact-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-60);
+}
+
+.contact-form-title {
+  font-size: var(--font-90);
+  line-height: var(--font-90);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-content-general-disabled);
+  max-width: calc(100% - var(--space-80));
+  font-family: 'Bebas Neue';
+
+  & em {
+    color: var(--color-content-general-primary);
+    font-style: normal;
+  }
+}
+
+.contact-form-close {
+  width: var(--space-40);
+  height: var(--space-40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.contact-form-close:hover {
+  transform: rotate(90deg);
+}
+
+.contact-form-close svg {
+  width: var(--space-24);
+  height: var(--space-24);
+}
+
+.contact-form-close svg path {
+  stroke: var(--color-content-general-primary);
+}
+
+.contact-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-30);
+}
+
+.form-row {
+  display: flex;
+  gap: var(--space-30);
+  margin-bottom: var(--space-30);
+}
+
+.form-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field input,
+.form-field textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border-general-primary);
+  padding: var(--space-16) 0;
+  font-size: var(--font-20);
+  line-height: var(--font-24);
+  color: var(--color-content-general-primary);
+  transition: border-color 0.2s ease;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: var(--color-content-general-disabled);
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--color-action-brand-normal);
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: var(--space-48);
+  padding: 0;
+}
+
+.form-section {
+  display: flex;
+  gap: var(--space-30);
+}
+
+.form-section:has(~ .form-section) {
+  margin-bottom: var(--space-30);
+}
+
+.form-section-label {
+  flex: 0 0 auto;
+  width: var(--space-120);
+  margin-top: var(--space-24);
+  font-size: var(--font-20);
+  line-height: var(--font-24);
+  color: var(--color-content-general-disabled);
+}
+
+.form-options {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.form-option {
+  display: flex;
+  align-items: center;
+  padding: var(--space-24) var(--space-32);
+  background-color: var(--color-bg-general-secondary);
+  border: none;
+  border-radius: 999px;
+  font-size: var(--font-20);
+  line-height: var(--font-24);
+  color: var(--color-content-general-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-option:hover {
+  background-color: var(--color-action-secondary-subtile-hover);
+}
+
+.form-option.selected {
+  background-color: var(--color-content-general-primary);
+  color: var(--color-content-general-inverted-primary);
+}
+
+.form-option.selected svg {
+  width: var(--space-24);
+  height: var(--space-24);
+  margin-right: var(--space-8);
+}
+
+.form-submit {
+  width: 100%;
+  padding: var(--space-38) 0;
+  background-color: var(--color-action-brand-normal);
+  border: none;
+  border-radius: 999px;
+  font-size: var(--font-24);
+  line-height: var(--font-24);
+  font-weight: 700;
+  color: var(--color-content-general-black);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Bebas Neue';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-16);
+}
+
+.form-submit:hover {
+  background-color: var(--color-action-brand-hover);
+}
+
+.form-submit svg {
+  width: var(--space-24);
+  height: var(--space-24);
+}
+
+.form-footer {
+  padding-bottom: var(--space-30);
+  font-size: var(--font-20);
+  line-height: var(--font-24);
+  border-bottom: 1px solid var(--color-border-general-primary);
+}
+
+.form-footer-text {
+  color: var(--color-content-general-disabled);
+  font-family: 'Roboto';
+}
+
+.form-footer-text a {
+  color: var(--color-content-general-primary);
+  text-decoration: underline;
+}
+
+.form-footer-email {
+  color: var(--color-content-general-disabled);
+}
+
+.form-footer-email a {
+  color: var(--color-content-general-primary);
+  text-decoration: none;
+}
+
+.form-telegram-title {
+  font-size: var(--font-20);
+  line-height: var(--font-24);
+  color: var(--color-content-general-disabled);
+  margin-bottom: var(--space-24);
+}
+
+.form-telegram-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+  width: 100%;
+  padding: var(--space-24) var(--space-32);
+  background-color: var(--color-bg-general-secondary);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-telegram-button:hover {
+  background-color: var(--color-action-secondary-subtile-hover);
+}
+
+.form-telegram-avatars {
+  display: flex;
+  margin-right: var(--space-16);
+}
+
+.form-telegram-avatar {
+  width: var(--space-88);
+  height: var(--space-88);
+  border-radius: 50%;
+}
+
+.form-telegram-text {
+  flex: 1;
+  text-align: left;
+}
+
+.form-telegram-text p {
+  font-size: var(--font-16);
+  line-height: var(--font-20);
+  color: var(--color-content-general-primary);
+  font-family: 'Roboto';
+}
+
+.form-telegram-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: var(--space-20);
+  border-left: 1px solid var(--color-border-general-secondary);
+}
+
+.form-telegram-icon svg {
+  width: var(--space-20);
+  height: var(--space-20);
+}
+
 /* MOBILE RESPONSIVE STYLES (768px and below) */
 @media screen and (max-width: 768px) {
   /* Override all viewport-based spacing and fonts with fixed pixel values */
@@ -1628,13 +1940,8 @@ header {
     margin-bottom: 20px;
   }
 
-  .contact-card {
-    align-items: flex-start;
-    gap: 16px;
-  }
-
   .contact-card__text {
-    margin-left: 0;
+    margin-left: 32px;
     font-size: 16px;
     line-height: 20px;
   }
@@ -2231,5 +2538,131 @@ header {
   .client-testimonial.card-style {
     margin: 20px;
     padding: 32px;
+  }
+
+  /* Contact Form Modal Mobile */
+  .contact-form-modal {
+    width: 100%;
+    right: -100%;
+  }
+
+  .contact-form-content {
+    padding: 32px 24px;
+  }
+
+  .contact-form-title {
+    font-size: 60px;
+    line-height: 60px;
+  }
+
+  .contact-form-close {
+    width: 32px;
+    height: 32px;
+  }
+
+  .contact-form-close svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .contact-form-body {
+    gap: 30px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 18px;
+  }
+
+  .form-field input,
+  .form-field textarea {
+    font-size: 20px;
+    line-height: 24px;
+    padding: 12px 0;
+  }
+
+  .form-field textarea {
+    min-height: 40px;
+    padding: 0;
+  }
+
+  .form-section {
+    gap: 30px;
+  }
+
+  .form-section-label {
+    width: 120px;
+    margin-top: 14px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .form-options {
+    gap: 2px;
+  }
+
+  .form-option {
+    padding: 24px 32px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .form-option.selected svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+
+  .form-submit {
+    padding: 20px 32px;
+    font-size: 18px;
+    line-height: 18px;
+    margin-top: 16px;
+  }
+
+  .form-submit svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .form-footer {
+    padding-bottom: 30px;
+  }
+
+  .form-footer-text,
+  .form-footer-email {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .form-telegram-title {
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 16px;
+  }
+
+  .form-telegram-button {
+    padding: 16px 20px;
+    gap: 12px;
+  }
+
+  .form-telegram-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .form-telegram-text p {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .form-telegram-icon {
+    padding-left: 16px;
+  }
+
+  .form-telegram-icon svg {
+    width: 16px;
+    height: 16px;
   }
 }
