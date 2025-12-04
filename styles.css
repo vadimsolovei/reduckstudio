@@ -755,12 +755,6 @@ header {
   border-top: 1px solid var(--color-border-general-primary);
 }
 
-.contact-content {
-  display: flex;
-  gap: var(--space-120);
-  align-items: flex-start;
-}
-
 .contact-status {
   display: flex;
   align-items: center;
@@ -1198,38 +1192,6 @@ header {
   }
 }
 
-/* Loading state (optional) */
-.project-overview.loading .project-meta-tag {
-  background-color: var(--color-bg-general-secondary);
-  color: transparent;
-  position: relative;
-  overflow: hidden;
-}
-
-.project-overview.loading .project-meta-tag::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.1),
-      transparent);
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    left: -100%;
-  }
-
-  100% {
-    left: 100%;
-  }
-}
-
 /* Client Testimonial Section */
 .client-testimonial {
   margin-bottom: var(--space-90);
@@ -1330,81 +1292,6 @@ header {
   transform: translateY(0);
 }
 
-/* Focus States for Accessibility */
-.testimonial-quote:focus {
-  outline: 2px solid var(--color-action-primary-normal);
-  outline-offset: 4px;
-  border-radius: 4px;
-}
-
-/* Loading State */
-.client-testimonial.loading .testimonial-quote {
-  background: linear-gradient(90deg,
-      var(--color-bg-general-secondary) 25%,
-      var(--color-bg-general-tertiary) 50%,
-      var(--color-bg-general-secondary) 75%);
-  background-size: 200% 100%;
-  animation: loading-shimmer 2s infinite;
-  color: transparent;
-  border-radius: 8px;
-  min-height: 200px;
-}
-
-.client-testimonial.loading .author-avatar {
-  background: linear-gradient(90deg,
-      var(--color-bg-general-secondary) 25%,
-      var(--color-bg-general-tertiary) 50%,
-      var(--color-bg-general-secondary) 75%);
-  background-size: 200% 100%;
-  animation: loading-shimmer 2s infinite;
-}
-
-@keyframes loading-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-/* Testimonial card variant (optional) */
-.client-testimonial.card-style {
-  background: var(--color-bg-general-secondary);
-  border-radius: var(--space-24);
-  margin: var(--space-30);
-  padding: var(--space-72);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Multiple testimonials support */
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: var(--space-60);
-}
-
-.testimonials-grid .client-testimonial {
-  padding: var(--space-60);
-  background: var(--color-bg-general-secondary);
-  border-radius: var(--space-24);
-  border: 1px solid var(--color-border-general-primary);
-}
-
-/* Rating stars (if needed) */
-.testimonial-rating {
-  display: flex;
-  gap: var(--space-4);
-  margin-bottom: var(--space-24);
-}
-
-.rating-star {
-  width: 20px;
-  height: 20px;
-  color: var(--color-action-brand-normal);
-}
-
 /* Project Navigation Section */
 .project-navigation {
   display: flex;
@@ -1472,28 +1359,6 @@ header {
   color: var(--color-content-general-primary);
   margin: 0;
   transition: color 0.3s ease;
-}
-
-/* Loading State */
-.project-navigation.loading .project-nav-title {
-  background: linear-gradient(90deg,
-      var(--color-bg-general-secondary) 25%,
-      var(--color-bg-general-tertiary) 50%,
-      var(--color-bg-general-secondary) 75%);
-  background-size: 200% 100%;
-  animation: loading-shimmer 2s infinite;
-  color: transparent;
-  border-radius: 4px;
-  min-height: 24px;
-}
-
-.project-navigation.loading .project-logo {
-  background: linear-gradient(90deg,
-      var(--color-bg-general-secondary) 25%,
-      var(--color-bg-general-tertiary) 50%,
-      var(--color-bg-general-secondary) 75%);
-  background-size: 200% 100%;
-  animation: loading-shimmer 2s infinite;
 }
 
 /* Animation for entrance */
@@ -2502,21 +2367,6 @@ header {
     line-height: 28px;
   }
 
-  /* Testimonials Grid */
-  .testimonials-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .testimonials-grid .client-testimonial {
-    padding: 32px 20px;
-  }
-
-  /* Card Style Testimonial */
-  .client-testimonial.card-style {
-    margin: 20px;
-    padding: 32px;
-  }
 
   /* Contact Form Modal Mobile */
   .contact-form-modal {
