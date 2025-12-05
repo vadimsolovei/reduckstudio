@@ -226,7 +226,7 @@
             >
           </div>
 
-          <button class="case-study-cta">
+          <button class="cta-button">
             <svg
               width="20"
               height="20"
@@ -425,8 +425,8 @@
         </div>
       </div>
 
-      <div class="contact-cta-2">
-        <button class="cta-button">
+      <div class="contact-cta_footer">
+        <button class="cta-button_footer">
           <svg
             width="20"
             height="20"
@@ -583,6 +583,266 @@
         </div>
       </div>
     </footer>
+
+    <!-- Contact Form Modal -->
+    <div class="contact-form-overlay" id="contactFormOverlay"></div>
+    <div class="contact-form-modal" id="contactFormModal">
+      <div class="contact-form-content">
+        <div class="contact-form-header">
+          <h2 class="contact-form-title">давайте начнем <em>крутой проект!</em></h2>
+          <button
+            class="contact-form-close"
+            id="closeFormBtn"
+            aria-label="Закрыть форму"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M6 6L18 18"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <form class="contact-form-body" id="contactForm">
+          <div class="form-row">
+            <div class="form-field">
+              <input type="email" name="email" placeholder="E-mail" autocomplete="email" required />
+            </div>
+            <div class="form-field">
+              <input
+                type="text"
+                name="name"
+                placeholder="Полное имя"
+                autocomplete="name"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <textarea
+              name="message"
+              placeholder="Расскажите коротко о задаче"
+            ></textarea>
+          </div>
+
+          <div class="form-section">
+            <div class="form-section-label">Требования</div>
+            <div class="form-options" data-option-group="services">
+              <button
+                type="button"
+                class="form-option"
+                data-value="product-design"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style="display: none"
+                >
+                  <path
+                    d="M20 6L9 17L4 12"
+                    stroke="var(--color-content-general-inverted-primary)"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+
+                Product design
+              </button>
+              <button type="button" class="form-option" data-value="website">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style="display: none"
+                >
+                  <path
+                    d="M20 6L9 17L4 12"
+                    stroke="var(--color-content-general-inverted-primary)"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Website
+              </button>
+              <button
+                type="button"
+                class="form-option"
+                data-value="development"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style="display: none"
+                >
+                  <path
+                    d="M20 6L9 17L4 12"
+                    stroke="var(--color-content-general-inverted-primary)"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Development
+              </button>
+              <button type="button" class="form-option" data-value="branding">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style="display: none"
+                >
+                  <path
+                    d="M20 6L9 17L4 12"
+                    stroke="var(--color-content-general-inverted-primary)"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Branding
+              </button>
+              <button type="button" class="form-option" data-value="marketing">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style="display: none"
+                >
+                  <path
+                    d="M20 6L9 17L4 12"
+                    stroke="var(--color-content-general-inverted-primary)"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Marketing
+              </button>
+            </div>
+          </div>
+
+          <div class="form-section form-section--last">
+            <div class="form-section-label">Бюджет</div>
+            <div class="form-options" data-option-group="budget">
+              <button type="button" class="form-option" data-value="1-5k">
+                $1–5k
+              </button>
+              <button type="button" class="form-option" data-value="5-10k">
+                $5–10k
+              </button>
+              <button type="button" class="form-option" data-value="10-50k">
+                $10–50k
+              </button>
+              <button type="button" class="form-option" data-value="50k+">
+                $50k+
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="form-submit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_12201_13208)">
+<path d="M20.24 12.24C21.3658 11.1142 21.9983 9.58722 21.9983 7.99504C21.9983 6.40285 21.3658 4.87588 20.24 3.75004C19.1142 2.62419 17.5872 1.9917 15.995 1.9917C14.4028 1.9917 12.8758 2.62419 11.75 3.75004L5 10.5V19H13.5L20.24 12.24Z" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 8L2 22" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.5 15H9" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_12201_13208">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
+            </svg>
+            Отправить заявку
+          </button>
+
+          <div class="form-footer">
+            <p class="form-footer-text">
+              By clicking send you accept our <a href="#">privacy policy</a>
+            </p>
+            <p class="form-footer-email">
+              Prefer email? <a href="mailto:hello@reduck.co">hello@reduck.co</a>
+            </p>
+          </div>
+
+          <div class="contact-cta">
+            <div class="contact-card">
+              <img src="./images/avatar.png" alt="Profile" />
+              <img src="./images/avatar.png" alt="Profile" />
+              <button class="contact-chat">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.66667 10.5752L14.1583 17.1669C14.2449 17.2435 14.3499 17.2963 14.4631 17.3201C14.5763 17.3439 14.6937 17.3378 14.8038 17.3025C14.9139 17.2672 15.0129 17.2039 15.0912 17.1187C15.1694 17.0336 15.2241 16.9296 15.25 16.8169L18.3833 3.13352C18.4096 3.01568 18.4034 2.89291 18.3653 2.77833C18.3273 2.66375 18.2588 2.56165 18.1673 2.48294C18.0757 2.40423 17.9645 2.35185 17.8455 2.33141C17.7266 2.31096 17.6042 2.32321 17.4917 2.36685L2.10834 8.40852C1.49167 8.65019 1.57501 9.55019 2.22501 9.68352L6.66667 10.5752Z"
+                    stroke="var(--color-action-primary-normal)"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M6.66675 10.575L18.0084 2.3833"
+                    stroke="var(--color-action-primary-normal)"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M10.4084 13.8669L7.80841 16.4669C7.71566 16.5611 7.59699 16.6255 7.4675 16.6521C7.33801 16.6787 7.20353 16.6662 7.08117 16.6162C6.9588 16.5662 6.85407 16.4809 6.78028 16.3712C6.70649 16.2615 6.66697 16.1324 6.66675 16.0002V10.5752"
+                    stroke="var(--color-action-primary-normal)"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+              <div class="contact-card__text">
+                Contact out Team <br />
+                <em>on Telegram</em>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
