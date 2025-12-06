@@ -371,10 +371,6 @@ header {
   align-items: center;
 }
 
-.cta-button-wrapper {
-  margin-right: var(--space-200);
-}
-
 .cta-button,
 .cta-button_footer {
   display: inline-flex;
@@ -403,12 +399,14 @@ header {
 .cta-button_footer {
   padding: var(--space-64) var(--space-75);
   background-color: var(--color-content-general-primary);
+  color: var(--color-content-general-inverted-primary);
   border-radius: var(--space-64);
   box-shadow: 0 0 0 24px #262626;
 }
 
 .hero-contact {
   width: var(--space-634);
+  margin-left: var(--space-420);
   font-family: 'Roboto';
   color: var(--color-content-general-tertiary);
 }
@@ -1015,7 +1013,7 @@ header {
 
 .case-study-content {
   display: flex;
-  gap: var(--space-146);
+  gap: var(--space-270);
 }
 
 .case-study-title {
@@ -1028,6 +1026,7 @@ header {
 }
 
 .case-study-info {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-40);
@@ -2180,7 +2179,7 @@ header {
   /* Case Study Content */
   .case-study-content {
     flex-direction: column;
-    gap: 32px;
+    gap: 115px;
   }
 
   .case-study-title {
@@ -2475,5 +2474,47 @@ header {
   .form-telegram-icon svg {
     width: 16px;
     height: 16px;
+  }
+}
+
+/* Simple Fixed CTA with Fade Transition */
+.cta-button {
+  position: sticky;
+  bottom: var(--space-40);
+  left: 0;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  align-self: flex-start;
+}
+
+.cta-button--fixed {
+  position: fixed !important;
+  bottom: var(--space-340);
+  left: var(--space-60);
+}
+
+.case-study-content .cta-button--fixed {
+  bottom: 496px;
+}
+
+.cta-button--fixed.fading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cta-button_footer {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.cta-button_footer.visible {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .cta-button--fixed {
+    bottom: 600px;
+    left: 20px;
   }
 }

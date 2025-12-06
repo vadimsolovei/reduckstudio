@@ -538,3 +538,75 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Simple Fixed CTA with Fade Transition (Product Page)
+document.addEventListener('DOMContentLoaded', () => {
+  const fixedCta = document.querySelector('.cta-button');
+  const footerCta = document.querySelector(
+    '.contact-cta_footer .cta-button_footer'
+  );
+
+  if (!fixedCta || !footerCta) {
+    console.log('Missing buttons:', { fixedCta, footerCta });
+    return;
+  }
+
+  // Make the case study button fixed
+  fixedCta.classList.add('cta-button--fixed');
+
+  console.log('Simple fade initialized');
+
+  const FADE_THRESHOLD = 200; // Start fading when within 200px
+
+  function handleScroll() {
+    const footerCtaRect = footerCta.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    // Calculate distance from footer button to bottom of viewport
+    const distanceFromBottom = footerCtaRect.top - viewportHeight;
+
+    // When footer button is approaching the viewport
+    if (distanceFromBottom < FADE_THRESHOLD) {
+      // Calculate fade progress (0 = far, 1 = close)
+      const progress = Math.max(
+        0,
+        Math.min(1, 1 - distanceFromBottom / FADE_THRESHOLD)
+      );
+
+      // Fade out fixed button
+      fixedCta.style.opacity = 1 - progress;
+
+      // Fade in footer button
+      footerCta.style.opacity = progress;
+
+      console.log('Fading:', { distanceFromBottom, progress });
+
+      if (progress >= 0.95) {
+        fixedCta.classList.add('fading');
+        footerCta.classList.add('visible');
+      }
+    } else {
+      // Reset when scrolling back up
+      fixedCta.style.opacity = 1;
+      fixedCta.classList.remove('fading');
+      footerCta.style.opacity = 0;
+      footerCta.classList.remove('visible');
+    }
+  }
+
+  // Throttle scroll events
+  let scrollTimeout;
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+      }
+      scrollTimeout = window.requestAnimationFrame(handleScroll);
+    },
+    { passive: true }
+  );
+
+  // Initial check
+  handleScroll();
+});
