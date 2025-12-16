@@ -545,20 +545,153 @@ document.addEventListener('DOMContentLoaded', () => {
   const footerCta = document.querySelector(
     '.contact-cta_footer .cta-button_footer'
   );
+  const heroContact = document.querySelector('.hero-contact');
 
   if (!fixedCta || !footerCta) {
     console.log('Missing buttons:', { fixedCta, footerCta });
     return;
   }
 
-  // Make the case study button fixed
-  fixedCta.classList.add('cta-button--fixed');
-
   console.log('Simple fade initialized');
 
   const FADE_THRESHOLD = 200; // Start fading when within 200px
+  const SCROLL_THRESHOLD = 100; // Add fixed class after scrolling 100px
+  let isAnimating = false;
+
+  function animateToFixed() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    console.log('Animating to fixed position');
+
+    // Get current position before changing to fixed
+    const currentRect = fixedCta.getBoundingClientRect();
+    const currentTop = currentRect.top;
+    const currentLeft = currentRect.left;
+
+    console.log('Current position:', { currentTop, currentLeft });
+
+    // Temporarily disable only transform transition for instant positioning
+    fixedCta.style.transition = 'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out';
+
+    // Add fixed class (this will trigger padding/font-size transitions)
+    fixedCta.classList.add('cta-button--fixed');
+
+    // Add shifted class to hero-contact if it exists
+    if (heroContact) {
+      heroContact.classList.add('hero-contact--shifted');
+    }
+
+    // Force reflow to apply the fixed positioning
+    fixedCta.offsetHeight;
+
+    // Get target position after fixed
+    const targetRect = fixedCta.getBoundingClientRect();
+    const targetTop = targetRect.top;
+    const targetLeft = targetRect.left;
+
+    console.log('Target position:', { targetTop, targetLeft });
+
+    // Calculate offset needed to keep button visually in same place
+    const deltaX = currentLeft - targetLeft;
+    const deltaY = currentTop - targetTop;
+
+    console.log('Delta:', { deltaX, deltaY });
+
+    // Apply initial transform to keep button in original position
+    fixedCta.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+    // Force reflow
+    fixedCta.offsetHeight;
+
+    // Re-enable all transitions including transform
+    fixedCta.style.transition = 'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+
+    // Animate to final position
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        fixedCta.style.transform = 'translate(0, 0)';
+        setTimeout(() => {
+          isAnimating = false;
+          console.log('Animation complete');
+        }, 600);
+      });
+    });
+  }
+
+  function animateToNormal() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    console.log('Animating to normal position');
+
+    // Get current fixed position
+    const currentRect = fixedCta.getBoundingClientRect();
+    const currentTop = currentRect.top;
+    const currentLeft = currentRect.left;
+
+    // Disable only transform transition for instant positioning
+    fixedCta.style.transition = 'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out';
+
+    // Remove fixed class (this will trigger padding/font-size transitions)
+    fixedCta.classList.remove('cta-button--fixed');
+    fixedCta.style.opacity = 1;
+    fixedCta.classList.remove('fading');
+
+    // Remove shifted class from hero-contact if it exists
+    if (heroContact) {
+      heroContact.classList.remove('hero-contact--shifted');
+    }
+
+    // Force reflow
+    fixedCta.offsetHeight;
+
+    // Get new normal position
+    const targetRect = fixedCta.getBoundingClientRect();
+    const targetTop = targetRect.top;
+    const targetLeft = targetRect.left;
+
+    // Calculate offset
+    const deltaX = currentLeft - targetLeft;
+    const deltaY = currentTop - targetTop;
+
+    // Start from fixed position
+    fixedCta.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+    // Force reflow
+    fixedCta.offsetHeight;
+
+    // Re-enable all transitions
+    fixedCta.style.transition = 'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+
+    // Animate back to normal position
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        fixedCta.style.transform = 'translate(0, 0)';
+        setTimeout(() => {
+          isAnimating = false;
+          console.log('Return animation complete');
+        }, 600);
+      });
+    });
+  }
 
   function handleScroll() {
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    // Add/remove fixed class based on scroll position
+    if (scrollY > SCROLL_THRESHOLD) {
+      if (!fixedCta.classList.contains('cta-button--fixed')) {
+        animateToFixed();
+      }
+    } else {
+      if (fixedCta.classList.contains('cta-button--fixed')) {
+        animateToNormal();
+        return; // Skip fade logic when returning to normal
+      }
+      return; // Skip fade logic when not fixed
+    }
+
     const footerCtaRect = footerCta.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
 

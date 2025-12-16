@@ -100,6 +100,8 @@
   /* ~403.2px */
   --space-420: 29.2vw;
   /* ~420.5px */
+  --space-443: 30.8vw;
+  /* ~443.2px */
   --space-562: 39vw;
   /* ~561.6px */
   --space-634: 44vw;
@@ -348,6 +350,25 @@ header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-action-brand-normal);
+  }
+
+  35% {
+    box-shadow: 0 0 0 var(--space-24) rgba(255, 230, 0, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 0 0 rgba(255, 230, 0, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 230, 0, 0);
+  }
 }
 
 .cta-button,
@@ -358,21 +379,24 @@ header {
   background-color: var(--color-action-brand-normal);
   border-radius: var(--space-1000);
   color: var(--color-content-general-black);
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: var(--font-24);
   font-family: 'Bebas Neue';
   line-height: var(--font-24);
   font-weight: 700;
   text-align: left;
+  animation: pulse 4s infinite;
 
   &:hover {
     background-color: var(--color-action-brand-hover);
+    animation: none;
   }
 
   & svg {
     width: var(--space-24);
     height: var(--space-24);
     margin-right: var(--space-16);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -386,9 +410,13 @@ header {
 
 .hero-contact {
   width: var(--space-634);
-  margin-left: var(--space-420);
+  margin-left: var(--space-200);
   font-family: 'Roboto';
   color: var(--color-content-general-tertiary);
+}
+
+.hero-contact--shifted {
+  margin-left: var(--space-443);
 }
 
 .contact-description {
@@ -2478,14 +2506,23 @@ header {
   left: 0;
   z-index: 100;
   opacity: 1;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   align-self: flex-start;
+  will-change: transform;
 }
 
 .cta-button--fixed {
-  position: fixed !important;
-  bottom: var(--space-340);
+  position: fixed;
+  bottom: 50px;
   left: var(--space-60);
+  padding: var(--space-20) var(--space-32);
+  font-size: calc(var(--font-24) / 2);
+  line-height: calc(var(--font-24) / 2);
+}
+
+.cta-button--fixed svg {
+  width: var(--space-12);
+  height: var(--space-12);
 }
 
 .case-study-content .cta-button--fixed {
