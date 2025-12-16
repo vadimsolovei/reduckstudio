@@ -1,38 +1,6 @@
 @font-face {
   font-family: 'Bebas Neue';
-  src: url('fonts/BebasNeue/BebasNeue-Thin.ttf') format('truetype');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Bebas Neue';
-  src: url('fonts/BebasNeue/BebasNeue-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Bebas Neue';
-  src: url('fonts/BebasNeue/BebasNeue-Book.ttf') format('truetype');
-  font-weight: 350;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Bebas Neue';
-  src: url('fonts/BebasNeue/BebasNeue-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Bebas Neue';
-  src: url('fonts/BebasNeue/BebasNeue-Bold.ttf') format('truetype');
+  src: url('fonts/BebasNeue/BebasNeue-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -206,7 +174,7 @@
 
 body {
   -webkit-font-smoothing: antialiased;
-  font-family: 'Bebas Neue';
+  font-family: 'Roboto';
   background-color: var(--color-bg-general-primary);
   color: var(--color-content-general-primary);
   margin: 0;
@@ -254,6 +222,11 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
+}
+
+h2 {
+  font-weight: 700;
+  font-family: 'Bebas Neue';
 }
 
 /* RESET STYLES END */
@@ -360,9 +333,15 @@ header {
 .hero h1 {
   font-size: var(--font-144);
   line-height: var(--font-144);
+  font-family: 'Bebas Neue';
   font-weight: bold;
   margin-bottom: var(--space-30);
   text-transform: uppercase;
+
+  & em {
+    font-style: normal;
+    color: var(--color-content-general-disabled);
+  }
 }
 
 .hero-cta {
@@ -381,6 +360,7 @@ header {
   color: var(--color-content-general-black);
   transition: background-color 0.2s;
   font-size: var(--font-24);
+  font-family: 'Bebas Neue';
   line-height: var(--font-24);
   font-weight: 700;
   text-align: left;
@@ -467,7 +447,7 @@ header {
 .projects-items {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: var(--space-60);
+  column-gap: var(--space-40);
   position: relative;
 }
 
@@ -489,13 +469,14 @@ header {
   flex-direction: column;
   justify-content: center;
   padding: var(--space-60);
-  line-height: var(--space-34);
+  line-height: var(--font-32);
   color: var(--color-content-general-primary);
 
   & h3 {
-    font-size: var(--font-56);
-    line-height: var(--font-56);
-    font-weight: 400;
+    font-family: 'Bebas Neue';
+    font-size: var(--font-48);
+    line-height: var(--font-48);
+    font-weight: 700;
     margin-bottom: var(--space-16);
     color: var(--color-content-general-primary);
   }
@@ -513,14 +494,20 @@ header {
 .tags {
   display: flex;
   flex-wrap: wrap;
+  gap: 1px;
 }
 
 .tag {
-  padding: 1vw var(--space-24);
-  background-color: transparent;
-  border: 1px solid var(--color-border-general-primary);
+  padding: var(--space-24) var(--space-32);
+  background-color: var(--color-action-secondary-subtile-hover);
+  color: var(--color-content-general-disabled);
   border-radius: 999px;
   line-height: var(--font-24);
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-content-positive-primary);
+  }
 }
 
 .load-more {
@@ -619,7 +606,8 @@ header {
 .category-title {
   font-size: var(--font-48);
   line-height: var(--font-48);
-  font-weight: 400;
+  font-weight: 700;
+  font-family: 'Bebas Neue';
   color: var(--color-content-general-primary);
   letter-spacing: -0.02em;
   margin-left: var(--space-24);
@@ -686,6 +674,7 @@ header {
   font-size: var(--font-48);
   line-height: var(--font-48);
   font-weight: 700;
+  font-family: 'Bebas Neue';
   color: var(--color-content-general-primary);
   text-transform: uppercase;
   margin-bottom: var(--space-24);
@@ -886,6 +875,11 @@ header {
     font-size: var(--font-20);
     line-height: var(--font-24);
     color: var(--color-content-general-primary);
+
+    & em {
+      font-style: normal;
+      color: var(--color-action-primary-disabled);
+    }
   }
 
   & svg {
