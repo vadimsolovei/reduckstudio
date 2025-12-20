@@ -378,7 +378,6 @@ header {
   background-color: var(--color-action-brand-normal);
   border-radius: var(--space-1000);
   color: var(--color-content-general-black);
-  transition: background-color 0.2s;
   font-size: var(--font-24);
   font-family: 'Bebas Neue';
   line-height: var(--font-24);
@@ -389,6 +388,7 @@ header {
 
   &:hover {
     background-color: var(--color-action-brand-hover);
+    animation: none;
   }
 
   & svg {
@@ -2524,18 +2524,20 @@ header {
   bottom: 496px;
 }
 
-.cta-button--fixed.fading {
-  opacity: 0;
-  pointer-events: none;
+.cta-button--fixed.at-footer {
+  padding: var(--space-43) var(--space-64);
+  font-size: var(--font-24);
+  line-height: var(--font-24);
+}
+
+.cta-button--fixed.at-footer svg {
+  width: var(--space-24);
+  height: var(--space-24);
 }
 
 .cta-button_footer {
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.cta-button_footer.visible {
-  opacity: 1;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {

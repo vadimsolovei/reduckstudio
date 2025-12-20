@@ -554,9 +554,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('Simple fade initialized');
 
-  const FADE_THRESHOLD = 200; // Start fading when within 200px
+  const FOOTER_THRESHOLD = 100; // Start moving to footer when within 300px
   const SCROLL_THRESHOLD = 100; // Add fixed class after scrolling 100px
   let isAnimating = false;
+  let isAtFooter = false;
 
   function animateToFixed() {
     if (isAnimating) return;
@@ -680,6 +681,104 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function animateToFooter() {
+    if (isAtFooter) return;
+    isAtFooter = true;
+
+    console.log('Animating to footer position');
+
+    // Get current button position in viewport
+    const currentRect = fixedCta.getBoundingClientRect();
+
+    // Get footer button position
+    const footerRect = footerCta.getBoundingClientRect();
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    // Calculate offset to move to footer position
+    const deltaX = footerRect.left - currentRect.left;
+    const deltaY = footerRect.top - currentRect.top;
+
+    console.log('Animating to footer with delta:', { deltaX, deltaY });
+
+    // Add at-footer class to trigger size growth animation
+    fixedCta.classList.add('at-footer');
+
+    // Animate transform to footer position (this will be smooth due to CSS transitions)
+    fixedCta.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+    // After animation completes, switch to absolute positioning
+    setTimeout(() => {
+      console.log('Animation complete, switching to absolute positioning');
+
+      const absoluteTop = footerRect.top + scrollY;
+      const absoluteLeft = footerRect.left;
+
+      // Disable transitions temporarily
+      const savedTransition = fixedCta.style.transition;
+      fixedCta.style.transition = 'none';
+
+      // Change to absolute positioning
+      fixedCta.style.position = 'absolute';
+      fixedCta.style.top = `${absoluteTop}px`;
+      fixedCta.style.left = `${absoluteLeft}px`;
+      fixedCta.style.bottom = 'auto';
+      fixedCta.style.transform = 'none';
+
+      // Force reflow
+      fixedCta.offsetHeight;
+
+      // Restore transitions
+      fixedCta.style.transition = savedTransition;
+
+      console.log('Button now locked at footer position');
+    }, 600); // Match the transition duration
+  }
+
+  function animateFromFooter() {
+    if (!isAtFooter) return;
+    isAtFooter = false;
+
+    console.log('Animating from footer position');
+
+    // Get current absolute position
+    const currentRect = fixedCta.getBoundingClientRect();
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    // Change back to fixed positioning
+    fixedCta.style.position = '';
+    fixedCta.style.top = '';
+    fixedCta.style.left = '';
+    fixedCta.style.bottom = '';
+
+    // Get new fixed position
+    const newRect = fixedCta.getBoundingClientRect();
+
+    // Calculate the offset to maintain visual position
+    const deltaX = currentRect.left - newRect.left;
+    const deltaY = currentRect.top - newRect.top;
+
+    // Temporarily disable transitions
+    const savedTransition = fixedCta.style.transition;
+    fixedCta.style.transition = 'none';
+
+    // Apply transform to stay in same visual position
+    fixedCta.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+    // Force reflow
+    fixedCta.offsetHeight;
+
+    // Re-enable transitions
+    fixedCta.style.transition = savedTransition;
+
+    // Remove at-footer class to shrink back
+    fixedCta.classList.remove('at-footer');
+
+    // Animate back to fixed position
+    requestAnimationFrame(() => {
+      fixedCta.style.transform = 'translate(0, 0)';
+    });
+  }
+
   function handleScroll() {
     const scrollY = window.scrollY || window.pageYOffset;
 
@@ -691,10 +790,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       if (fixedCta.classList.contains('cta-button--fixed')) {
         animateToNormal();
-        return; // Skip fade logic when returning to normal
+        return;
       }
-      return; // Skip fade logic when not fixed
+      return;
     }
+
+    // Only handle footer animation if button is fixed
+    if (!fixedCta.classList.contains('cta-button--fixed')) return;
 
     const footerCtaRect = footerCta.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
@@ -703,31 +805,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const distanceFromBottom = footerCtaRect.top - viewportHeight;
 
     // When footer button is approaching the viewport
-    if (distanceFromBottom < FADE_THRESHOLD) {
-      // Calculate fade progress (0 = far, 1 = close)
-      const progress = Math.max(
-        0,
-        Math.min(1, 1 - distanceFromBottom / FADE_THRESHOLD)
-      );
-
-      // Fade out fixed button
-      fixedCta.style.opacity = 1 - progress;
-
-      // Fade in footer button
-      footerCta.style.opacity = progress;
-
-      console.log('Fading:', { distanceFromBottom, progress });
-
-      if (progress >= 0.95) {
-        fixedCta.classList.add('fading');
-        footerCta.classList.add('visible');
-      }
+    if (distanceFromBottom < FOOTER_THRESHOLD) {
+      animateToFooter();
     } else {
-      // Reset when scrolling back up
-      fixedCta.style.opacity = 1;
-      fixedCta.classList.remove('fading');
-      footerCta.style.opacity = 0;
-      footerCta.classList.remove('visible');
+      animateFromFooter();
     }
   }
 
