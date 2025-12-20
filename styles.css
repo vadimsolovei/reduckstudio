@@ -371,25 +371,24 @@ header {
   }
 }
 
-.cta-button,
-.cta-button_footer {
+.cta-button {
   display: inline-flex;
   align-items: center;
   padding: var(--space-43) var(--space-64);
   background-color: var(--color-action-brand-normal);
   border-radius: var(--space-1000);
   color: var(--color-content-general-black);
-  transition: background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.2s;
   font-size: var(--font-24);
   font-family: 'Bebas Neue';
   line-height: var(--font-24);
   font-weight: 700;
   text-align: left;
   animation: pulse 4s infinite;
+  transition: background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     background-color: var(--color-action-brand-hover);
-    animation: none;
   }
 
   & svg {
@@ -398,14 +397,6 @@ header {
     margin-right: var(--space-16);
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
-}
-
-.cta-button_footer {
-  padding: var(--space-64) var(--space-75);
-  background-color: var(--color-content-general-primary);
-  color: var(--color-content-general-inverted-primary);
-  border-radius: var(--space-64);
-  box-shadow: 0 0 0 24px #262626;
 }
 
 .hero-contact {
@@ -489,6 +480,7 @@ header {
   & img {
     width: 100%;
     height: auto;
+    border-radius: var(--space-64);
   }
 }
 
@@ -1785,6 +1777,10 @@ header {
     gap: 32px;
   }
 
+  .hero-contact {
+    margin-left: 0;
+  }
+
   .cta-button-wrapper {
     margin-right: 0;
   }
@@ -2506,7 +2502,6 @@ header {
   left: 0;
   z-index: 100;
   opacity: 1;
-  transition: opacity 0.3s ease-in-out, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   align-self: flex-start;
   will-change: transform;
 }
@@ -2518,11 +2513,11 @@ header {
   padding: var(--space-20) var(--space-32);
   font-size: calc(var(--font-24) / 2);
   line-height: calc(var(--font-24) / 2);
-}
 
-.cta-button--fixed svg {
-  width: var(--space-12);
-  height: var(--space-12);
+  & svg {
+    width: var(--space-12);
+    height: var(--space-12);
+  }
 }
 
 .case-study-content .cta-button--fixed {
@@ -2547,5 +2542,14 @@ header {
   .cta-button--fixed {
     bottom: 600px;
     left: 20px;
+    padding: 20px 32px;
+    font-size: 18px;
+    line-height: 18px;
+
+    & svg {
+      width: 18px;
+      height: 18px;
+      margin-right: 12px;
+    }
   }
 }

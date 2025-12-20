@@ -572,7 +572,8 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Current position:', { currentTop, currentLeft });
 
     // Temporarily disable only transform transition for instant positioning
-    fixedCta.style.transition = 'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out';
+    fixedCta.style.transition =
+      'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
 
     // Add fixed class (this will trigger padding/font-size transitions)
     fixedCta.classList.add('cta-button--fixed');
@@ -605,7 +606,8 @@ document.addEventListener('DOMContentLoaded', () => {
     fixedCta.offsetHeight;
 
     // Re-enable all transitions including transform
-    fixedCta.style.transition = 'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    fixedCta.style.transition =
+      'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
 
     // Animate to final position
     requestAnimationFrame(() => {
@@ -631,7 +633,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentLeft = currentRect.left;
 
     // Disable only transform transition for instant positioning
-    fixedCta.style.transition = 'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out';
+    fixedCta.style.transition =
+      'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out';
 
     // Remove fixed class (this will trigger padding/font-size transitions)
     fixedCta.classList.remove('cta-button--fixed');
@@ -662,7 +665,8 @@ document.addEventListener('DOMContentLoaded', () => {
     fixedCta.offsetHeight;
 
     // Re-enable all transitions
-    fixedCta.style.transition = 'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    fixedCta.style.transition =
+      'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
 
     // Animate back to normal position
     requestAnimationFrame(() => {
