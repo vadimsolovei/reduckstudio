@@ -94,6 +94,8 @@
   /* 270px */
   --space-300: 20.83vw;
   /* ~300px */
+  --space-320: 22.22vw;
+  /* 320px */
   --space-340: 23.6vw;
   /* ~339.8px */
   --space-403: 28vw;
@@ -661,33 +663,23 @@ header {
 
 .breakdown-phases {
   display: flex;
-  gap: var(--space-60);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.breakdown-phases::-webkit-scrollbar {
-  display: none;
+  position: relative;
 }
 
 .phase-column {
   display: flex;
   flex-direction: column;
-  flex: 0 0 auto;
-  width: var(--space-420);
-  scroll-snap-align: start;
-  padding-left: var(--space-30);
+  flex-shrink: 0;
+  width: var(--space-320);
+  overflow: visible;
 }
 
 .phase-number {
-  position: relative;
-  left: calc(var(--space-30) * -1);
   font-family: 'Roboto';
   font-size: var(--font-16);
   line-height: var(--font-20);
   color: var(--color-content-general-disabled);
+  margin-bottom: var(--space-12);
 }
 
 .phase-column h5 {
@@ -1961,17 +1953,19 @@ header {
   }
 
   .breakdown-phases {
+    display: flex;
     gap: 32px;
     padding-bottom: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .phase-column {
+    flex: 0 0 auto;
     width: 280px;
-    padding-left: 20px;
   }
 
   .phase-number {
-    left: -20px;
     font-size: 14px;
     line-height: 18px;
   }
