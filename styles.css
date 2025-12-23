@@ -88,8 +88,8 @@
   /* ~187.2px */
   --space-200: 13.89vw;
   /* 200px */
-  --space-238: 16.5vw;
-  /* 238px */
+  --space-240: 16.66vw ;
+  /* 240px */
   --space-270: 18.75vw;
   /* 270px */
   --space-300: 20.83vw;
@@ -167,7 +167,7 @@
 * {
   margin: 0;
   padding: 0;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease, stroke 0.2s ease;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -178,7 +178,7 @@
 
 body {
   -webkit-font-smoothing: antialiased;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   background-color: var(--color-bg-general-primary);
   color: var(--color-content-general-primary);
   margin: 0;
@@ -230,7 +230,7 @@ h6 {
 
 h2 {
   font-weight: 700;
-  font-family: 'Bebas Neue';
+  font-family: 'Bebas Neue', sans-serif;
 }
 
 /* RESET STYLES END */
@@ -321,6 +321,7 @@ header {
   width: var(--space-56);
   height: var(--space-56);
   font-size: max(var(--font-16), 14px);
+  font-family: 'Bebas Neue', sans-serif;
 
   & svg {
     width: var(--space-16);
@@ -337,7 +338,7 @@ header {
 .hero h1 {
   font-size: var(--font-144);
   line-height: var(--font-144);
-  font-family: 'Bebas Neue';
+  font-family: 'Bebas Neue', sans-serif;
   font-weight: bold;
   margin-bottom: var(--space-30);
   text-transform: uppercase;
@@ -381,7 +382,7 @@ header {
   border-radius: var(--space-1000);
   color: var(--color-content-general-black);
   font-size: var(--font-24);
-  font-family: 'Bebas Neue';
+  font-family: 'Bebas Neue', sans-serif;
   line-height: var(--font-24);
   font-weight: 700;
   text-align: left;
@@ -404,7 +405,7 @@ header {
 .hero-contact {
   width: var(--space-634);
   margin-left: var(--space-200);
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   color: var(--color-content-general-tertiary);
 }
 
@@ -419,11 +420,6 @@ header {
   margin-bottom: var(--space-30);
 }
 
-.contact-card {
-  display: flex;
-  align-items: center;
-}
-
 .contact-card__text {
   margin-left: var(--space-32);
   font-size: var(--font-20);
@@ -436,16 +432,27 @@ header {
 }
 
 .contact-card {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+
   & img {
     width: var(--space-88);
     height: var(--space-88);
     border-radius: 50%;
   }
+
+  &:hover path,
+  &:hover em {
+    color: var(--color-action-brand-normal);
+    stroke: var(--color-action-brand-normal);
+  }
 }
 
 .contact-chat {
   background-color: var(--color-bg-general-secondary);
-  padding: var(--space-34) var(--space-36);
+  padding: var(--space-32);
   border-radius: 50%;
 
   & svg {
@@ -475,6 +482,14 @@ header {
 .project-card {
   position: relative;
 
+  &:hover h3 {
+    color: var(--color-action-brand-active);
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+
   &:nth-child(odd) {
     margin: var(--space-60) 0;
   }
@@ -483,6 +498,7 @@ header {
     width: 100%;
     height: auto;
     border-radius: var(--space-64);
+    transition: transform 0.3s ease;
   }
 }
 
@@ -490,12 +506,12 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: var(--space-60);
+  padding: var(--space-60) var(--space-60) var(--space-20);
   line-height: var(--font-32);
   color: var(--color-content-general-primary);
 
   & h3 {
-    font-family: 'Bebas Neue';
+    font-family: 'Bebas Neue', sans-serif;
     font-size: var(--font-48);
     line-height: var(--font-48);
     font-weight: 700;
@@ -510,6 +526,7 @@ header {
 
   & em {
     color: var(--color-content-general-primary);
+    font-style: normal;
   }
 }
 
@@ -522,34 +539,10 @@ header {
 .tag {
   padding: var(--space-24) var(--space-32);
   background-color: var(--color-action-secondary-subtile-hover);
-  color: var(--color-content-general-disabled);
-  border-radius: 999px;
-  line-height: var(--font-24);
-
-  &:hover {
-    cursor: pointer;
-    color: var(--color-content-positive-primary);
-  }
-}
-
-.load-more {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: 1.2vw;
-  right: var(--space-340);
-  padding: var(--space-24) var(--space-32);
-  background-color: var(--color-action-secondary-subtile-hover);
-  border-radius: 999px;
-  font-size: var(--font-20);
   color: var(--color-content-general-primary);
-
-  & svg {
-    width: var(--space-20);
-    height: var(--space-20);
-    margin-left: var(--space-8);
-  }
+  border-radius: 999px;
+  font-size: var(--font-16);
+  line-height: var(--font-20);
 }
 
 .statement {
@@ -618,7 +611,7 @@ header {
   gap: var(--space-80);
   background-color: var(--color-bg-general-primary);
   border-radius: var(--space-64);
-  padding: var(--space-48) var(--space-48) var(--space-24) var(--space-24);
+  padding: var(--space-40);
 }
 
 .services-category:first-child {
@@ -629,10 +622,9 @@ header {
   font-size: var(--font-48);
   line-height: var(--font-48);
   font-weight: 700;
-  font-family: 'Bebas Neue';
+  font-family: 'Bebas Neue', sans-serif;
   color: var(--color-content-general-primary);
   letter-spacing: -0.02em;
-  margin-left: var(--space-24);
 }
 
 .services-tags {
@@ -647,13 +639,8 @@ header {
   border-radius: 999px;
   font-size: var(--font-16);
   line-height: var(--font-20);
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   color: var(--color-content-general-primary);
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--color-action-secondary-subtile-active);
-  }
 }
 
 .process {
@@ -675,7 +662,7 @@ header {
 }
 
 .phase-number {
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: var(--font-16);
   line-height: var(--font-20);
   color: var(--color-content-general-disabled);
@@ -686,14 +673,15 @@ header {
   font-size: var(--font-48);
   line-height: var(--font-48);
   font-weight: 700;
-  font-family: 'Bebas Neue';
+  font-family: 'Bebas Neue', sans-serif;
   color: var(--color-content-general-primary);
   text-transform: uppercase;
   margin-bottom: var(--space-24);
 }
 
 .phase-description {
-  font-family: 'Roboto';
+  max-width: var(--space-240);
+  font-family: 'Roboto', sans-serif;
   font-size: var(--font-20);
   line-height: var(--font-32);
   color: var(--color-content-general-disabled);
@@ -716,7 +704,7 @@ header {
   background-color: var(--color-action-secondary-subtile-disabled);
   border-radius: 999px;
   white-space: nowrap;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: var(--font-16);
   line-height: var(--font-20);
 }
@@ -766,7 +754,7 @@ header {
 .contact-status {
   display: flex;
   align-items: center;
-  gap: var(--space-16);
+  gap: var(--space-10);
   padding: var(--space-24) var(--space-32);
   border: 1px solid var(--color-border-general-primary);
   border-radius: 999px;
@@ -832,7 +820,6 @@ header {
     font-size: var(--font-20);
     line-height: var(--font-24);
     color: var(--color-content-general-disabled);
-    font-style: italic;
   }
 }
 
@@ -1427,7 +1414,7 @@ header {
   padding: var(--space-60) var(--space-64);
   display: flex;
   flex-direction: column;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
 }
 
 .contact-form-header {
@@ -1444,7 +1431,7 @@ header {
   text-transform: uppercase;
   color: var(--color-content-general-disabled);
   max-width: calc(100% - var(--space-80));
-  font-family: 'Bebas Neue';
+  font-family: 'Bebas Neue', sans-serif;
 
   & em {
     color: var(--color-content-general-primary);
@@ -1589,7 +1576,7 @@ header {
   color: var(--color-content-general-black);
   cursor: pointer;
   transition: background-color 0.2s ease;
-  font-family: 'Bebas Neue';
+  font-family: 'Bebas Neue', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1614,7 +1601,7 @@ header {
 
 .form-footer-text {
   color: var(--color-content-general-disabled);
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
 
   & a {
     color: var(--color-content-general-primary);
@@ -1674,7 +1661,7 @@ header {
     font-size: var(--font-16);
     line-height: var(--font-20);
     color: var(--color-content-general-primary);
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
   }
 }
 
@@ -1769,10 +1756,6 @@ header {
     gap: 32px;
   }
 
-  .hero-contact {
-    margin-left: 0;
-  }
-
   .cta-button-wrapper {
     margin-right: 0;
   }
@@ -1790,6 +1773,7 @@ header {
   }
 
   .hero-contact {
+    margin-left: 0;
     width: 100%;
   }
 
