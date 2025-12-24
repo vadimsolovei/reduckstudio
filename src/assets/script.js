@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       requestAnimationFrame(() => {
-        themeStylesheet.setAttribute('href', `theme-${themeName}.css`);
+        themeStylesheet.setAttribute('href', `/assets/theme-${themeName}.css`);
         localStorage.setItem('theme', themeName);
         document.documentElement.setAttribute('data-theme', themeName);
       });

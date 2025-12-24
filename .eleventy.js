@@ -1,0 +1,27 @@
+module.exports = function(eleventyConfig) {
+  // Copy static assets as-is (no processing)
+  eleventyConfig.addPassthroughCopy("src/assets/images");
+  eleventyConfig.addPassthroughCopy("src/assets/fonts");
+  eleventyConfig.addPassthroughCopy("src/assets/styles.css");
+  eleventyConfig.addPassthroughCopy("src/assets/theme-dark.css");
+  eleventyConfig.addPassthroughCopy("src/assets/theme-light.css");
+  eleventyConfig.addPassthroughCopy("src/assets/script.js");
+
+  // Watch for changes in CSS/JS during development
+  eleventyConfig.addWatchTarget("src/assets/styles.css");
+  eleventyConfig.addWatchTarget("src/assets/theme-dark.css");
+  eleventyConfig.addWatchTarget("src/assets/theme-light.css");
+  eleventyConfig.addWatchTarget("src/assets/script.js");
+
+  return {
+    dir: {
+      input: "src",
+      output: "_site",
+      includes: "_includes",
+      data: "_data"
+    },
+    templateFormats: ["njk", "html", "md"],
+    htmlTemplateEngine: "njk",
+    markdownTemplateEngine: "njk"
+  };
+};
