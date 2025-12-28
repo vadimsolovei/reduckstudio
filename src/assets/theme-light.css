@@ -5,24 +5,9 @@
   --color-content-general-tertiary: rgba(0, 0, 0, 0.6); /* black/60 */
   --color-content-general-disabled: rgba(0, 0, 0, 0.55); /* black/55 */
   --color-content-general-inverted-primary: #ffffff; /* white/100 */
-  --color-content-general-inverted-secondary: rgba(
-    255,
-    255,
-    255,
-    0.75
-  ); /* white/75 */
-  --color-content-general-inverted-tertiary: rgba(
-    255,
-    255,
-    255,
-    0.6
-  ); /* white/60 */
-  --color-content-general-inverted-disabled: rgba(
-    255,
-    255,
-    255,
-    0.55
-  ); /* white/55 */
+  --color-content-general-inverted-secondary: rgba(255, 255, 255, 0.75); /* white/75 */
+  --color-content-general-inverted-tertiary: rgba(255, 255, 255, 0.6); /* white/60 */
+  --color-content-general-inverted-disabled: rgba(255, 255, 255, 0.55); /* white/55 */
   --color-content-general-black: #000000; /* black/100 */
   --color-content-general-white: #ffffff; /* white/100 */
 
@@ -48,12 +33,7 @@
 
   /* Border/General */
   --color-border-general-primary: rgba(0, 0, 0, 0.1); /* black/10 */
-  --color-border-general-primary-inverted: rgba(
-    255,
-    255,
-    255,
-    0.2
-  ); /* white/20 */
+  --color-border-general-primary-inverted: rgba(255, 255, 255, 0.2); /* white/20 */
   --color-border-general-secondary: rgba(0, 0, 0, 0.2); /* black/20 */
 
   /* Border/Positive */
@@ -130,49 +110,14 @@
   --color-action-secondary-subtile-disabled: rgba(0, 0, 0, 0.05); /* black/5 */
 
   /* Action/Secondary Inverted */
-  --color-action-secondary-inverted-normal: rgba(
-    255,
-    255,
-    255,
-    0.8
-  ); /* white/80 */
-  --color-action-secondary-inverted-hover: rgba(
-    255,
-    255,
-    255,
-    0.9
-  ); /* white/90 */
+  --color-action-secondary-inverted-normal: rgba(255, 255, 255, 0.8); /* white/80 */
+  --color-action-secondary-inverted-hover: rgba(255, 255, 255, 0.9); /* white/90 */
   --color-action-secondary-inverted-active: #ffffff; /* white/100 */
-  --color-action-secondary-inverted-disabled: rgba(
-    255,
-    255,
-    255,
-    0.45
-  ); /* white/45 */
-  --color-action-secondary-inverted-subtile-normal: rgba(
-    255,
-    255,
-    255,
-    0.1
-  ); /* white/10 */
-  --color-action-secondary-inverted-subtile-hover: rgba(
-    255,
-    255,
-    255,
-    0.15
-  ); /* white/15 */
-  --color-action-secondary-inverted-subtile-active: rgba(
-    255,
-    255,
-    255,
-    0.2
-  ); /* white/20 */
-  --color-action-secondary-inverted-subtile-disabled: rgba(
-    255,
-    255,
-    255,
-    0.05
-  ); /* white/5 */
+  --color-action-secondary-inverted-disabled: rgba(255, 255, 255, 0.45); /* white/45 */
+  --color-action-secondary-inverted-subtile-normal: rgba(255, 255, 255, 0.1); /* white/10 */
+  --color-action-secondary-inverted-subtile-hover: rgba(255, 255, 255, 0.15); /* white/15 */
+  --color-action-secondary-inverted-subtile-active: rgba(255, 255, 255, 0.2); /* white/20 */
+  --color-action-secondary-inverted-subtile-disabled: rgba(255, 255, 255, 0.05); /* white/5 */
 
   /* Action/Outline */
   --color-action-outline-normal: rgba(0, 0, 0, 0.3); /* black/30 */
@@ -182,30 +127,10 @@
   --color-action-outline-subtile-normal: rgba(0, 0, 0, 0.1); /* black/10 */
   --color-action-outline-subtile-hover: rgba(0, 0, 0, 0.15); /* black/15 */
   --color-action-outline-subtile-active: rgba(0, 0, 0, 0.2); /* black/20 */
-  --color-action-outline-subtile-inverted-normal: rgba(
-    255,
-    255,
-    255,
-    0.1
-  ); /* white/10 */
-  --color-action-outline-subtile-inverted-hover: rgba(
-    255,
-    255,
-    255,
-    0.15
-  ); /* white/15 */
-  --color-action-outline-subtile-inverted-active: rgba(
-    255,
-    255,
-    255,
-    0.2
-  ); /* white/20 */
-  --color-action-outline-subtile-inverted-disabled: rgba(
-    255,
-    255,
-    255,
-    0.1
-  ); /* white/10 */
+  --color-action-outline-subtile-inverted-normal: rgba(255, 255, 255, 0.1); /* white/10 */
+  --color-action-outline-subtile-inverted-hover: rgba(255, 255, 255, 0.15); /* white/15 */
+  --color-action-outline-subtile-inverted-active: rgba(255, 255, 255, 0.2); /* white/20 */
+  --color-action-outline-subtile-inverted-disabled: rgba(255, 255, 255, 0.1); /* white/10 */
 
   /* Action/Success */
   --color-action-success-normal: #3a9b44; /* green/green-500 */

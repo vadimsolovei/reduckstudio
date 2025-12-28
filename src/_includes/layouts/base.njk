@@ -9,17 +9,13 @@
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title or "CuteDuck Studio" }}</title>
-    <link rel="stylesheet" href="/assets/styles.css" />
+    <title>{{ title or "Reduck Studio" }}</title>
+    <link rel="stylesheet" href="/assets/styles.compiled.css" />
     <link id="theme-stylesheet" rel="stylesheet" href="/assets/theme-dark.css" />
   </head>
   <body>
-    {% include "components/header.njk" %}
-
-    {{ content | safe }}
-
-    {% include "components/footer.njk" %}
-    {% include "components/contact-form-modal.njk" %}
+    {% include "components/header.njk" %} {{ content | safe }}≥ {% include "components/footer.njk"
+    %} {% include "components/contact-form-modal.njk" %}
 
     <script src="/assets/script.js"></script>
   </body>

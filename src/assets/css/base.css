@@ -1,0 +1,238 @@
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("/assets/fonts/BebasNeue/BebasNeue-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Spacing & Sizing Variables (based on 1440px = 100vw) */
+  --space-2: 0.13vw;
+  /* 2px */
+  --space-4: 0.28vw;
+  /* 4px */
+  --space-6: 0.4vw;
+  /* ~5.8px */
+  --space-8: 0.55vw;
+  /* 8px */
+  --space-10: 0.7vw;
+  /* ~10px */
+  --space-12: 0.83vw;
+  /* ~12px */
+  --space-14: 0.97vw;
+  /* 14px */
+  --space-15: 1.04vw;
+  /* ~15px */
+  --space-16: 1.1vw;
+  /* ~15.8px */
+  --space-18: 1.25vw;
+  /* 18px */
+  --space-20: 1.4vw;
+  /* ~20px */
+  --space-24: 1.67vw;
+  /* 24px */
+  --space-27: 1.875vw;
+  /* 27px */
+  --space-30: 2.08vw;
+  /* 30px */
+  --space-32: 2.22vw;
+  /* 32px */
+  --space-34: 2.35vw;
+  /* ~33.8px */
+  --space-36: 2.5vw;
+  /* 36px */
+  --space-38: 2.64vw;
+  /* ~38px */
+  --space-40: 2.78vw;
+  /* 40px */
+  --space-43: 2.98vw;
+  /* 43px */
+  --space-48: 3.33vw;
+  /* 48px */
+  --space-56: 3.89vw;
+  /* 56px */
+  --space-60: 4.17vw;
+  /* 60px */
+  --space-64: 4.44vw;
+  /* 64px */
+  --space-72: 5vw;
+  /* 72px */
+  --space-75: 5.21vw;
+  /* 75px */
+  --space-80: 5.56vw;
+  /* 80px */
+  --space-85: 5.9vw;
+  /* 80px */
+  --space-88: 6.11vw;
+  /* 88px */
+  --space-90: 6.25vw;
+  /* 90px */
+  --space-100: 6.94vw;
+  /* 100px */
+  --space-108: 7.5vw;
+  /* 108px */
+  --space-120: 8.33vw;
+  /* 120px */
+  --space-146: 10.15vw;
+  /* ~146.2px */
+  --space-150: 10.4vw;
+  /* ~149.8px */
+  --space-158: 11vw;
+  /* ~158.4px */
+  --space-160: 11.11vw;
+  /* 160px */
+  --space-173: 12vw;
+  /* ~172.8px */
+  --space-187: 13vw;
+  /* ~187.2px */
+  --space-200: 13.89vw;
+  /* 200px */
+  --space-240: 16.66vw;
+  /* 240px */
+  --space-270: 18.75vw;
+  /* 270px */
+  --space-300: 20.83vw;
+  /* ~300px */
+  --space-320: 22.22vw;
+  /* 320px */
+  --space-340: 23.6vw;
+  /* ~339.8px */
+  --space-403: 28vw;
+  /* ~403.2px */
+  --space-420: 29.2vw;
+  /* ~420.5px */
+  --space-443: 30.8vw;
+  /* ~443.2px */
+  --space-562: 39vw;
+  /* ~561.6px */
+  --space-634: 44vw;
+  /* ~633.6px */
+  --space-720: 50vw;
+  /* 720px */
+  --space-1000: 69.44vw;
+  /* 1000px */
+
+  /* Font Size Variables (based on 1440px = 100vw) */
+  --font-16: 1.11vw;
+  /* 16px */
+  --font-20: 1.39vw;
+  /* 20px */
+  --font-24: 1.67vw;
+  /* 24px */
+  --font-28: 1.95vw;
+  /* 28px */
+  --font-32: 2.22vw;
+  /* 32px */
+  --font-40: 2.77vw;
+  /* 40px */
+  --font-48: 3.33vw;
+  /* 48px */
+  --font-56: 3.9vw;
+  /* ~56.2px */
+  --font-64: 4.44vw;
+  /* 64px */
+  --font-90: 6.3vw;
+  /* ~90.7px */
+  --font-120: 8.33vw;
+  /* 120px */
+  --font-144: 10vw;
+  /* 144px */
+
+  /* Form specific variables */
+  --space-840: 58.33vw;
+  /* 840px - form width */
+}
+
+/* RESET STYLES */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    stroke 0.2s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--color-bg-general-primary);
+  color: var(--color-content-general-primary);
+  margin: 0;
+  font-size: var(--font-20);
+  line-height: var(--font-24);
+  font-weight: 400;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+h2 {
+  font-weight: 700;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+/* RESET STYLES END */

@@ -73,9 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return savedTheme;
     }
 
-    return window.matchMedia('(prefers-color-scheme: light)').matches
-      ? THEMES.LIGHT
-      : THEMES.DARK;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? THEMES.LIGHT : THEMES.DARK;
   }
 
   function toggleTheme() {
@@ -94,13 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
   addKeyboardActivation(themeSwitcher, toggleTheme);
 
   // System theme changes
-  window
-    .matchMedia('(prefers-color-scheme: light)')
-    .addEventListener('change', (e) => {
-      if (!localStorage.getItem('theme')) {
-        setTheme(e.matches ? THEMES.LIGHT : THEMES.DARK);
-      }
-    });
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      setTheme(e.matches ? THEMES.LIGHT : THEMES.DARK);
+    }
+  });
 });
 
 document.querySelectorAll('.phase-column h5').forEach((el) => {
@@ -151,8 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (authorAvatar) {
     authorAvatar.addEventListener('error', function () {
       // Create a fallback avatar with initials
-      const authorName =
-        document.querySelector('.author-name')?.textContent || 'Client';
+      const authorName = document.querySelector('.author-name')?.textContent || 'Client';
       const initials = authorName
         .split(' ')
         .map((name) => name[0])
@@ -411,9 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
         option.classList.toggle('selected');
         const svg = option.querySelector('svg');
         if (svg) {
-          svg.style.display = option.classList.contains('selected')
-            ? 'block'
-            : 'none';
+          svg.style.display = option.classList.contains('selected') ? 'block' : 'none';
         }
       }
       // For budget group, allow only single selection without checkmarks
@@ -439,9 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Collect selected services (multiple selections allowed)
       const selectedServices = Array.from(
-        document.querySelectorAll(
-          '[data-option-group="services"] .form-option.selected'
-        )
+        document.querySelectorAll('[data-option-group="services"] .form-option.selected')
       ).map((opt) => opt.getAttribute('data-value'));
 
       // Collect selected budget (single selection only)
@@ -473,9 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Simple Fixed CTA with Fade Transition (Product Page)
 document.addEventListener('DOMContentLoaded', () => {
   const fixedCta = document.querySelector('.cta-button');
-  const footerCta = document.querySelector(
-    '.contact-cta_footer .cta-button_footer'
-  );
+  const footerCta = document.querySelector('.contact-cta_footer .cta-button_footer');
   const heroContact = document.querySelector('.hero-contact');
 
   if (!fixedCta || !footerCta) {

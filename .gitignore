@@ -4,3 +4,4 @@ _site/
 .DS_Store
 *.bak
 dist/
+src/assets/styles.compiled.css

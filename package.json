@@ -3,16 +3,26 @@
   "version": "1.0.0",
   "main": "script.js",
   "scripts": {
-    "dev": "eleventy --serve --watch",
-    "build": "eleventy",
-    "build:prod": "eleventy --output=dist",
-    "clean": "rm -rf _site dist"
+    "css:build": "postcss src/assets/styles.css --output src/assets/styles.compiled.css",
+    "css:build:prod": "NODE_ENV=production postcss src/assets/styles.css --output src/assets/styles.compiled.css",
+    "css:watch": "postcss src/assets/styles.css --output src/assets/styles.compiled.css --watch",
+    "dev": "npm run css:build && (npm run css:watch & eleventy --serve --watch)",
+    "build": "npm run css:build && eleventy",
+    "build:prod": "npm run css:build:prod && eleventy --output=dist",
+    "clean": "rm -rf _site dist src/assets/styles.compiled.css",
+    "format": "prettier --write \"src/**/*.{css,js,njk}\"",
+    "format:check": "prettier --check \"src/**/*.{css,js,njk}\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "cssnano": "^7.1.2",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1",
+    "prettier": "^3.7.4"
   }
 }

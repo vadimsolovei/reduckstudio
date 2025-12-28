@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+_site/
+dist/
+
+# Generated files
+src/assets/styles.compiled.css
+
+# Lock files
+package-lock.json
+
+# System files
+.DS_Store

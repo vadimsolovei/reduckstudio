@@ -2,13 +2,14 @@ module.exports = function(eleventyConfig) {
   // Copy static assets as-is (no processing)
   eleventyConfig.addPassthroughCopy("src/assets/images");
   eleventyConfig.addPassthroughCopy("src/assets/fonts");
-  eleventyConfig.addPassthroughCopy("src/assets/styles.css");
+  eleventyConfig.addPassthroughCopy("src/assets/styles.compiled.css");
   eleventyConfig.addPassthroughCopy("src/assets/theme-dark.css");
   eleventyConfig.addPassthroughCopy("src/assets/theme-light.css");
   eleventyConfig.addPassthroughCopy("src/assets/script.js");
 
   // Watch for changes in CSS/JS during development
-  eleventyConfig.addWatchTarget("src/assets/styles.css");
+  eleventyConfig.addWatchTarget("src/assets/css/**/*.css");
+  eleventyConfig.addWatchTarget("src/assets/styles.compiled.css");
   eleventyConfig.addWatchTarget("src/assets/theme-dark.css");
   eleventyConfig.addWatchTarget("src/assets/theme-light.css");
   eleventyConfig.addWatchTarget("src/assets/script.js");
