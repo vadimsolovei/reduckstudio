@@ -767,61 +767,61 @@
 
 /* Simple Fixed CTA with Fade Transition */
 .cta-button {
-  position: sticky;
-  bottom: var(--space-40);
-  left: 0;
+  position: fixed;
+  top: var(--button-top, calc(100vh - 50px));
+  left: var(--space-60);
+  bottom: auto;
   z-index: 100;
   opacity: 1;
-  align-self: flex-start;
-  will-change: transform;
-}
 
-.cta-button--fixed {
-  position: fixed;
-  bottom: 50px;
-  left: var(--space-60);
+  /* Small size by default */
   padding: var(--space-20) var(--space-32);
   font-size: calc(var(--font-24) / 2);
   line-height: calc(var(--font-24) / 2);
 
+  transition:
+    top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.2s;
+
+  will-change: top, bottom, padding, font-size;
+
   & svg {
     width: var(--space-12);
     height: var(--space-12);
+    margin-right: var(--space-16);
+    transition:
+      width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+      height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-.case-study-content .cta-button--fixed {
-  bottom: 496px;
+/* Disable position transitions at checkpoints */
+.cta-button.no-position-transition {
+  transition:
+    padding 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.2s;
 }
 
-.cta-button--fixed.at-footer {
+/* Grow to full size at bottom checkpoint */
+.cta-button.at-footer {
   padding: var(--space-43) var(--space-64);
   font-size: var(--font-24);
   line-height: var(--font-24);
-}
 
-.cta-button--fixed.at-footer svg {
-  width: var(--space-24);
-  height: var(--space-24);
-}
-
-.cta-button_footer {
-  opacity: 0;
-  pointer-events: none;
+  & svg {
+    width: var(--space-24);
+    height: var(--space-24);
+  }
 }
 
 @media (max-width: 768px) {
-  .cta-button--fixed {
-    bottom: 600px;
+  .cta-button {
     left: 20px;
-    padding: 20px 32px;
-    font-size: 18px;
-    line-height: 18px;
-
-    & svg {
-      width: 18px;
-      height: 18px;
-      margin-right: 12px;
-    }
   }
 }

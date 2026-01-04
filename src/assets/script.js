@@ -461,290 +461,105 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Simple Fixed CTA with Fade Transition (Product Page)
+// CTA Button with Checkpoint Constraints
 document.addEventListener('DOMContentLoaded', () => {
   const fixedCta = document.querySelector('.cta-button');
-  const footerCta = document.querySelector('.contact-cta_footer .cta-button_footer');
-  const heroContact = document.querySelector('.hero-contact');
+  const topCheckpoint = document.querySelector('.cta-checkpoint');
+  const bottomCheckpoint = document.querySelector('.cta-button_footer');
 
-  if (!fixedCta || !footerCta) {
-    console.log('Missing buttons:', { fixedCta, footerCta });
+  if (!fixedCta || !topCheckpoint || !bottomCheckpoint) {
+    console.log('Missing required elements for CTA scroll');
     return;
   }
 
-  console.log('Simple fade initialized');
+  const BOTTOM_OFFSET = 50; // Distance from viewport bottom when floating
+  const SMALL_SIZE_THRESHOLD = 100; // Distance from bottom to start growing
 
-  const FOOTER_THRESHOLD = 100; // Start moving to footer when within 300px
-  const SCROLL_THRESHOLD = 100; // Add fixed class after scrolling 100px
-  let isAnimating = false;
-  let isAtFooter = false;
+  let rafId = null;
+  let isAtBottom = false;
+  let isAbsoluteMode = false;
 
-  function animateToFixed() {
-    if (isAnimating) return;
-    isAnimating = true;
-
-    console.log('Animating to fixed position');
-
-    // Get current position before changing to fixed
-    const currentRect = fixedCta.getBoundingClientRect();
-    const currentTop = currentRect.top;
-    const currentLeft = currentRect.left;
-
-    console.log('Current position:', { currentTop, currentLeft });
-
-    // Temporarily disable only transform transition for instant positioning
-    fixedCta.style.transition =
-      'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-
-    // Add fixed class (this will trigger padding/font-size transitions)
-    fixedCta.classList.add('cta-button--fixed');
-
-    // Add shifted class to hero-contact if it exists
-    if (heroContact) {
-      heroContact.classList.add('hero-contact--shifted');
-    }
-
-    // Force reflow to apply the fixed positioning
-    fixedCta.offsetHeight;
-
-    // Get target position after fixed
-    const targetRect = fixedCta.getBoundingClientRect();
-    const targetTop = targetRect.top;
-    const targetLeft = targetRect.left;
-
-    console.log('Target position:', { targetTop, targetLeft });
-
-    // Calculate offset needed to keep button visually in same place
-    const deltaX = currentLeft - targetLeft;
-    const deltaY = currentTop - targetTop;
-
-    console.log('Delta:', { deltaX, deltaY });
-
-    // Apply initial transform to keep button in original position
-    fixedCta.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-    // Force reflow
-    fixedCta.offsetHeight;
-
-    // Re-enable all transitions including transform
-    fixedCta.style.transition =
-      'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-
-    // Animate to final position
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        fixedCta.style.transform = 'translate(0, 0)';
-        setTimeout(() => {
-          isAnimating = false;
-          console.log('Animation complete');
-        }, 600);
-      });
-    });
-  }
-
-  function animateToNormal() {
-    if (isAnimating) return;
-    isAnimating = true;
-
-    console.log('Animating to normal position');
-
-    // Get current fixed position
-    const currentRect = fixedCta.getBoundingClientRect();
-    const currentTop = currentRect.top;
-    const currentLeft = currentRect.left;
-
-    // Disable only transform transition for instant positioning
-    fixedCta.style.transition =
-      'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out';
-
-    // Remove fixed class (this will trigger padding/font-size transitions)
-    fixedCta.classList.remove('cta-button--fixed');
-    fixedCta.style.opacity = 1;
-    fixedCta.classList.remove('fading');
-
-    // Remove shifted class from hero-contact if it exists
-    if (heroContact) {
-      heroContact.classList.remove('hero-contact--shifted');
-    }
-
-    // Force reflow
-    fixedCta.offsetHeight;
-
-    // Get new normal position
-    const targetRect = fixedCta.getBoundingClientRect();
-    const targetTop = targetRect.top;
-    const targetLeft = targetRect.left;
-
-    // Calculate offset
-    const deltaX = currentLeft - targetLeft;
-    const deltaY = currentTop - targetTop;
-
-    // Start from fixed position
-    fixedCta.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-    // Force reflow
-    fixedCta.offsetHeight;
-
-    // Re-enable all transitions
-    fixedCta.style.transition =
-      'background-color 0.2s, padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-
-    // Animate back to normal position
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        fixedCta.style.transform = 'translate(0, 0)';
-        setTimeout(() => {
-          isAnimating = false;
-          console.log('Return animation complete');
-        }, 600);
-      });
-    });
-  }
-
-  function animateToFooter() {
-    if (isAtFooter) return;
-    isAtFooter = true;
-
-    console.log('Animating to footer position');
-
-    // Get current button position in viewport
-    const currentRect = fixedCta.getBoundingClientRect();
-
-    // Get footer button position
-    const footerRect = footerCta.getBoundingClientRect();
+  function updateButtonPosition() {
     const scrollY = window.scrollY || window.pageYOffset;
-
-    // Calculate offset to move to footer position
-    const deltaX = footerRect.left - currentRect.left;
-    const deltaY = footerRect.top - currentRect.top;
-
-    console.log('Animating to footer with delta:', { deltaX, deltaY });
-
-    // Add at-footer class to trigger size growth animation
-    fixedCta.classList.add('at-footer');
-
-    // Animate transform to footer position (this will be smooth due to CSS transitions)
-    fixedCta.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-    // After animation completes, switch to absolute positioning
-    setTimeout(() => {
-      console.log('Animation complete, switching to absolute positioning');
-
-      const absoluteTop = footerRect.top + scrollY;
-      const absoluteLeft = footerRect.left;
-
-      // Disable transitions temporarily
-      const savedTransition = fixedCta.style.transition;
-      fixedCta.style.transition = 'none';
-
-      // Change to absolute positioning
-      fixedCta.style.position = 'absolute';
-      fixedCta.style.top = `${absoluteTop}px`;
-      fixedCta.style.left = `${absoluteLeft}px`;
-      fixedCta.style.bottom = 'auto';
-      fixedCta.style.transform = 'none';
-
-      // Force reflow
-      fixedCta.offsetHeight;
-
-      // Restore transitions
-      fixedCta.style.transition = savedTransition;
-
-      console.log('Button now locked at footer position');
-    }, 600); // Match the transition duration
-  }
-
-  function animateFromFooter() {
-    if (!isAtFooter) return;
-    isAtFooter = false;
-
-    console.log('Animating from footer position');
-
-    // Get current absolute position
-    const currentRect = fixedCta.getBoundingClientRect();
-    const scrollY = window.scrollY || window.pageYOffset;
-
-    // Change back to fixed positioning
-    fixedCta.style.position = '';
-    fixedCta.style.top = '';
-    fixedCta.style.left = '';
-    fixedCta.style.bottom = '';
-
-    // Get new fixed position
-    const newRect = fixedCta.getBoundingClientRect();
-
-    // Calculate the offset to maintain visual position
-    const deltaX = currentRect.left - newRect.left;
-    const deltaY = currentRect.top - newRect.top;
-
-    // Temporarily disable transitions
-    const savedTransition = fixedCta.style.transition;
-    fixedCta.style.transition = 'none';
-
-    // Apply transform to stay in same visual position
-    fixedCta.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-    // Force reflow
-    fixedCta.offsetHeight;
-
-    // Re-enable transitions
-    fixedCta.style.transition = savedTransition;
-
-    // Remove at-footer class to shrink back
-    fixedCta.classList.remove('at-footer');
-
-    // Animate back to fixed position
-    requestAnimationFrame(() => {
-      fixedCta.style.transform = 'translate(0, 0)';
-    });
-  }
-
-  function handleScroll() {
-    const scrollY = window.scrollY || window.pageYOffset;
-
-    // Add/remove fixed class based on scroll position
-    if (scrollY > SCROLL_THRESHOLD) {
-      if (!fixedCta.classList.contains('cta-button--fixed')) {
-        animateToFixed();
-      }
-    } else {
-      if (fixedCta.classList.contains('cta-button--fixed')) {
-        animateToNormal();
-        return;
-      }
-      return;
-    }
-
-    // Only handle footer animation if button is fixed
-    if (!fixedCta.classList.contains('cta-button--fixed')) return;
-
-    const footerCtaRect = footerCta.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
 
-    // Calculate distance from footer button to bottom of viewport
-    const distanceFromBottom = footerCtaRect.top - viewportHeight;
+    const buttonRect = fixedCta.getBoundingClientRect();
+    const buttonHeight = buttonRect.height;
 
-    // When footer button is approaching the viewport
-    if (distanceFromBottom < FOOTER_THRESHOLD) {
-      animateToFooter();
+    const topRect = topCheckpoint.getBoundingClientRect();
+    const bottomRect = bottomCheckpoint.getBoundingClientRect();
+
+    // Get checkpoint positions
+    const topCheckpointInViewport = topRect.top;
+    const bottomCheckpointInViewport = bottomRect.top;
+    const topCheckpointAbsolute = topRect.top + scrollY;
+    const bottomCheckpointAbsolute = bottomRect.top + scrollY;
+
+    // Where button wants to be when floating (fixed at bottom of viewport)
+    const floatingPosition = viewportHeight - BOTTOM_OFFSET - buttonHeight;
+
+    // Determine state
+    let isAtTopCheckpoint = false;
+    let isAtBottomCheckpoint = false;
+
+    // Check if at top checkpoint
+    if (topCheckpointInViewport >= floatingPosition) {
+      isAtTopCheckpoint = true;
+    } else if (bottomCheckpointInViewport <= floatingPosition) {
+      isAtBottomCheckpoint = true;
+    }
+
+    // Handle positioning
+    if (isAtTopCheckpoint || isAtBottomCheckpoint) {
+      // Disable position transitions at checkpoints
+      fixedCta.classList.add('no-position-transition');
+
+      // Switch to absolute positioning
+      if (!isAbsoluteMode) {
+        fixedCta.style.position = 'absolute';
+        fixedCta.style.setProperty('--button-top', 'auto');
+        isAbsoluteMode = true;
+      }
+
+      // Set absolute position using top
+      if (isAtTopCheckpoint) {
+        fixedCta.style.top = `${topCheckpointAbsolute - buttonHeight}px`;
+      } else {
+        fixedCta.style.top = `${bottomCheckpointAbsolute}px`;
+      }
     } else {
-      animateFromFooter();
+      // Enable position transitions when floating
+      fixedCta.classList.remove('no-position-transition');
+
+      // Float freely - use fixed positioning
+      if (isAbsoluteMode) {
+        fixedCta.style.position = 'fixed';
+        fixedCta.style.top = '';
+        isAbsoluteMode = false;
+      }
+
+      // Use floating position
+      fixedCta.style.setProperty('--button-top', `${floatingPosition}px`);
+    }
+
+    // Handle size change: full size at both checkpoints, small when floating
+    const shouldBeFullSize = isAtTopCheckpoint || isAtBottomCheckpoint;
+    if (shouldBeFullSize && !isAtBottom) {
+      isAtBottom = true;
+      fixedCta.classList.add('at-footer');
+    } else if (!shouldBeFullSize && isAtBottom) {
+      isAtBottom = false;
+      fixedCta.classList.remove('at-footer');
     }
   }
 
-  // Throttle scroll events
-  let scrollTimeout;
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (scrollTimeout) {
-        window.cancelAnimationFrame(scrollTimeout);
-      }
-      scrollTimeout = window.requestAnimationFrame(handleScroll);
-    },
-    { passive: true }
-  );
+  function scheduleUpdate() {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(updateButtonPosition);
+  }
 
-  // Initial check
-  handleScroll();
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate, { passive: true });
+
+  updateButtonPosition(); // Initial position
 });

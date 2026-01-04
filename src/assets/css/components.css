@@ -20,7 +20,7 @@
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: end;
 }
 
 @keyframes pulse {
@@ -79,13 +79,9 @@
 
 .hero-contact {
   width: var(--space-634);
-  margin-left: var(--space-200);
+  margin-left: var(--space-443);
   font-family: "Roboto", sans-serif;
   color: var(--color-content-general-tertiary);
-}
-
-.hero-contact--shifted {
-  margin-left: var(--space-443);
 }
 
 .contact-description {
@@ -443,8 +439,7 @@
 
 .contact-cta_footer {
   display: flex;
-  align-items: center;
-  gap: var(--space-187);
+  margin-left: var(--space-443);
 }
 
 .contact-methods {
