@@ -22,11 +22,9 @@ header {
   align-items: center;
 }
 
-.logo {
-  & svg {
-    width: var(--space-160);
-    height: var(--space-40);
-  }
+.logo img {
+  width: var(--space-160);
+  height: var(--space-40);
 }
 
 /* Screen reader only */

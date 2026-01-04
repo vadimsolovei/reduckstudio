@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Bebas Neue';
-  src: url('/assets/fonts/BebasNeue/BebasNeue-Bold.otf') format('opentype');
+  font-family: "Bebas Neue";
+  src: url("/assets/fonts/BebasNeue/BebasNeue-Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -88,7 +88,7 @@
   /* ~187.2px */
   --space-200: 13.89vw;
   /* 200px */
-  --space-240: 16.66vw ;
+  --space-240: 16.66vw;
   /* 240px */
   --space-270: 18.75vw;
   /* 270px */
@@ -153,7 +153,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -167,7 +166,10 @@
 * {
   margin: 0;
   padding: 0;
-  transition: color 0.2s ease, background-color 0.2s ease, stroke 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    stroke 0.2s ease;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -178,7 +180,7 @@
 
 body {
   -webkit-font-smoothing: antialiased;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: var(--color-bg-general-primary);
   color: var(--color-content-general-primary);
   margin: 0;
@@ -230,7 +232,7 @@ h6 {
 
 h2 {
   font-weight: 700;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
 }
 
 /* RESET STYLES END */
@@ -243,7 +245,12 @@ h2 {
 }
 
 .container-with_gradient {
-  background: linear-gradient(360deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.0218529) 56.29%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(
+    360deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.0218529) 56.29%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
 header {
@@ -254,11 +261,9 @@ header {
   align-items: center;
 }
 
-.logo {
-  & svg {
-    width: var(--space-160);
-    height: var(--space-40);
-  }
+.logo img {
+  width: var(--space-160);
+  height: var(--space-40);
 }
 
 /* Screen reader only */
@@ -288,7 +293,7 @@ header {
   width: var(--space-56);
   height: var(--space-56);
   font-size: max(var(--font-16), 14px);
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
 
   & svg {
     width: var(--space-16);
@@ -1096,7 +1101,7 @@ header {
     padding-left: var(--space-27);
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       width: var(--space-16);
       height: var(--space-2);
@@ -1384,7 +1389,9 @@ header {
   z-index: 1999;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
 
   &.open {
     opacity: 1;
@@ -1396,7 +1403,7 @@ header {
   padding: var(--space-60) var(--space-64);
   display: flex;
   flex-direction: column;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .contact-form-header {
@@ -1413,7 +1420,7 @@ header {
   text-transform: uppercase;
   color: var(--color-content-general-disabled);
   max-width: calc(100% - var(--space-80));
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
 
   & em {
     color: var(--color-content-general-primary);
@@ -1558,7 +1565,7 @@ header {
   color: var(--color-content-general-black);
   cursor: pointer;
   transition: background-color 0.2s ease;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1583,7 +1590,7 @@ header {
 
 .form-footer-text {
   color: var(--color-content-general-disabled);
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 
   & a {
     color: var(--color-content-general-primary);
@@ -1643,7 +1650,7 @@ header {
     font-size: var(--font-16);
     line-height: var(--font-20);
     color: var(--color-content-general-primary);
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
   }
 }
 
@@ -1678,7 +1685,7 @@ header {
     gap: 16px;
   }
 
-  .logo svg {
+  .logo img {
     width: 120px;
     height: 30px;
   }
@@ -2300,7 +2307,6 @@ header {
     font-size: 24px;
     line-height: 28px;
   }
-
 
   /* Contact Form Modal Mobile */
   .contact-form-modal {
