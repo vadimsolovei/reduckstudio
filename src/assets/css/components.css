@@ -23,6 +23,13 @@
   align-items: end;
 }
 
+.cta-checkpoint {
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 var(--color-action-brand-normal);
@@ -440,6 +447,13 @@
 .contact-cta_footer {
   display: flex;
   margin-left: var(--space-443);
+}
+
+.cta-button_footer {
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .contact-methods {

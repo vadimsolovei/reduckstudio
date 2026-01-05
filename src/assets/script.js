@@ -478,13 +478,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let rafId = null;
   let isAtBottom = false;
   let isAbsoluteMode = false;
+  let isInitialLoad = true;
+  let cachedSmallButtonHeight = null;
+  let cachedFullButtonHeight = null;
 
   function updateButtonPosition() {
     const scrollY = window.scrollY || window.pageYOffset;
     const viewportHeight = window.innerHeight;
-
-    const buttonRect = fixedCta.getBoundingClientRect();
-    const buttonHeight = buttonRect.height;
 
     const topRect = topCheckpoint.getBoundingClientRect();
     const bottomRect = bottomCheckpoint.getBoundingClientRect();
@@ -495,15 +495,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const topCheckpointAbsolute = topRect.top + scrollY;
     const bottomCheckpointAbsolute = bottomRect.top + scrollY;
 
-    // Where button wants to be when floating (fixed at bottom of viewport)
-    const floatingPosition = viewportHeight - BOTTOM_OFFSET - buttonHeight;
-
-    // Determine state
+    // Determine state first (before measuring button height)
     let isAtTopCheckpoint = false;
     let isAtBottomCheckpoint = false;
 
-    // Check if at top checkpoint
-    if (topCheckpointInViewport >= floatingPosition) {
+    // For initial calculation, temporarily add .at-footer to measure full size (only on first page load)
+    const needsFullSizeForMeasurement = scrollY === 0 && !fixedCta.classList.contains('at-footer') && isInitialLoad;
+    if (needsFullSizeForMeasurement) {
+      // Disable transitions before adding class to prevent animation on initial load
+      fixedCta.style.transition = 'none';
+      const svg = fixedCta.querySelector('svg');
+      if (svg) svg.style.transition = 'none';
+      fixedCta.classList.add('at-footer');
+      // Force reflow to ensure class is applied before measuring
+      fixedCta.offsetHeight;
+    }
+
+    // Measure button height for checkpoint positioning
+    // Cache full button height for accurate positioning at checkpoints
+    if (cachedFullButtonHeight === null && needsFullSizeForMeasurement) {
+      cachedFullButtonHeight = fixedCta.getBoundingClientRect().height;
+    }
+
+    const buttonRect = fixedCta.getBoundingClientRect();
+    const buttonHeight = buttonRect.height;
+
+    // For floating position, use cached small button height to prevent position shift
+    // Only measure once on first run to avoid constant class manipulation
+    let smallButtonHeight;
+    if (cachedSmallButtonHeight === null) {
+      // First time: measure small button height
+      const hadAtFooter = fixedCta.classList.contains('at-footer');
+      if (hadAtFooter) {
+        fixedCta.style.transition = 'none';
+        const svg = fixedCta.querySelector('svg');
+        if (svg) svg.style.transition = 'none';
+
+        fixedCta.classList.remove('at-footer');
+        fixedCta.offsetHeight; // Force reflow
+        cachedSmallButtonHeight = fixedCta.getBoundingClientRect().height;
+        fixedCta.classList.add('at-footer');
+
+        // Don't restore transitions yet - they'll be enabled when needed
+      } else {
+        cachedSmallButtonHeight = buttonHeight;
+      }
+    }
+    smallButtonHeight = cachedSmallButtonHeight;
+
+    // Where button wants to be when floating (fixed at bottom of viewport)
+    const floatingPosition = viewportHeight - BOTTOM_OFFSET - smallButtonHeight;
+
+    // Check if at top checkpoint (only when page is at the very top)
+    if (scrollY === 0) {
       isAtTopCheckpoint = true;
     } else if (bottomCheckpointInViewport <= floatingPosition) {
       isAtBottomCheckpoint = true;
@@ -511,8 +555,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle positioning
     if (isAtTopCheckpoint || isAtBottomCheckpoint) {
-      // Disable position transitions at checkpoints
-      fixedCta.classList.add('no-position-transition');
+      // Only disable position transitions on initial load, not when transitioning to checkpoint
+      if (isInitialLoad) {
+        fixedCta.classList.add('no-position-transition');
+      } else {
+        fixedCta.classList.remove('no-position-transition');
+      }
 
       // Switch to absolute positioning
       if (!isAbsoluteMode) {
@@ -521,9 +569,10 @@ document.addEventListener('DOMContentLoaded', () => {
         isAbsoluteMode = true;
       }
 
-      // Set absolute position using top
+      // Set absolute position using top (use full-size height for proper positioning)
+      const heightForPositioning = cachedFullButtonHeight || buttonHeight;
       if (isAtTopCheckpoint) {
-        fixedCta.style.top = `${topCheckpointAbsolute - buttonHeight}px`;
+        fixedCta.style.top = `${topCheckpointAbsolute - heightForPositioning}px`;
       } else {
         fixedCta.style.top = `${bottomCheckpointAbsolute}px`;
       }
@@ -546,9 +595,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const shouldBeFullSize = isAtTopCheckpoint || isAtBottomCheckpoint;
     if (shouldBeFullSize && !isAtBottom) {
       isAtBottom = true;
-      fixedCta.classList.add('at-footer');
+
+      // If class was added during measurement, handle animation
+      if (needsFullSizeForMeasurement) {
+        if (isInitialLoad) {
+          // Initial page load - no animation needed, just mark as loaded
+          isInitialLoad = false;
+        } else {
+          // Scrolling back to top - animate the growth
+          // Remove class first
+          fixedCta.classList.remove('at-footer');
+          // Enable transitions
+          fixedCta.style.removeProperty('transition');
+          const svg = fixedCta.querySelector('svg');
+          if (svg) svg.style.removeProperty('transition');
+          // Wait for next frame to ensure removal is processed, then add class back
+          requestAnimationFrame(() => {
+            fixedCta.classList.add('at-footer');
+          });
+        }
+      } else {
+        // Ensure transitions are enabled before growing
+        fixedCta.style.removeProperty('transition');
+        const svg = fixedCta.querySelector('svg');
+        if (svg) svg.style.removeProperty('transition');
+        // Force reflow to ensure transitions are active
+        fixedCta.offsetHeight;
+        // Add class with transitions enabled - should animate now
+        fixedCta.classList.add('at-footer');
+      }
     } else if (!shouldBeFullSize && isAtBottom) {
       isAtBottom = false;
+
+      // Enable transitions before shrinking
+      if (isInitialLoad || fixedCta.style.transition === 'none') {
+        fixedCta.style.removeProperty('transition');
+        const svg = fixedCta.querySelector('svg');
+        if (svg) svg.style.removeProperty('transition');
+        // Force reflow to ensure CSS transitions are applied
+        fixedCta.offsetHeight;
+        isInitialLoad = false;
+      }
+
+      // Now remove class with transitions active
       fixedCta.classList.remove('at-footer');
     }
   }
@@ -561,5 +650,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', scheduleUpdate, { passive: true });
   window.addEventListener('resize', scheduleUpdate, { passive: true });
 
-  updateButtonPosition(); // Initial position
+  // Wait for layout to be fully calculated before initial positioning
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      updateButtonPosition(); // Initial position
+    });
+  });
 });
