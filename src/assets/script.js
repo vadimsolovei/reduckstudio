@@ -123,13 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // External link handling
-  const externalLinks = document.querySelectorAll('a[target="_blank"]');
-  externalLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      // Add analytics tracking here if needed
-    });
-  });
 });
 
 // Add to your existing script.js file
@@ -195,36 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
     navObserver.observe(projectNavigation);
   }
 
-  // Navigation click handlers
-  if (prevProject) {
-    prevProject.addEventListener('click', () => {
-      // Add your navigation logic here
-      // Example: window.location.href = '/projects/previous-project';
-    });
-
-    // Keyboard navigation
-    addKeyboardActivation(prevProject, () => prevProject.click());
-
-    // Add ARIA attributes
-    prevProject.setAttribute('role', 'button');
-    prevProject.setAttribute('tabindex', '0');
-    prevProject.setAttribute('aria-label', 'Перейти к предыдущему проекту');
-  }
-
-  if (nextProject) {
-    nextProject.addEventListener('click', () => {
-      // Add your navigation logic here
-      // Example: window.location.href = '/projects/next-project';
-    });
-
-    // Keyboard navigation
-    addKeyboardActivation(nextProject, () => nextProject.click());
-
-    // Add ARIA attributes
-    nextProject.setAttribute('role', 'button');
-    nextProject.setAttribute('tabindex', '0');
-    nextProject.setAttribute('aria-label', 'Перейти к следующему проекту');
-  }
 
   // Swipe gesture support for mobile
   let startX = 0;
@@ -473,7 +436,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const BOTTOM_OFFSET = 50; // Distance from viewport bottom when floating
-  const SMALL_SIZE_THRESHOLD = 100; // Distance from bottom to start growing
 
   let rafId = null;
   let isAtBottom = false;
@@ -490,7 +452,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const bottomRect = bottomCheckpoint.getBoundingClientRect();
 
     // Get checkpoint positions
-    const topCheckpointInViewport = topRect.top;
     const bottomCheckpointInViewport = bottomRect.top;
     const topCheckpointAbsolute = topRect.top + scrollY;
     const bottomCheckpointAbsolute = bottomRect.top + scrollY;
@@ -555,8 +516,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle positioning
     if (isAtTopCheckpoint || isAtBottomCheckpoint) {
-      // Only disable position transitions on initial load, not when transitioning to checkpoint
-      if (isInitialLoad) {
+      // Disable position transitions on initial load and at bottom checkpoint
+      if (isInitialLoad || isAtBottomCheckpoint) {
         fixedCta.classList.add('no-position-transition');
       } else {
         fixedCta.classList.remove('no-position-transition');
@@ -647,8 +608,14 @@ document.addEventListener('DOMContentLoaded', () => {
     rafId = requestAnimationFrame(updateButtonPosition);
   }
 
+  function handleResize() {
+    cachedSmallButtonHeight = null;
+    cachedFullButtonHeight = null;
+    scheduleUpdate();
+  }
+
   window.addEventListener('scroll', scheduleUpdate, { passive: true });
-  window.addEventListener('resize', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', handleResize, { passive: true });
 
   // Wait for layout to be fully calculated before initial positioning
   requestAnimationFrame(() => {
