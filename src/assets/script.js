@@ -82,9 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
     debouncedSetTheme(newTheme);
   }
 
-  // Initialize theme
-  setTheme(getPreferredTheme());
-
   // Mouse/touch events
   themeSwitcher.addEventListener('click', toggleTheme);
 
@@ -122,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
 });
 
 // Add to your existing script.js file
@@ -187,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const navObserver = createAnimationObserver(0.3);
     navObserver.observe(projectNavigation);
   }
-
 
   // Swipe gesture support for mobile
   let startX = 0;
@@ -461,7 +456,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let isAtBottomCheckpoint = false;
 
     // For initial calculation, temporarily add .at-footer to measure full size (only on first page load)
-    const needsFullSizeForMeasurement = scrollY === 0 && !fixedCta.classList.contains('at-footer') && isInitialLoad;
+    const needsFullSizeForMeasurement =
+      scrollY === 0 && !fixedCta.classList.contains('at-footer') && isInitialLoad;
     if (needsFullSizeForMeasurement) {
       // Disable transitions before adding class to prevent animation on initial load
       fixedCta.style.transition = 'none';
