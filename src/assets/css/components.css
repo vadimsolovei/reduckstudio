@@ -286,17 +286,17 @@
 .services-categories-container {
   display: flex;
   gap: var(--space-40);
-  align-items: start;
+  align-items: stretch;
 }
 
 .services-image {
   flex-shrink: 0;
+  display: flex;
+  width: var(--space-400);
 
   & img {
-    width: 27.78vw;
-    height: 27.78vw;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 100%;
+    border-radius: var(--space-64);
   }
 }
 
@@ -433,9 +433,14 @@
 
 .phase-step__number {
   flex: 0 0 auto;
-  padding: var(--space-10) var(--space-15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.78vw;
+  height: 2.78vw;
+  padding: 0 var(--space-8);
   font-size: var(--font-16);
-  line-height: var(--font-20);
+  line-height: 1;
   background-color: var(--color-bg-general-secondary);
   border-radius: 50%;
 }

@@ -2,9 +2,13 @@
 @media screen and (max-width: 768px) {
   /* Override all viewport-based spacing and fonts with fixed pixel values */
 
+  :root {
+    --container-padding-x: 20px;
+  }
+
   /* Container */
   .container {
-    padding: 0 20px;
+    padding: 0 var(--container-padding-x);
   }
 
   /* Header */
@@ -168,13 +172,7 @@
   }
 
   .statement-icon {
-    padding: 32px;
-    align-self: flex-start;
-  }
-
-  .statement-icon svg {
-    width: 24px;
-    height: 24px;
+    display: none;
   }
 
   /* Services Section */
@@ -188,16 +186,14 @@
   }
 
   .services-image {
-    order: -1;
-    width: 100%;
+    width: calc(100% + var(--container-padding-x) * 2 - 20px);
+    margin-left: calc(-1 * var(--container-padding-x) + 10px);
   }
 
   .services-image img {
     width: 100%;
-    max-width: 280px;
-    height: auto;
-    aspect-ratio: 1;
-    margin: 0 auto;
+    height: 400px;
+    border-radius: 16vw;
   }
 
   .services-categories {
@@ -232,9 +228,9 @@
   .breakdown-phases {
     display: flex;
     gap: 32px;
-    padding-bottom: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    padding-bottom: 20px;
   }
 
   .phase-column {
@@ -257,6 +253,11 @@
     font-size: 16px;
     line-height: 24px;
     margin-bottom: 24px;
+    max-width: 210px;
+  }
+
+  .phase-steps {
+    gap: 2px;
   }
 
   .phase-step__item {
@@ -287,9 +288,11 @@
   }
 
   .phase-step__number {
-    padding: 8px 12px;
-    font-size: 14px;
-    line-height: 18px;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 6px;
+    font-size: 16px;
+    line-height: 20px;
   }
 
   .phase-step__text {

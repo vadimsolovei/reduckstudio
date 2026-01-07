@@ -247,9 +247,6 @@ function alignPhaseSteps() {
   const columns = document.querySelectorAll('.phase-column');
   if (columns.length === 0) return;
 
-  // Only apply alignment on desktop screens (above 768px)
-  const isDesktop = window.innerWidth > 768;
-
   // First pass: always reset to auto
   columns.forEach((col) => {
     const description = col.querySelector('.phase-description');
@@ -258,9 +255,6 @@ function alignPhaseSteps() {
       description.style.minHeight = 'auto';
     }
   });
-
-  // Only calculate and apply heights on desktop
-  if (!isDesktop) return;
 
   let maxDescriptionHeight = 0;
 
