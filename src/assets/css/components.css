@@ -75,15 +75,18 @@
 .cta-button {
   display: inline-flex;
   align-items: center;
+  top: var(--button-top, calc(100vh - 50px));
+  left: var(--space-80);
   padding: var(--space-43) var(--space-64);
   background-color: var(--color-action-brand-normal);
   border-radius: var(--space-1000);
   color: var(--color-content-general-black);
-  font-size: var(--font-24);
   font-family: "Bebas Neue", sans-serif;
+  font-size: var(--font-24);
   line-height: var(--font-24);
   font-weight: 700;
   text-align: left;
+  z-index: 100;
   animation: pulse 4s infinite;
   transition:
     background-color 0.2s,
@@ -91,7 +94,9 @@
     font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1),
     opacity 0.3s ease-in-out,
     line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: top, bottom, padding, font-size;
 
   &:hover {
     background-color: var(--color-action-brand-hover);
@@ -105,6 +110,27 @@
     transition:
       width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
       height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Disable position transitions at checkpoints */
+.cta-button.no-position-transition {
+  transition:
+    padding 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.2s;
+}
+
+/* Shrink to small size when floating */
+.cta-button.floating {
+  padding: var(--space-20) var(--space-32);
+  font-size: calc(var(--font-24) / 2);
+  line-height: calc(var(--font-24) / 2);
+
+  & svg {
+    width: var(--space-12);
+    height: var(--space-12);
   }
 }
 

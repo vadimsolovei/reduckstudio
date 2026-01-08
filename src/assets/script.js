@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const BOTTOM_OFFSET = 50; // Distance from viewport bottom when floating
 
   let rafId = null;
-  let isAtBottom = false;
+  let isFloating = false;
   let isAbsoluteMode = false;
   let isInitialLoad = true;
   let cachedSmallButtonHeight = null;
@@ -449,50 +449,34 @@ document.addEventListener('DOMContentLoaded', () => {
     let isAtTopCheckpoint = false;
     let isAtBottomCheckpoint = false;
 
-    // For initial calculation, temporarily add .at-footer to measure full size (only on first page load)
-    const needsFullSizeForMeasurement =
-      scrollY === 0 && !fixedCta.classList.contains('at-footer') && isInitialLoad;
-    if (needsFullSizeForMeasurement) {
-      // Disable transitions before adding class to prevent animation on initial load
+    // Cache both button sizes on first run (regardless of scroll position)
+    if (cachedFullButtonHeight === null || cachedSmallButtonHeight === null) {
+      const hadFloating = fixedCta.classList.contains('floating');
+
+      // Disable transitions before measuring
       fixedCta.style.transition = 'none';
       const svg = fixedCta.querySelector('svg');
       if (svg) svg.style.transition = 'none';
-      fixedCta.classList.add('at-footer');
-      // Force reflow to ensure class is applied before measuring
-      fixedCta.offsetHeight;
-    }
 
-    // Measure button height for checkpoint positioning
-    // Cache full button height for accurate positioning at checkpoints
-    if (cachedFullButtonHeight === null && needsFullSizeForMeasurement) {
-      cachedFullButtonHeight = fixedCta.getBoundingClientRect().height;
-    }
-
-    const buttonRect = fixedCta.getBoundingClientRect();
-    const buttonHeight = buttonRect.height;
-
-    // For floating position, use cached small button height to prevent position shift
-    // Only measure once on first run to avoid constant class manipulation
-    let smallButtonHeight;
-    if (cachedSmallButtonHeight === null) {
-      // First time: measure small button height
-      const hadAtFooter = fixedCta.classList.contains('at-footer');
-      if (hadAtFooter) {
-        fixedCta.style.transition = 'none';
-        const svg = fixedCta.querySelector('svg');
-        if (svg) svg.style.transition = 'none';
-
-        fixedCta.classList.remove('at-footer');
+      // Measure full size (without .floating)
+      if (hadFloating) {
+        fixedCta.classList.remove('floating');
         fixedCta.offsetHeight; // Force reflow
-        cachedSmallButtonHeight = fixedCta.getBoundingClientRect().height;
-        fixedCta.classList.add('at-footer');
+      }
+      cachedFullButtonHeight = fixedCta.getBoundingClientRect().height;
 
-        // Don't restore transitions yet - they'll be enabled when needed
-      } else {
-        cachedSmallButtonHeight = buttonHeight;
+      // Measure small size (with .floating)
+      fixedCta.classList.add('floating');
+      fixedCta.offsetHeight; // Force reflow
+      cachedSmallButtonHeight = fixedCta.getBoundingClientRect().height;
+
+      // Restore original state
+      if (!hadFloating) {
+        fixedCta.classList.remove('floating');
       }
     }
-    smallButtonHeight = cachedSmallButtonHeight;
+
+    const smallButtonHeight = cachedSmallButtonHeight;
 
     // Where button wants to be when floating (fixed at bottom of viewport)
     const floatingPosition = viewportHeight - BOTTOM_OFFSET - smallButtonHeight;
@@ -532,7 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fixedCta.classList.remove('no-position-transition');
 
       // Float freely - use fixed positioning
-      if (isAbsoluteMode) {
+      if (isAbsoluteMode || fixedCta.style.position !== 'fixed') {
         fixedCta.style.position = 'fixed';
         fixedCta.style.top = '';
         isAbsoluteMode = false;
@@ -542,41 +526,10 @@ document.addEventListener('DOMContentLoaded', () => {
       fixedCta.style.setProperty('--button-top', `${floatingPosition}px`);
     }
 
-    // Handle size change: full size at both checkpoints, small when floating
-    const shouldBeFullSize = isAtTopCheckpoint || isAtBottomCheckpoint;
-    if (shouldBeFullSize && !isAtBottom) {
-      isAtBottom = true;
-
-      // If class was added during measurement, handle animation
-      if (needsFullSizeForMeasurement) {
-        if (isInitialLoad) {
-          // Initial page load - no animation needed, just mark as loaded
-          isInitialLoad = false;
-        } else {
-          // Scrolling back to top - animate the growth
-          // Remove class first
-          fixedCta.classList.remove('at-footer');
-          // Enable transitions
-          fixedCta.style.removeProperty('transition');
-          const svg = fixedCta.querySelector('svg');
-          if (svg) svg.style.removeProperty('transition');
-          // Wait for next frame to ensure removal is processed, then add class back
-          requestAnimationFrame(() => {
-            fixedCta.classList.add('at-footer');
-          });
-        }
-      } else {
-        // Ensure transitions are enabled before growing
-        fixedCta.style.removeProperty('transition');
-        const svg = fixedCta.querySelector('svg');
-        if (svg) svg.style.removeProperty('transition');
-        // Force reflow to ensure transitions are active
-        fixedCta.offsetHeight;
-        // Add class with transitions enabled - should animate now
-        fixedCta.classList.add('at-footer');
-      }
-    } else if (!shouldBeFullSize && isAtBottom) {
-      isAtBottom = false;
+    // Handle size change: full size at checkpoints (no class), small when floating (.floating class)
+    const shouldBeFloating = !isAtTopCheckpoint && !isAtBottomCheckpoint;
+    if (shouldBeFloating && !isFloating) {
+      isFloating = true;
 
       // Enable transitions before shrinking
       if (isInitialLoad || fixedCta.style.transition === 'none') {
@@ -588,8 +541,22 @@ document.addEventListener('DOMContentLoaded', () => {
         isInitialLoad = false;
       }
 
-      // Now remove class with transitions active
-      fixedCta.classList.remove('at-footer');
+      // Add floating class to shrink
+      fixedCta.classList.add('floating');
+    } else if (!shouldBeFloating && isFloating) {
+      isFloating = false;
+
+      // Ensure transitions are enabled before growing
+      fixedCta.style.removeProperty('transition');
+      const svg = fixedCta.querySelector('svg');
+      if (svg) svg.style.removeProperty('transition');
+      // Force reflow to ensure transitions are active
+      fixedCta.offsetHeight;
+      // Remove floating class to grow back to full size
+      fixedCta.classList.remove('floating');
+    } else if (!shouldBeFloating && !isFloating && isInitialLoad) {
+      // Initial load at checkpoint - mark as loaded
+      isInitialLoad = false;
     }
   }
 

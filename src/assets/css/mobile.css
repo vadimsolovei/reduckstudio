@@ -3,7 +3,24 @@
   /* Override all viewport-based spacing and fonts with fixed pixel values */
 
   :root {
-    --container-padding-x: 20px;
+    --container-padding-x: 8px;
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  /* Background Decorators - show only one on mobile */
+  .bg-decorator--1 {
+    position: absolute;
+    width: 585px;
+    height: 585px;
+    left: -100px;
+    top: -184px;
+  }
+
+  .bg-decorator--2 {
+    display: none;
   }
 
   /* Container */
@@ -20,21 +37,20 @@
   }
 
   .logo img {
-    width: 120px;
-    height: 30px;
+    width: 160px;
+    height: 40px;
   }
 
   .nav-button {
     width: 100%;
     height: 44px;
-    font-size: 14px;
     justify-content: flex-start;
     padding: 0 16px;
   }
 
   .nav-button svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
   }
 
   /* Hero Section */
@@ -117,6 +133,12 @@
     row-gap: 32px;
   }
 
+  .project-card {
+    &:hover img {
+      transform: scale(1);
+    }
+  }
+
   .project-card:nth-child(odd) {
     margin: 0;
   }
@@ -162,6 +184,7 @@
   .statement {
     flex-direction: column;
     gap: 24px;
+    padding: 0 32px;
   }
 
   .statement h2 {
@@ -169,6 +192,11 @@
     line-height: 38px;
     margin-bottom: 0;
     max-width: 100%;
+    color: var(--color-content-general-primary);
+
+    & em {
+      color: inherit;
+    }
   }
 
   .statement-icon {
@@ -186,14 +214,13 @@
   }
 
   .services-image {
-    width: calc(100% + var(--container-padding-x) * 2 - 20px);
-    margin-left: calc(-1 * var(--container-padding-x) + 10px);
-  }
-
-  .services-image img {
     width: 100%;
-    height: 400px;
-    border-radius: 16vw;
+
+    & img {
+      width: 100%;
+      height: 400px;
+      border-radius: 16vw;
+    }
   }
 
   .services-categories {
@@ -765,61 +792,6 @@
   .form-telegram-icon svg {
     width: 16px;
     height: 16px;
-  }
-}
-
-/* Simple Fixed CTA with Fade Transition */
-.cta-button {
-  position: fixed;
-  top: var(--button-top, calc(100vh - 50px));
-  left: var(--space-60);
-  bottom: auto;
-  z-index: 100;
-  opacity: 1;
-
-  /* Small size by default */
-  padding: var(--space-20) var(--space-32);
-  font-size: calc(var(--font-24) / 2);
-  line-height: calc(var(--font-24) / 2);
-
-  transition:
-    top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    padding 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 0.2s;
-
-  will-change: top, bottom, padding, font-size;
-
-  & svg {
-    width: var(--space-12);
-    height: var(--space-12);
-    margin-right: var(--space-16);
-    transition:
-      width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-      height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-}
-
-/* Disable position transitions at checkpoints */
-.cta-button.no-position-transition {
-  transition:
-    padding 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    line-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 0.2s;
-}
-
-/* Grow to full size at bottom checkpoint */
-.cta-button.at-footer {
-  padding: var(--space-43) var(--space-64);
-  font-size: var(--font-24);
-  line-height: var(--font-24);
-
-  & svg {
-    width: var(--space-24);
-    height: var(--space-24);
   }
 }
 
