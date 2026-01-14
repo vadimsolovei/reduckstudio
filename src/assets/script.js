@@ -24,7 +24,34 @@ function addKeyboardActivation(element, callback) {
   });
 }
 
+// Header scroll behavior - fixed over hero, then scrolls away
+function initHeaderScroll() {
+  const header = document.querySelector('header');
+  const hero = document.querySelector('.hero');
+
+  if (!header || !hero) return;
+
+  const checkScroll = () => {
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    const headerHeight = header.offsetHeight;
+
+    if (heroBottom <= headerHeight) {
+      if (!header.classList.contains('header-scrolled')) {
+        header.style.top = window.scrollY + 'px';
+        header.classList.add('header-scrolled');
+      }
+    } else {
+      header.classList.remove('header-scrolled');
+      header.style.top = '0';
+    }
+  };
+
+  window.addEventListener('scroll', checkScroll, { passive: true });
+  checkScroll();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initHeaderScroll();
   const THEMES = {
     LIGHT: 'light',
     DARK: 'dark',
@@ -416,8 +443,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // CTA Button with Checkpoint Constraints
 document.addEventListener('DOMContentLoaded', () => {
   const fixedCta = document.querySelector('.cta-button');
-  const topCheckpoint = document.querySelector('.cta-checkpoint');
-  const bottomCheckpoint = document.querySelector('.cta-button_footer');
+  const topCheckpoint = document.querySelector('.cta-checkpoint_top');
+  const bottomCheckpoint = document.querySelector('.cta-checkpoint_bottom');
 
   if (!fixedCta || !topCheckpoint || !bottomCheckpoint) {
     console.log('Missing required elements for CTA scroll');
@@ -506,8 +533,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Set absolute position using top (use full-size height for proper positioning)
       const heightForPositioning = cachedFullButtonHeight || buttonHeight;
+      const isMobile = window.innerWidth <= 768;
       if (isAtTopCheckpoint) {
-        fixedCta.style.top = `${topCheckpointAbsolute - heightForPositioning}px`;
+        // On mobile: position below checkpoint + 32px gap, on desktop: position above
+        fixedCta.style.top = isMobile
+          ? `${topCheckpointAbsolute + 32}px`
+          : `${topCheckpointAbsolute - heightForPositioning}px`;
       } else {
         fixedCta.style.top = `${bottomCheckpointAbsolute}px`;
       }

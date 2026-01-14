@@ -31,7 +31,7 @@
       })();
     </script>
   </head>
-  <body>
+  <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
     <div class="bg-decorator bg-decorator--1" aria-hidden="true"></div>
     <div class="bg-decorator bg-decorator--2" aria-hidden="true"></div>
     {% include "components/header.njk" %} {{ content | safe }} {% include "components/footer.njk" %}

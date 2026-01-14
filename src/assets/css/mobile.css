@@ -1,9 +1,27 @@
 /* MOBILE RESPONSIVE STYLES (768px and below) */
 @media screen and (max-width: 768px) {
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 var(--color-action-brand-normal);
+    }
+
+    35% {
+      box-shadow: 0 0 0 12px rgba(255, 230, 0, 0);
+    }
+
+    50% {
+      box-shadow: 0 0 0 0 rgba(255, 230, 0, 0);
+    }
+
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 230, 0, 0);
+    }
+  }
+
   /* Override all viewport-based spacing and fonts with fixed pixel values */
 
   :root {
-    --container-padding-x: 8px;
+    --container-padding-x: 32px;
   }
 
   body {
@@ -31,7 +49,7 @@
   /* Header */
   header {
     margin: 16px 0;
-    padding: 8px 16px 8px 20px;
+    padding: 72px 32px 0;
     flex-direction: row;
     gap: 16px;
   }
@@ -55,34 +73,31 @@
 
   /* Hero Section */
   .hero {
-    margin-bottom: 60px;
+    margin: 185px 0 225px;
   }
 
   .hero h1 {
-    font-size: 60px;
-    line-height: 60px;
-    margin-bottom: 24px;
-  }
-
-  .hero-cta {
-    align-items: flex-start;
-    gap: 32px;
+    font-size: 56px;
+    line-height: 56px;
+    margin-bottom: 16px;
   }
 
   .cta-button-wrapper {
     margin-right: 0;
   }
 
-  .cta-button {
-    padding: 20px 32px;
-    font-size: 18px;
-    line-height: 18px;
+  .cta-button:not(.floating) {
+    left: 32px;
+    padding: 32px 0;
+    font-size: 24px;
+    line-height: 24px;
+    width: calc(100% - 64px);
   }
 
   .cta-button svg {
-    width: 18px;
-    height: 18px;
-    margin-right: 12px;
+    width: 20px;
+    height: 20px;
+    margin-right: 24px;
   }
 
   .hero-contact {
@@ -91,13 +106,14 @@
   }
 
   .contact-description {
-    font-size: 18px;
-    line-height: 28px;
-    margin-bottom: 20px;
+    padding-right: 48px;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 48px;
   }
 
   .contact-card__text {
-    margin-left: 32px;
+    margin-left: 0;
     font-size: 16px;
     line-height: 20px;
   }
@@ -108,6 +124,7 @@
   }
 
   .contact-chat {
+    margin-right: 16px;
     padding: 24px;
   }
 
@@ -792,11 +809,5 @@
   .form-telegram-icon svg {
     width: 16px;
     height: 16px;
-  }
-}
-
-@media (max-width: 768px) {
-  .cta-button {
-    left: 20px;
   }
 }
