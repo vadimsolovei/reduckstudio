@@ -60,7 +60,8 @@ header {
   justify-content: center;
   width: var(--space-56);
   height: var(--space-56);
-  font-size: max(var(--font-16), 14px);
+  font-size: var(--font-16);
+  line-height: var(--font-24);
   font-family: "Bebas Neue", sans-serif;
 
   & svg {
@@ -74,7 +75,6 @@ header {
 .footer {
   padding-top: var(--space-40);
   padding-bottom: var(--space-40);
-  border-top: 1px solid var(--color-border-general-primary);
 }
 
 .footer-content {
