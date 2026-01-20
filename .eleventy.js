@@ -1,4 +1,11 @@
 module.exports = function(eleventyConfig) {
+  eleventyConfig.addFilter("breakAfterFirst", function(str) {
+    if (!str) return str;
+    const parts = str.split(' ');
+    if (parts.length <= 1) return str;
+    return parts[0] + '<br>' + parts.slice(1).join(' ');
+  });
+
   // Copy static assets as-is (no processing)
   eleventyConfig.addPassthroughCopy("src/assets/images");
   eleventyConfig.addPassthroughCopy("src/assets/fonts");

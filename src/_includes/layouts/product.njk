@@ -1,0 +1,119 @@
+---
+layout: layouts/base.njk
+bodyClass: productpage
+---
+
+{% if hero %}
+<section class="hero container"{% if hero.bgImage %} style="background-image: url('{{ hero.bgImage }}')"{% endif %}>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/#projects" class="breadcrumb-link">works</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">{{ hero.title | safe }}</span>
+  </nav>
+  <h1>{{ hero.title | breakAfterFirst | safe }}</h1>
+</section>
+{% endif %}
+
+<section class="project-overview container">
+  {% for block in contentBlocks %}
+  <div class="project-overview-content">
+    <div class="project-overview-main">
+      <h3 class="project-overview-label">{{ block.label }}</h3>
+      <h2 class="project-overview-title">{{ block.title }}</h2>
+    </div>
+
+    <div class="project-overview-description">
+      {% if block.type == "paragraph" %}
+      <p>{{ block.content }}</p>
+      {% elif block.type == "list" %}
+      <ul class="project-overview-list">
+        {% if block.listTitle %}
+        <h4 class="project-overview-list_title">{{ block.listTitle }}</h4>
+        {% endif %}
+        {% for item in block.items %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    {% if block.meta %}
+    <div class="project-meta">
+      {% if block.meta.industry %}
+      <div class="project-meta-row">
+        <h4 class="project-meta-label">Индустрия</h4>
+        <div class="project-meta-tags">
+          {% for tag in block.meta.industry %}
+          <span class="project-meta-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if block.meta.services %}
+      <div class="project-meta-row">
+        <h4 class="project-meta-label">Услуги</h4>
+        <div class="project-meta-tags">
+          {% for tag in block.meta.services %}
+          <span class="project-meta-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+
+{% if testimonial %}
+<section class="client-testimonial container">
+  <div class="testimonial-content">
+    <div class="testimonial-label">От клиента:</div>
+
+    <blockquote class="testimonial-quote">"{{ testimonial.quote }}"</blockquote>
+
+    <div class="testimonial-author">
+      <div class="author-avatar">
+        <img src="{{ testimonial.avatar }}" alt="{{ testimonial.name }}" loading="lazy" />
+      </div>
+      <div class="author-info">
+        <h4 class="author-name">{{ testimonial.name }}</h4>
+        <p class="author-title">{{ testimonial.role }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if navigation %}
+<section class="project-navigation container">
+  {% if navigation.prev %}
+  <a href="{{ navigation.prev.url }}" class="project-nav-item project-nav-prev">
+    <div class="project-logo"></div>
+    <div class="project-nav-info">
+      <span class="project-nav-label">Предыдущая работа</span>
+      <h3 class="project-nav-title">{{ navigation.prev.title }}</h3>
+    </div>
+  </a>
+  {% else %}
+  <div class="project-nav-item project-nav-prev project-nav-disabled"></div>
+  {% endif %}
+
+  <div class="project-nav-divider"></div>
+
+  {% if navigation.next %}
+  <a href="{{ navigation.next.url }}" class="project-nav-item project-nav-next">
+    <div class="project-nav-info">
+      <span class="project-nav-label">Следующая работа</span>
+      <h3 class="project-nav-title">{{ navigation.next.title }}</h3>
+    </div>
+    <div class="project-logo"></div>
+  </a>
+  {% else %}
+  <div class="project-nav-item project-nav-next project-nav-disabled"></div>
+  {% endif %}
+</section>
+{% endif %}
+
+{% include "components/contact-section.njk" %}

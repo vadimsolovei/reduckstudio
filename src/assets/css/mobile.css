@@ -511,65 +511,9 @@
 
   /* PRODUCT PAGE MOBILE STYLES */
 
-  /* Case Study Header */
-  .case-study-header {
-    padding: 20px 0;
-    gap: 20px;
-  }
-
-  .back-button {
-    gap: 8px;
-    padding: 12px 20px;
-    font-size: 14px;
-    line-height: 18px;
-  }
-
-  .back-button svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .case-study-tags {
-    width: 100%;
-  }
-
-  .case-study-tag {
-    padding: 12px 20px;
-    font-size: 14px;
-    line-height: 18px;
-  }
-
-  /* Case Study Content */
-  .case-study-content {
-    flex-direction: column;
-    gap: 115px;
-  }
-
-  .case-study-title {
-    font-size: 48px;
-    line-height: 48px;
-    margin-bottom: 24px;
-  }
-
-  .case-study-info {
-    align-items: flex-start;
-    gap: 24px;
-  }
-
-  .case-study-link svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .case-study-link a {
-    font-size: 16px;
-    line-height: 20px;
-  }
-
-  .case-study-description {
-    font-size: 16px;
+  .breadcrumb {
+    font-size: 20px;
     line-height: 24px;
-    max-width: 100%;
   }
 
   /* Project Overview */

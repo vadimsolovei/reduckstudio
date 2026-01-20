@@ -24,25 +24,44 @@ function addKeyboardActivation(element, callback) {
   });
 }
 
-// Header scroll behavior - fixed over hero, then scrolls away
+// Header scroll behavior - fixed over hero, then scrolls away with content
+// Skip on homepage where header should always be absolute and scroll naturally
 function initHeaderScroll() {
+  if (document.body.classList.contains('homepage')) return;
+
   const header = document.querySelector('header');
   const hero = document.querySelector('.hero');
 
   if (!header || !hero) return;
 
+  let frozenTop = null;
+
+  const getOffset = () => {
+    const isMobile = window.innerWidth <= 768;
+    return isMobile ? 24 : window.innerWidth * (24 / 1440);
+  };
+
   const checkScroll = () => {
     const heroBottom = hero.getBoundingClientRect().bottom;
     const headerHeight = header.offsetHeight;
+    const offset = getOffset();
 
-    if (heroBottom <= headerHeight) {
+    if (heroBottom <= headerHeight + offset) {
       if (!header.classList.contains('header-scrolled')) {
-        header.style.top = window.scrollY + 'px';
+        // Calculate the exact scroll position where header should freeze
+        // This is where hero bottom reaches headerHeight + offset from viewport top
+        frozenTop = hero.offsetTop + hero.offsetHeight - headerHeight - offset;
+        header.style.position = 'absolute';
+        header.style.top = frozenTop + 'px';
         header.classList.add('header-scrolled');
       }
     } else {
-      header.classList.remove('header-scrolled');
-      header.style.top = '0';
+      if (header.classList.contains('header-scrolled')) {
+        header.style.position = '';
+        header.style.top = '';
+        header.classList.remove('header-scrolled');
+        frozenTop = null;
+      }
     }
   };
 

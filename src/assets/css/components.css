@@ -23,8 +23,9 @@
 }
 
 .hero {
+  height: var(--space-760);
   padding-top: var(--space-150);
-  margin-bottom: var(--space-150);
+  margin-bottom: var(--space-56);
 }
 
 .hero h1 {

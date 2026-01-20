@@ -112,6 +112,8 @@
   /* ~633.6px */
   --space-720: 50vw;
   /* 720px */
+  --space-760: 52.78vw;
+  /* ~760px */
   --space-1000: 69.44vw;
   /* 1000px */
 
@@ -377,8 +379,9 @@ header {
 }
 
 .hero {
+  height: var(--space-760);
   padding-top: var(--space-150);
-  margin-bottom: var(--space-150);
+  margin-bottom: var(--space-56);
 }
 
 .hero h1 {
@@ -1020,131 +1023,42 @@ header {
 
 /* Product page */
 
-/* Case Study Section */
-
-.case-study {
-  background-color: var(--color-bg-general-primary);
+.productpage .hero {
+  margin-bottom: 0;
+  padding-top: var(--space-120);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.case-study-header {
-  display: flex;
-  align-items: center;
-  padding: var(--space-30) 0;
-  flex-wrap: wrap;
-  gap: var(--space-300);
-}
-
-.back-button {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-  padding: var(--space-18) var(--space-24);
-  border: 1px solid var(--color-action-outline-normal);
-  border-radius: var(--space-30);
-  color: var(--color-content-general-primary);
-  font-size: var(--font-16);
-  line-height: var(--font-20);
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background-color: var(--color-action-secondary-subtile-hover);
-    border-color: var(--color-border-general-secondary);
-  }
-
-  & svg {
-    width: var(--space-20);
-    height: var(--space-20);
-    stroke: var(--color-content-general-primary);
-  }
-}
-
-.case-study-tags {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.case-study-tag {
-  padding: var(--space-18) var(--space-24);
-  background-color: var(--color-bg-general-secondary);
-  border-radius: var(--space-30);
-  font-size: var(--font-16);
-  line-height: var(--font-20);
-  color: var(--color-content-general-primary);
-  white-space: nowrap;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--color-action-success-subtile-hover);
-    color: var(--color-action-success-hover);
-  }
-}
-
-.case-study-content {
-  display: flex;
-  gap: var(--space-270);
-}
-
-.case-study-title {
-  font-size: var(--font-120);
-  line-height: var(--font-120);
-  font-weight: 400;
-  color: var(--color-content-general-primary);
-  margin-bottom: var(--space-40);
-  text-wrap: pretty;
-}
-
-.case-study-info {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-40);
-}
-
-.case-study-link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-
-  & svg {
-    width: var(--space-20);
-    height: var(--space-20);
-
-    & path {
-      stroke: var(--color-content-general-primary);
-    }
-  }
-
-  & a {
-    color: var(--color-content-general-primary);
-    text-decoration: underline;
-    font-size: var(--font-20);
-    line-height: var(--font-24);
-
-    &:hover {
-      color: var(--color-action-primary-hover);
-    }
-  }
-}
-
-.case-study-info .cta-button {
-  margin-left: var(--space-20);
-}
-
-.case-study-description {
+.breadcrumb {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 700;
   font-size: var(--font-20);
-  line-height: var(--space-32);
+  line-height: var(--font-24);
+  margin-bottom: var(--space-16);
+}
+
+.breadcrumb-link,
+.breadcrumb-separator {
   color: var(--color-content-general-primary);
-  max-width: var(--space-720);
+  text-decoration: none;
+}
+
+.breadcrumb-current {
+  color: var(--color-content-general-disabled);
 }
 
 /* Project Overview Section */
 
 .project-overview {
-  padding-top: var(--space-120);
+  padding-top: var(--space-60);
   padding-bottom: var(--space-120);
   background-color: var(--color-bg-general-primary);
+}
+
+.project-overview-main {
+  font-family: "Bebas Neue";
 }
 
 .project-overview-content {
@@ -1158,18 +1072,17 @@ header {
 }
 
 .project-overview-label {
-  font-size: var(--font-24);
-  line-height: var(--font-32);
-  font-weight: 400;
-  color: var(--color-action-outline-hover);
+  font-size: var(--font-20);
+  line-height: var(--font-24);
+  font-weight: 700;
+  color: var(--color-content-general-disabled);
   margin-bottom: var(--space-30);
 }
 
 .project-overview-title {
   margin-bottom: var(--space-60);
-  font-size: var(--font-64);
-  line-height: var(--font-64);
-  font-weight: 400;
+  font-size: var(--font-90);
+  line-height: var(--font-90);
   color: var(--color-content-general-primary);
   max-width: var(--space-1000);
   text-wrap: pretty;
@@ -2277,65 +2190,9 @@ header {
 
   /* PRODUCT PAGE MOBILE STYLES */
 
-  /* Case Study Header */
-  .case-study-header {
-    padding: 20px 0;
-    gap: 20px;
-  }
-
-  .back-button {
-    gap: 8px;
-    padding: 12px 20px;
-    font-size: 14px;
-    line-height: 18px;
-  }
-
-  .back-button svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .case-study-tags {
-    width: 100%;
-  }
-
-  .case-study-tag {
-    padding: 12px 20px;
-    font-size: 14px;
-    line-height: 18px;
-  }
-
-  /* Case Study Content */
-  .case-study-content {
-    flex-direction: column;
-    gap: 115px;
-  }
-
-  .case-study-title {
-    font-size: 48px;
-    line-height: 48px;
-    margin-bottom: 24px;
-  }
-
-  .case-study-info {
-    align-items: flex-start;
-    gap: 24px;
-  }
-
-  .case-study-link svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .case-study-link a {
-    font-size: 16px;
-    line-height: 20px;
-  }
-
-  .case-study-description {
-    font-size: 16px;
+  .breadcrumb {
+    font-size: 20px;
     line-height: 24px;
-    max-width: 100%;
   }
 
   /* Project Overview */
