@@ -50,6 +50,18 @@ bodyClass: productpage
       </div>
       {% endif %}
 
+      {% if block.meta.projectUrl %}
+      <div class="project-meta-row">
+        <h4 class="project-meta-label">{{ block.meta.projectUrl.label }}</h4>
+        <div class="project-meta-content">
+          <a href="{{ block.meta.projectUrl.url }}" class="project-meta-link" target="_blank" rel="noopener noreferrer">
+            {% if block.meta.projectUrl.icon %}{{ block.meta.projectUrl.icon | safe }}{% endif %}
+            <span>{{ block.meta.projectUrl.text | default(block.meta.projectUrl.url) }}</span>
+          </a>
+        </div>
+      </div>
+      {% endif %}
+
       {% if block.meta.services %}
       <div class="project-meta-row">
         <h4 class="project-meta-label">Услуги</h4>
@@ -60,9 +72,49 @@ bodyClass: productpage
         </div>
       </div>
       {% endif %}
+
+      {% if block.meta.projectDevUrl %}
+      <div class="project-meta-row">
+        <h4 class="project-meta-label">{{ block.meta.projectDevUrl.label }}</h4>
+        <div class="project-meta-content">
+          <a href="{{ block.meta.projectDevUrl.url }}" class="project-meta-link" target="_blank" rel="noopener noreferrer">
+            {% if block.meta.projectDevUrl.icon %}{{ block.meta.projectDevUrl.icon | safe }}{% endif %}
+            <span>{{ block.meta.projectDevUrl.text | default(block.meta.projectDevUrl.url) }}</span>
+          </a>
+        </div>
+      </div>
+      {% endif %}
+
     </div>
     {% endif %}
   </div>
+
+  {# Render galleries positioned after this contentBlock #}
+  {% set blockIndex = loop.index0 %}
+  {% for gallery in galleries %}
+  {% if gallery.position == blockIndex %}
+  <div class="project-gallery">
+    {% if gallery.type == "single" %}
+    <div class="project-gallery-single">
+      <img src="{{ gallery.image }}" alt="{{ gallery.alt }}" loading="lazy" />
+    </div>
+    {% elif gallery.type == "grid-4" %}
+    <div class="project-gallery-grid-4">
+      {% for img in gallery.images %}
+      <img src="{{ img.src }}" alt="{{ img.alt }}" loading="lazy" />
+      {% endfor %}
+    </div>
+    {% elif gallery.type == "grid-2" %}
+    <div class="project-gallery-grid-2">
+      {% for img in gallery.images %}
+      <img src="{{ img.src }}" alt="{{ img.alt }}" loading="lazy" />
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+  {% endfor %}
+
   {% endfor %}
 </section>
 

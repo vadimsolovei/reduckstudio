@@ -114,6 +114,8 @@
   /* 720px */
   --space-760: 52.78vw;
   /* ~760px */
+  --space-800: 55.56vw;
+  /* 800px */
   --space-1000: 69.44vw;
   /* 1000px */
 
@@ -1157,7 +1159,7 @@ header {
   width: var(--space-90);
 }
 
-.project-meta-tags {
+.project-meta-content {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
@@ -1182,6 +1184,68 @@ header {
     outline: 2px solid var(--color-action-primary-normal);
     outline-offset: 2px;
   }
+}
+
+.project-meta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-size: var(--font-16);
+  line-height: var(--font-20);
+  color: var(--color-content-general-primary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+
+  & svg {
+    width: var(--space-20);
+    height: var(--space-20);
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-action-primary-normal);
+    outline-offset: 2px;
+  }
+}
+
+/* Image Gallery Blocks */
+
+.project-gallery {
+  margin-bottom: var(--space-20);
+}
+
+.project-gallery-single img {
+  width: 100%;
+  height: var(--space-800);
+  object-fit: cover;
+}
+
+.project-gallery-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-20);
+}
+
+.project-gallery-grid-4 img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.project-gallery-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-20);
+}
+
+.project-gallery-grid-2 img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
 }
 
 /* Client Testimonial Section */
@@ -2266,6 +2330,31 @@ header {
     padding: 12px 20px;
     font-size: 14px;
     line-height: 18px;
+  }
+
+  .project-meta-link {
+    font-size: 14px;
+    line-height: 18px;
+
+    & svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  /* Image Gallery */
+  .project-gallery {
+    margin-bottom: 12px;
+  }
+
+  .project-gallery-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .project-gallery-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   /* Client Testimonial */

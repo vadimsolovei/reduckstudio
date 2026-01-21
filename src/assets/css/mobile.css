@@ -589,6 +589,31 @@
     line-height: 18px;
   }
 
+  .project-meta-link {
+    font-size: 14px;
+    line-height: 18px;
+
+    & svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  /* Image Gallery */
+  .project-gallery {
+    margin-bottom: 12px;
+  }
+
+  .project-gallery-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .project-gallery-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
   /* Client Testimonial */
   .client-testimonial {
     margin-bottom: 60px;
