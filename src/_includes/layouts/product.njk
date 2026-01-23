@@ -139,10 +139,12 @@ bodyClass: productpage
 {% endif %}
 
 {% if navigation %}
-<section class="project-navigation container">
+<section class="project-navigation">
   {% if navigation.prev %}
   <a href="{{ navigation.prev.url }}" class="project-nav-item project-nav-prev">
-    <div class="project-logo"></div>
+    <div class="project-logo">
+      {% if navigation.prev.image %}<img src="{{ navigation.prev.image }}" alt="{{ navigation.prev.title }}" loading="lazy" />{% endif %}
+    </div>
     <div class="project-nav-info">
       <span class="project-nav-label">Предыдущая работа</span>
       <h3 class="project-nav-title">{{ navigation.prev.title }}</h3>
@@ -160,7 +162,9 @@ bodyClass: productpage
       <span class="project-nav-label">Следующая работа</span>
       <h3 class="project-nav-title">{{ navigation.next.title }}</h3>
     </div>
-    <div class="project-logo"></div>
+    <div class="project-logo">
+      {% if navigation.next.image %}<img src="{{ navigation.next.image }}" alt="{{ navigation.next.title }}" loading="lazy" />{% endif %}
+    </div>
   </a>
   {% else %}
   <div class="project-nav-item project-nav-next project-nav-disabled"></div>
