@@ -87,12 +87,25 @@
     margin-right: 0;
   }
 
-  .cta-button:not(.floating) {
+  .cta-button:not(.floating):not(.cta-button--static) {
     left: 32px;
     padding: 32px 0;
     font-size: 24px;
     line-height: 24px;
     width: calc(100% - 64px);
+
+    & svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 24px;
+    }
+  }
+
+  .cta-button--static {
+    padding: 32px 48px;
+    font-size: 24px;
+    line-height: 24px;
+    width: auto;
 
     & svg {
       width: 20px;
@@ -382,8 +395,17 @@
     line-height: 20px;
   }
 
+  .contact-cta-row {
+    flex-direction: column;
+    gap: 32px;
+  }
+
   .contact-cta_footer {
     flex-direction: column;
+    margin-left: 0;
+  }
+
+  .productpage .contact-cta-row .contact-cta_footer {
     margin-left: 0;
   }
 
@@ -659,9 +681,18 @@
   }
 
   .project-nav-item {
-    padding: 40px 0;
+    padding-top: 40px;
+    padding-bottom: 40px;
     width: 100%;
     gap: 20px;
+  }
+
+  .project-nav-prev {
+    padding-left: 20px;
+  }
+
+  .project-nav-next {
+    padding-right: 20px;
   }
 
   .project-logo {

@@ -140,6 +140,26 @@
   }
 }
 
+/* Static CTA row for product pages */
+.contact-cta-row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.cta-button--static {
+  display: none;
+  position: static;
+  flex-shrink: 0;
+}
+
+.productpage .cta-button--static {
+  display: inline-flex;
+}
+
+.productpage .contact-cta-row .contact-cta_footer {
+  margin-left: var(--space-200);
+}
+
 .hero-contact {
   width: var(--space-634);
   margin-left: var(--space-443);
