@@ -29,15 +29,13 @@
   }
 
   /* Background Decorators - show only one on mobile */
-  .bg-decorator--1 {
-    width: 585px;
-    height: 585px;
-    left: -100px;
-    top: -184px;
+  .gradient-bg {
+    --circle-size: 120%;
   }
 
-  .bg-decorator--2 {
-    display: none;
+  .gradient-bg .g3 {
+    left: calc(50% - var(--circle-size) / 2);
+    top: calc(50% - var(--circle-size) / 2);
   }
 
   /* Container */
