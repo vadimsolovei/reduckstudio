@@ -140,6 +140,10 @@ document.addEventListener('DOMContentLoaded', () => {
       setTheme(e.matches ? THEMES.LIGHT : THEMES.DARK);
     }
   });
+
+  // Set initial theme data attribute for CSS-based icon switching
+  const initialTheme = getPreferredTheme();
+  document.documentElement.setAttribute('data-theme', initialTheme);
 });
 
 document.querySelectorAll('.phase-column h5').forEach((el) => {
@@ -470,7 +474,8 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const BOTTOM_OFFSET = 50; // Distance from viewport bottom when floating
+  // Distance from viewport bottom when floating (3.47vw, same as left offset)
+  const getBottomOffset = () => window.innerWidth * 0.0347;
 
   let rafId = null;
   let isFloating = false;
@@ -525,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const smallButtonHeight = cachedSmallButtonHeight;
 
     // Where button wants to be when floating (fixed at bottom of viewport)
-    const floatingPosition = viewportHeight - BOTTOM_OFFSET - smallButtonHeight;
+    const floatingPosition = viewportHeight - getBottomOffset() - smallButtonHeight;
 
     // Check if at top checkpoint (only when page is at the very top)
     if (scrollY === 0) {

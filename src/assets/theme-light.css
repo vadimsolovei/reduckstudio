@@ -63,6 +63,7 @@
   --color-bg-general-secondary-inverted: #404040; /* bw/bw-750 */
   --color-bg-general-tertiary: #e6e6e6; /* bw/bw-100 */
   --color-bg-general-tertiary-inverted: #4d4d4d; /* bw/bw-700 */
+  --color-bg-general-quaternary: rgb(255 255 255 / 25%); /* bw/bw-200 */
 
   /* Bg/Informative */
   --color-bg-informative-strong: #1d70f1; /* blue/blue-500 */
