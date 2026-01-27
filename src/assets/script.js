@@ -636,3 +636,194 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// Logo Animation
+function initLogoAnimation() {
+  const logo = document.querySelector('.logo');
+  const duckContainer = document.querySelector('.logo-duck');
+  const duckImg = document.querySelector('.logo-duck img');
+  const textElements = document.querySelectorAll('.logo-text');
+
+  if (!logo || !duckImg || textElements.length === 0) return;
+
+  const GIFS = {
+    idle: '/assets/images/logo-gifs/idle.png',
+    look: '/assets/images/logo-gifs/look.gif',
+    walkLeft: '/assets/images/logo-gifs/walk-left.gif',
+    walkRight: '/assets/images/logo-gifs/walk-right.gif',
+    turnLeft: '/assets/images/logo-gifs/turn-left.gif',
+    turnRight: '/assets/images/logo-gifs/turn-right.gif',
+    quack: '/assets/images/logo-gifs/quack.gif',
+  };
+
+  const TIMING = {
+    look: 800,
+    turn: 500,
+    quackDuration: 600, // how long quack.gif plays before switching to idle
+    quackInterval: 2 * 60 * 1000, // 2 minutes between quacks
+    lookInterval: 1 * 60 * 1000, // 1 minute between looks
+  };
+
+  function getWalkDuration() {
+    return window.innerWidth <= 768 ? 2000 : 3000;
+  }
+
+  // Preload GIFs
+  Object.values(GIFS).forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+
+  let state = 'idle';
+  let lastScrollY = 0;
+  let animationTimeout = null;
+
+  // Force GIF restart by appending timestamp
+  function setGif(src) {
+    duckImg.src = src + '?t=' + Date.now();
+  }
+
+  // Play quack once then return to idle
+  function playQuack(callback) {
+    if (state !== 'quacking') return;
+    setGif(GIFS.quack);
+    animationTimeout = setTimeout(() => {
+      if (state !== 'quacking') return;
+      duckImg.src = GIFS.idle;
+      if (callback) callback();
+    }, TIMING.quackDuration);
+  }
+
+  // Play look once then return to idle
+  function playLook(callback) {
+    if (state !== 'quacking') return;
+    setGif(GIFS.look);
+    animationTimeout = setTimeout(() => {
+      if (state !== 'quacking') return;
+      duckImg.src = GIFS.idle;
+      if (callback) callback();
+    }, TIMING.look);
+  }
+
+  // Sequential cycle: quack → 2min → quack → 1min → look → repeat
+  function runAnimationCycle() {
+    if (state !== 'quacking') return;
+
+    // Step 1: quack
+    playQuack(() => {
+      // Step 2: wait 2 min, then quack again
+      animationTimeout = setTimeout(() => {
+        playQuack(() => {
+          // Step 3: wait 1 min, then look
+          animationTimeout = setTimeout(() => {
+            playLook(() => {
+              // Step 4: restart cycle
+              runAnimationCycle();
+            });
+          }, TIMING.lookInterval);
+        });
+      }, TIMING.quackInterval);
+    });
+  }
+
+  function startQuacking() {
+    runAnimationCycle();
+  }
+
+  function stopQuacking() {
+    if (animationTimeout) {
+      clearTimeout(animationTimeout);
+      animationTimeout = null;
+    }
+  }
+
+  function transitionToQuacking() {
+    if (state !== 'idle') return;
+    state = 'transitioning';
+
+    // 1. Fade out text
+    textElements.forEach((el) => el.classList.add('hidden'));
+
+    // 2. Turn left (after text fade)
+    setTimeout(() => {
+      setGif(GIFS.turnLeft);
+
+      // 3. Walk left (after turn)
+      setTimeout(() => {
+        setGif(GIFS.walkLeft);
+        duckContainer.classList.add('walking-left');
+
+        // 4. Turn right (after walk)
+        setTimeout(() => {
+          setGif(GIFS.turnRight);
+
+          // 5. Set idle briefly to prevent turn-right loop glitch
+          setTimeout(() => {
+            duckImg.src = GIFS.idle;
+            state = 'quacking';
+            startQuacking();
+          }, TIMING.turn);
+        }, getWalkDuration());
+      }, TIMING.turn);
+    }, 200);
+  }
+
+  function transitionToIdle() {
+    if (state !== 'quacking') return;
+    state = 'transitioning';
+    stopQuacking();
+
+    // 1. Walk right back to origin
+    setGif(GIFS.walkRight);
+    duckContainer.classList.remove('walking-left');
+
+    // 2. Return to idle, show text
+    setTimeout(() => {
+      duckImg.src = GIFS.idle;
+      textElements.forEach((el) => el.classList.remove('hidden'));
+      state = 'idle';
+    }, getWalkDuration());
+  }
+
+  // Check reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    // Simplified behavior for reduced motion: instant state changes
+    window.addEventListener(
+      'scroll',
+      () => {
+        const scrollY = window.scrollY;
+        if (scrollY > 0 && state === 'idle') {
+          textElements.forEach((el) => el.classList.add('hidden'));
+          duckContainer.classList.add('walking-left');
+          setGif(GIFS.quack);
+          state = 'quacking';
+        } else if (scrollY === 0 && state === 'quacking') {
+          stopQuacking();
+          textElements.forEach((el) => el.classList.remove('hidden'));
+          duckContainer.classList.remove('walking-left');
+          duckImg.src = GIFS.idle;
+          state = 'idle';
+        }
+      },
+      { passive: true }
+    );
+  } else {
+    window.addEventListener(
+      'scroll',
+      () => {
+        const scrollY = window.scrollY;
+        if (scrollY > 0 && lastScrollY === 0) {
+          transitionToQuacking();
+        } else if (scrollY === 0 && lastScrollY > 0) {
+          transitionToIdle();
+        }
+        lastScrollY = scrollY;
+      },
+      { passive: true }
+    );
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initLogoAnimation);

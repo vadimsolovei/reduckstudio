@@ -4,7 +4,17 @@ bodyClass: productpage
 ---
 
 {% if hero %}
-<section class="hero container"{% if hero.bgImage %} style="background-image: url('{{ hero.bgImage }}')"{% endif %}>
+<section
+  class="hero container"
+  {%
+  if
+  hero.bgImage
+  %}
+  style="background-image: url('{{ hero.bgImage }}')"
+  {%
+  endif
+  %}
+>
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="/#projects" class="breadcrumb-link">works</a>
     <span class="breadcrumb-separator">/</span>
@@ -29,8 +39,7 @@ bodyClass: productpage
       <ul class="project-overview-list">
         {% if block.listTitle %}
         <h4 class="project-overview-list_title">{{ block.listTitle }}</h4>
-        {% endif %}
-        {% for item in block.items %}
+        {% endif %} {% for item in block.items %}
         <li>{{ item }}</li>
         {% endfor %}
       </ul>
@@ -48,21 +57,22 @@ bodyClass: productpage
           {% endfor %}
         </div>
       </div>
-      {% endif %}
-
-      {% if block.meta.projectUrl %}
+      {% endif %} {% if block.meta.projectUrl %}
       <div class="project-meta-row">
         <h4 class="project-meta-label">{{ block.meta.projectUrl.label }}</h4>
         <div class="project-meta-content">
-          <a href="{{ block.meta.projectUrl.url }}" class="project-meta-link" target="_blank" rel="noopener noreferrer">
+          <a
+            href="{{ block.meta.projectUrl.url }}"
+            class="project-meta-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {% if block.meta.projectUrl.icon %}{{ block.meta.projectUrl.icon | safe }}{% endif %}
             <span>{{ block.meta.projectUrl.text | default(block.meta.projectUrl.url) }}</span>
           </a>
         </div>
       </div>
-      {% endif %}
-
-      {% if block.meta.services %}
+      {% endif %} {% if block.meta.services %}
       <div class="project-meta-row">
         <h4 class="project-meta-label">Услуги</h4>
         <div class="project-meta-tags">
@@ -71,28 +81,29 @@ bodyClass: productpage
           {% endfor %}
         </div>
       </div>
-      {% endif %}
-
-      {% if block.meta.projectDevUrl %}
+      {% endif %} {% if block.meta.projectDevUrl %}
       <div class="project-meta-row">
         <h4 class="project-meta-label">{{ block.meta.projectDevUrl.label }}</h4>
         <div class="project-meta-content">
-          <a href="{{ block.meta.projectDevUrl.url }}" class="project-meta-link" target="_blank" rel="noopener noreferrer">
-            {% if block.meta.projectDevUrl.icon %}{{ block.meta.projectDevUrl.icon | safe }}{% endif %}
+          <a
+            href="{{ block.meta.projectDevUrl.url }}"
+            class="project-meta-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {% if block.meta.projectDevUrl.icon %}{{ block.meta.projectDevUrl.icon | safe }}{% endif
+            %}
             <span>{{ block.meta.projectDevUrl.text | default(block.meta.projectDevUrl.url) }}</span>
           </a>
         </div>
       </div>
       {% endif %}
-
     </div>
     {% endif %}
   </div>
 
-  {# Render galleries positioned after this contentBlock #}
-  {% set blockIndex = loop.index0 %}
-  {% for gallery in galleries %}
-  {% if gallery.position == blockIndex %}
+  {# Render galleries positioned after this contentBlock #} {% set blockIndex = loop.index0 %} {%
+  for gallery in galleries %} {% if gallery.position == blockIndex %}
   <div class="project-gallery">
     {% if gallery.type == "single" %}
     <div class="project-gallery-single">
@@ -112,17 +123,13 @@ bodyClass: productpage
     </div>
     {% endif %}
   </div>
-  {% endif %}
-  {% endfor %}
-
-  {% endfor %}
+  {% endif %} {% endfor %} {% endfor %}
 </section>
 
 {% if testimonial %}
 <section class="client-testimonial container">
   <p class="testimonial-label">От клиента:</p>
   <div class="testimonial-content">
-
     <blockquote class="testimonial-quote">{{ testimonial.quote }}</blockquote>
 
     <div class="testimonial-author">
@@ -136,14 +143,16 @@ bodyClass: productpage
     </div>
   </div>
 </section>
-{% endif %}
-
-{% if navigation %}
+{% endif %} {% if navigation %}
 <section class="project-navigation">
   {% if navigation.prev %}
   <a href="{{ navigation.prev.url }}" class="project-nav-item project-nav-prev">
     <div class="project-logo">
-      {% if navigation.prev.image %}<img src="{{ navigation.prev.image }}" alt="{{ navigation.prev.title }}" loading="lazy" />{% endif %}
+      {% if navigation.prev.image %}<img
+        src="{{ navigation.prev.image }}"
+        alt="{{ navigation.prev.title }}"
+        loading="lazy"
+      />{% endif %}
     </div>
     <div class="project-nav-info">
       <span class="project-nav-label">Предыдущая работа</span>
@@ -163,13 +172,15 @@ bodyClass: productpage
       <h3 class="project-nav-title">{{ navigation.next.title }}</h3>
     </div>
     <div class="project-logo">
-      {% if navigation.next.image %}<img src="{{ navigation.next.image }}" alt="{{ navigation.next.title }}" loading="lazy" />{% endif %}
+      {% if navigation.next.image %}<img
+        src="{{ navigation.next.image }}"
+        alt="{{ navigation.next.title }}"
+        loading="lazy"
+      />{% endif %}
     </div>
   </a>
   {% else %}
   <div class="project-nav-item project-nav-next project-nav-disabled"></div>
   {% endif %}
 </section>
-{% endif %}
-
-{% include "components/contact-section.njk" %}
+{% endif %} {% include "components/contact-section.njk" %}

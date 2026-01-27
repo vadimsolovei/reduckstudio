@@ -51,8 +51,23 @@
     gap: 16px;
   }
 
-  .logo img {
-    width: 160px;
+  .logo {
+    height: 40px;
+  }
+
+  .logo-text {
+    height: 17px;
+  }
+
+  .logo-duck {
+    transition: transform 2000ms ease-out;
+  }
+
+  .logo-duck.walking-left {
+    transform: translateX(-57px);
+  }
+
+  .logo-duck img {
     height: 40px;
   }
 

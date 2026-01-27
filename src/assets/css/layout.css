@@ -30,9 +30,46 @@ header {
   position: absolute;
 }
 
-.logo img {
-  width: var(--space-160);
+.logo {
+  display: flex;
+  align-items: center;
+  position: relative;
   height: var(--space-40);
+}
+
+.logo-text {
+  height: var(--space-17);
+  width: auto;
+  color: var(--color-content-general-primary);
+  transition: opacity 200ms ease-out;
+}
+
+.logo-text.hidden {
+  opacity: 0;
+}
+
+.logo-text--studio {
+  opacity: 0.55;
+}
+
+.logo-text--studio.hidden {
+  opacity: 0;
+}
+
+.logo-duck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 3000ms ease-out;
+}
+
+.logo-duck.walking-left {
+  transform: translateX(calc(-1 * (var(--space-100))));
+}
+
+.logo-duck img {
+  height: var(--space-40);
+  width: auto;
 }
 
 /* Screen reader only */
@@ -117,7 +154,9 @@ header {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .theme-icon {
+  .theme-icon,
+  .logo-text,
+  .logo-duck {
     transition: none;
   }
 }
