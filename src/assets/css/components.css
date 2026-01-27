@@ -709,6 +709,14 @@
   pointer-events: none;
 }
 
+.cta-checkpoint_bottom-mobile {
+  display: none;
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .contact-methods {
   display: flex;
   flex-direction: column;

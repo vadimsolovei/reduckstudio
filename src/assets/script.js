@@ -467,9 +467,15 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const fixedCta = document.querySelector('.cta-button');
   const topCheckpoint = document.querySelector('.cta-checkpoint_top');
-  const bottomCheckpoint = document.querySelector('.cta-checkpoint_bottom');
+  const bottomCheckpointDesktop = document.querySelector('.cta-checkpoint_bottom');
+  const bottomCheckpointMobile = document.querySelector('.cta-checkpoint_bottom-mobile');
 
-  if (!fixedCta || !topCheckpoint || !bottomCheckpoint) {
+  const getBottomCheckpoint = () =>
+    window.innerWidth <= 768 && bottomCheckpointMobile
+      ? bottomCheckpointMobile
+      : bottomCheckpointDesktop;
+
+  if (!fixedCta || !topCheckpoint || !bottomCheckpointDesktop) {
     console.log('Missing required elements for CTA scroll');
     return;
   }
@@ -489,6 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewportHeight = window.innerHeight;
 
     const topRect = topCheckpoint.getBoundingClientRect();
+    const bottomCheckpoint = getBottomCheckpoint();
     const bottomRect = bottomCheckpoint.getBoundingClientRect();
 
     // Get checkpoint positions
