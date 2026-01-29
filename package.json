@@ -6,6 +6,7 @@
     "css:build": "postcss src/assets/styles.css --output src/assets/styles.compiled.css",
     "css:build:prod": "NODE_ENV=production postcss src/assets/styles.css --output src/assets/styles.compiled.css",
     "css:watch": "postcss src/assets/styles.css --output src/assets/styles.compiled.css --watch",
+    "css:wp": "npm run css:build && node -e \"const fs=require('fs'); const header=fs.readFileSync('wp-content/themes/reduck-theme/style.css','utf8').split('*/')[0]+'*/\\n\\n'; const css=fs.readFileSync('src/assets/styles.compiled.css','utf8'); fs.writeFileSync('wp-content/themes/reduck-theme/style.css',header+css);\"",
     "dev": "npm run css:build && (npm run css:watch & eleventy --serve --watch)",
     "build": "npm run css:build && eleventy",
     "build:prod": "npm run css:build:prod && eleventy --output=dist",

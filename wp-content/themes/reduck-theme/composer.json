@@ -1,0 +1,17 @@
+{
+    "name": "reduck/reduck-theme",
+    "description": "WordPress theme for Reduck Studio",
+    "type": "wordpress-theme",
+    "require": {
+        "php": ">=8.0",
+        "htmlburger/carbon-fields": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Reduck\\": "inc/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

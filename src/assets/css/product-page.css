@@ -75,12 +75,9 @@
   color: var(--color-content-general-primary);
   max-width: var(--space-634);
   align-self: center;
-
-  & p {
-    font-size: var(--font-20);
-    line-height: var(--space-32);
-    margin-bottom: var(--space-30);
-  }
+  font-size: var(--font-20);
+  line-height: var(--space-32);
+  margin-bottom: var(--space-30);
 }
 
 .project-overview-list {

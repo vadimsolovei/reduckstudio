@@ -1,0 +1,95 @@
+<?php
+$telegram_url = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_url') : 'https://t.me/kristijanbinski';
+$telegram_name = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_name') : 'Kristijan Binski';
+$telegram_handle = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_handle') : '@kristijanbinski';
+$contact_email = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('contact_email') : 'hello@reduck.studio';
+$contact_phone = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('contact_phone') : '+ 373 022 235-334';
+
+$email_parts = explode('@', $contact_email);
+?>
+<section class="contact-section container">
+  <div class="statement">
+    <h2>
+      <?php esc_html_e('Have a project?', 'reduck-theme'); ?> <em><br /><?php esc_html_e("Let's talk.", 'reduck-theme'); ?></em>
+    </h2>
+    <div class="contact-status">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#0FB654" stroke="#0FB654" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 16L16 12L12 8" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 12H16" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span><?php esc_html_e('Ready for new projects', 'reduck-theme'); ?></span>
+    </div>
+  </div>
+
+  <div class="cta-checkpoint_bottom"></div>
+
+  <div class="contact-cta-row">
+    <button class="cta-button cta-button--static">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_cta_static)">
+          <path d="M20.24 12.24C21.3658 11.1142 21.9983 9.58722 21.9983 7.99504C21.9983 6.40285 21.3658 4.87588 20.24 3.75004C19.1142 2.62419 17.5872 1.9917 15.995 1.9917C14.4028 1.9917 12.8758 2.62419 11.75 3.75004L5 10.5V19H13.5L20.24 12.24Z" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 8L2 22" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17.5 15H9" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_cta_static">
+            <rect width="24" height="24" fill="white"/>
+          </clipPath>
+        </defs>
+      </svg>
+      <span><?php esc_html_e('Leave a', 'reduck-theme'); ?><br /><?php esc_html_e('request', 'reduck-theme'); ?></span>
+    </button>
+
+    <div class="contact-cta_footer">
+      <div class="contact-methods">
+        <div class="contact-method">
+          <h3><?php esc_html_e("Let's chat on Telegram", 'reduck-theme'); ?></h3>
+          <a href="<?php echo esc_url($telegram_url); ?>" class="telegram-contact" target="_blank" rel="noopener noreferrer">
+            <img src="<?php echo esc_url(REDUCK_THEME_URI . '/assets/images/avatar.png'); ?>" alt="<?php echo esc_attr($telegram_name); ?>" />
+            <div class="contact-details">
+              <h4><?php echo esc_html($telegram_name); ?></h4>
+              <p><?php echo esc_html($telegram_handle); ?></p>
+            </div>
+            <div class="telegram-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.66667 10.5752L14.1583 17.1669C14.2449 17.2435 14.3499 17.2963 14.4631 17.3201C14.5763 17.3439 14.6937 17.3378 14.8038 17.3025C14.9139 17.2672 15.0129 17.2039 15.0912 17.1187C15.1694 17.0336 15.2241 16.9296 15.25 16.8169L18.3833 3.13352C18.4096 3.01568 18.4034 2.89291 18.3653 2.77833C18.3273 2.66375 18.2588 2.56165 18.1673 2.48294C18.0757 2.40423 17.9645 2.35185 17.8455 2.33141C17.7266 2.31096 17.6042 2.32321 17.4917 2.36685L2.10834 8.40852C1.49167 8.65019 1.57501 9.55019 2.22501 9.68352L6.66667 10.5752Z" stroke="var(--color-content-general-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.66675 10.575L18.0084 2.3833" stroke="var(--color-content-general-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.4084 13.8669L7.80841 16.4669C7.71566 16.5611 7.59699 16.6255 7.4675 16.6521C7.33801 16.6787 7.20353 16.6662 7.08117 16.6162C6.9588 16.5662 6.85407 16.4809 6.78028 16.3712C6.70649 16.2615 6.66697 16.1324 6.66675 16.0002V10.5752" stroke="var(--color-content-general-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+
+        <div class="contact-options">
+          <div class="contact-option">
+            <h4><?php esc_html_e('Call us', 'reduck-theme'); ?></h4>
+            <div class="contact-link">
+              <div class="contact-link__icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.3333 14.0999V16.5999C18.3343 16.832 18.2867 17.0617 18.1937 17.2744C18.1008 17.487 17.9644 17.6779 17.7934 17.8348C17.6224 17.9917 17.4205 18.1112 17.2006 18.1855C16.9808 18.2599 16.7478 18.2875 16.5167 18.2666C13.9523 17.988 11.4892 17.1117 9.32498 15.7083C7.31151 14.4288 5.60443 12.7217 4.32499 10.7083C2.91663 8.53426 2.04019 6.05908 1.76665 3.48325C1.74583 3.25281 1.77321 3.02055 1.84707 2.80127C1.92092 2.58199 2.03963 2.38049 2.19562 2.2096C2.35162 2.03871 2.54149 1.90218 2.75314 1.80869C2.9648 1.7152 3.1936 1.6668 3.42499 1.66658H5.92499C6.32941 1.6626 6.72148 1.80582 7.02812 2.06953C7.33476 2.33324 7.53505 2.69946 7.59165 3.09992C7.69717 3.89997 7.89286 4.68552 8.17499 5.44158C8.2871 5.73985 8.31137 6.06401 8.24491 6.37565C8.17844 6.68729 8.02404 6.97334 7.79998 7.19992L6.74165 8.25825C7.92795 10.3445 9.65536 12.072 11.7417 13.2583L12.8 12.1999C13.0266 11.9759 13.3126 11.8215 13.6243 11.755C13.9359 11.6885 14.26 11.7128 14.5583 11.8249C15.3144 12.107 16.0999 12.3027 16.9 12.4083C17.3048 12.4654 17.6745 12.6693 17.9388 12.9812C18.203 13.2931 18.3435 13.6912 18.3333 14.0999Z" stroke="var(--color-content-general-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span><?php echo esc_html($contact_phone); ?></span>
+            </div>
+          </div>
+
+          <div class="contact-option">
+            <h4><?php esc_html_e('Email us', 'reduck-theme'); ?></h4>
+            <div class="contact-link">
+              <div class="contact-link__icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.33341 3.3335H16.6667C17.5834 3.3335 18.3334 4.0835 18.3334 5.00016V15.0002C18.3334 15.9168 17.5834 16.6668 16.6667 16.6668H3.33341C2.41675 16.6668 1.66675 15.9168 1.66675 15.0002V5.00016C1.66675 4.0835 2.41675 3.3335 3.33341 3.3335Z" stroke="var(--color-content-general-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M18.3334 5L10.0001 10.8333L1.66675 5" stroke="var(--color-content-general-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span><?php echo esc_html($email_parts[0]); ?><em>@<?php echo esc_html($email_parts[1] ?? ''); ?></em></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-checkpoint_bottom-mobile"></div>
+</section>

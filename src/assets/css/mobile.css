@@ -587,9 +587,6 @@
 
   .project-overview-description {
     max-width: 100%;
-  }
-
-  .project-overview-description p {
     font-size: 16px;
     line-height: 24px;
     margin-bottom: 20px;
