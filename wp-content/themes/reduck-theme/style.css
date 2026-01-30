@@ -15,7 +15,7 @@ Text Domain: reduck-theme
 
 @font-face {
   font-family: "Bebas Neue";
-  src: url("/assets/fonts/BebasNeue/BebasNeue-Bold.otf") format("opentype");
+  src: url("assets/fonts/BebasNeue/BebasNeue-Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
