@@ -32,14 +32,13 @@
   <div class="nav-buttons">
     <?php if (function_exists('pll_the_languages')) :
       $languages = pll_the_languages(['raw' => 1]);
-      foreach ($languages as $lang) : ?>
-        <a href="<?php echo esc_url($lang['url']); ?>" class="nav-button<?php echo $lang['current_lang'] ? ' current-lang' : ''; ?>" lang="<?php echo esc_attr($lang['slug']); ?>">
+      foreach ($languages as $lang) :
+        if ($lang['current_lang']) continue; ?>
+        <a href="<?php echo esc_url($lang['url']); ?>" class="nav-button" lang="<?php echo esc_attr($lang['slug']); ?>">
           <?php echo esc_html(strtoupper($lang['slug'])); ?>
         </a>
       <?php endforeach;
-    else : ?>
-    <button class="nav-button">Ru</button>
-    <?php endif; ?>
+    endif; ?>
     <button id="theme-switcher" class="nav-button" aria-label="<?php esc_attr_e('Toggle theme', 'reduck-theme'); ?>">
       <span class="sr-only"><?php esc_html_e('Switch between light and dark theme', 'reduck-theme'); ?></span>
       <div class="theme-icons">

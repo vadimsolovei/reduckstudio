@@ -101,6 +101,7 @@ header {
   line-height: var(--font-24);
   font-family: "Bebas Neue", sans-serif;
   color: var(--color-content-general-primary);
+  text-decoration: none;
 
   & svg {
     width: var(--space-16);

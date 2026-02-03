@@ -65,15 +65,17 @@ function reduck_register_carbon_fields() {
         ]);
 
     // Homepage Fields
-    Container::make('post_meta', __('Homepage Settings', 'reduck-theme'))
-        ->where('post_type', '=', 'page')
-        ->where('post_template', '=', 'front-page.php')
-        ->or_where(function ($condition) {
-            $front_page_id = get_option('page_on_front');
-            if ($front_page_id) {
-                $condition->where('post_id', '=', $front_page_id);
-            }
-        })
+    $front_page_id = get_option('page_on_front');
+    $homepage_container = Container::make('post_meta', __('Homepage Settings', 'reduck-theme'))
+        ->where('post_type', '=', 'page');
+
+    if ($front_page_id) {
+        $homepage_container->where('post_id', '=', $front_page_id);
+    } else {
+        $homepage_container->where('post_template', '=', 'front-page.php');
+    }
+
+    $homepage_container
         ->add_tab(__('Hero', 'reduck-theme'), [
             Field::make('rich_text', 'hero_title', __('Hero Title', 'reduck-theme'))
                 ->set_help_text('Use <em> tags for disabled color text'),
@@ -217,8 +219,6 @@ function reduck_register_carbon_fields() {
         ->where('post_type', '=', 'project')
         ->set_context('side')
         ->add_fields([
-            Field::make('text', 'card_metric', __('Card Metric', 'reduck-theme'))
-                ->set_help_text('e.g., "+30% конверсия"'),
             Field::make('textarea', 'card_description', __('Card Description', 'reduck-theme'))
                 ->set_help_text('Short description for homepage card'),
             Field::make('complex', 'card_tags', __('Card Tags', 'reduck-theme'))
