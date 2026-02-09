@@ -28,14 +28,24 @@
     font-size: 16px;
   }
 
-  /* Background Decorators - show only one on mobile */
+  /* Background Decorators - keep only g1 on mobile */
   .gradient-bg {
-    --circle-size: 120%;
+    --circle-size: 100%;
   }
 
-  .gradient-bg .g3 {
-    left: calc(50% - var(--circle-size) / 2);
-    top: calc(50% - var(--circle-size) / 2);
+  .gradient-bg .g2,
+  .gradient-bg .g3,
+  .gradient-bg .g4,
+  .gradient-bg .g5 {
+    display: none;
+  }
+
+  .gradient-bg .gradients-container {
+    filter: blur(30px);
+  }
+
+  .gradient-bg .noise-bg {
+    display: none;
   }
 
   /* Container */

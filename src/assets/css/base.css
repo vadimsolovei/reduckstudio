@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Bebas Neue";
-  src: url("assets/fonts/BebasNeue/BebasNeue-Bold.otf") format("opentype");
+  src: url("fonts/BebasNeue/BebasNeue-Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -176,10 +176,25 @@
 * {
   margin: 0;
   padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+em,
+button,
+li,
+label {
   transition:
     color 0.2s ease,
-    background-color 0.2s ease,
-    stroke 0.2s ease;
+    background-color 0.2s ease;
 }
 
 @media (prefers-reduced-motion: no-preference) {

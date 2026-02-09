@@ -191,10 +191,25 @@ Text Domain: reduck-theme
 * {
   margin: 0;
   padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+em,
+button,
+li,
+label {
   transition:
     color 0.2s ease,
-    background-color 0.2s ease,
-    stroke 0.2s ease;
+    background-color 0.2s ease;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -477,7 +492,6 @@ header {
   --color4: 50, 140, 244;
   --color5: 80, 90, 200;
   --circle-size: 80%;
-  --blending: hard-light;
 
   position: fixed;
   width: 100vw;
@@ -488,10 +502,6 @@ header {
   pointer-events: none;
   z-index: -1;
   opacity: 0.3;
-}
-
-.gradient-bg .svg-blur {
-  display: none;
 }
 
 .gradient-bg .noise-bg {
@@ -506,9 +516,18 @@ header {
 }
 
 .gradient-bg .gradients-container {
-  filter: url(#goo) blur(150px);
+  filter: blur(40px);
   width: 100%;
   height: 100%;
+  contain: strict;
+}
+
+.gradient-bg .g1,
+.gradient-bg .g2,
+.gradient-bg .g3,
+.gradient-bg .g4,
+.gradient-bg .g5 {
+  will-change: transform;
 }
 
 @keyframes moveInCircle {
@@ -555,7 +574,6 @@ header {
       rgba(var(--color1), 0) 50%
     )
     no-repeat;
-  mix-blend-mode: var(--blending);
   width: var(--circle-size);
   height: var(--circle-size);
   top: calc(50% - var(--circle-size) / 2);
@@ -573,7 +591,6 @@ header {
       rgba(var(--color2), 0) 50%
     )
     no-repeat;
-  mix-blend-mode: var(--blending);
   width: var(--circle-size);
   height: var(--circle-size);
   top: calc(50% - var(--circle-size) / 2);
@@ -591,7 +608,6 @@ header {
       rgba(var(--color3), 0) 50%
     )
     no-repeat;
-  mix-blend-mode: var(--blending);
   width: var(--circle-size);
   height: var(--circle-size);
   top: calc(50% - var(--circle-size) / 2 + 200px);
@@ -609,7 +625,6 @@ header {
       rgba(var(--color4), 0) 50%
     )
     no-repeat;
-  mix-blend-mode: var(--blending);
   width: var(--circle-size);
   height: var(--circle-size);
   top: calc(50% - var(--circle-size) / 2);
@@ -627,7 +642,6 @@ header {
       rgba(var(--color5), 0) 50%
     )
     no-repeat;
-  mix-blend-mode: var(--blending);
   width: calc(var(--circle-size) * 2);
   height: calc(var(--circle-size) * 2);
   top: calc(50% - var(--circle-size));
@@ -648,7 +662,6 @@ header {
 }
 
 .hero {
-  height: var(--space-760);
   padding-top: var(--space-150);
   margin-bottom: var(--space-56);
 }
@@ -727,7 +740,6 @@ header {
     transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
     top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: top, bottom, padding, font-size;
 }
 
 .cta-button:hover {
@@ -2103,14 +2115,24 @@ header {
     font-size: 16px;
   }
 
-  /* Background Decorators - show only one on mobile */
+  /* Background Decorators - keep only g1 on mobile */
   .gradient-bg {
-    --circle-size: 120%;
+    --circle-size: 100%;
   }
 
-  .gradient-bg .g3 {
-    left: calc(50% - var(--circle-size) / 2);
-    top: calc(50% - var(--circle-size) / 2);
+  .gradient-bg .g2,
+  .gradient-bg .g3,
+  .gradient-bg .g4,
+  .gradient-bg .g5 {
+    display: none;
+  }
+
+  .gradient-bg .gradients-container {
+    filter: blur(30px);
+  }
+
+  .gradient-bg .noise-bg {
+    display: none;
   }
 
   /* Container */
