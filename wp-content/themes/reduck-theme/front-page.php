@@ -11,7 +11,7 @@ get_header();
 // Get homepage fields
 $hero_title = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('hero_title') : '';
 $hero_description = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('hero_description') : '';
-$projects_title = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('projects_title') : 'Цифровые продукты и впечатления';
+$projects_title = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('projects_title') : '';
 $featured_projects = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('featured_projects') : [];
 $services_title = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('services_title') : '';
 $services_image_id = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('services_image') : 0;
@@ -19,16 +19,9 @@ $services_categories = function_exists('carbon_get_the_post_meta') ? carbon_get_
 $process_title = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('process_title') : '';
 $process_phases = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('process_phases') : [];
 
-// Default hero if not set
-if (empty($hero_title)) {
-    $hero_title = '<em>Сайты и бренды, которые</em> помогают росту бизнеса';
-}
-if (empty($hero_description)) {
-    $hero_description = 'Мы создаем цифровые продукты, которые привлекают аудиторию и способствуют росту бизнеса.';
-}
 
 // Get Telegram info
-$telegram_url = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_url') : 'https://t.me/kristijanbinski';
+$telegram_url = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_url') : '';
 ?>
 
 <section class="hero container">
@@ -98,10 +91,11 @@ $telegram_url = function_exists('carbon_get_theme_option') ? carbon_get_theme_op
   </div>
 </section>
 
+<?php if (!empty($services_title) || !empty($services_categories)) : ?>
 <section class="services container container-with_gradient">
   <div class="services-content">
     <div class="statement">
-      <h2><?php echo wp_kses_post($services_title ?: 'Все что мы делаем помогает <em>вам расти</em>'); ?></h2>
+      <h2><?php echo wp_kses_post($services_title); ?></h2>
       <div class="statement-icon">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M30.6693 8L18.0026 20.6667L11.3359 14L1.33594 24" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -113,13 +107,10 @@ $telegram_url = function_exists('carbon_get_theme_option') ? carbon_get_theme_op
       <div class="services-image">
         <?php if ($services_image_id) : ?>
         <img src="<?php echo esc_url(wp_get_attachment_image_url($services_image_id, 'large')); ?>" alt="<?php esc_attr_e('Product Design', 'reduck-theme'); ?>" loading="lazy" decoding="async" />
-        <?php else : ?>
-        <img src="<?php echo esc_url(REDUCK_THEME_URI . '/assets/images/product-grow.png'); ?>" alt="<?php esc_attr_e('Product Design', 'reduck-theme'); ?>" loading="lazy" decoding="async" />
         <?php endif; ?>
       </div>
       <div class="services-categories">
-        <?php if (!empty($services_categories)) : ?>
-          <?php foreach ($services_categories as $category) : ?>
+        <?php foreach ($services_categories as $category) : ?>
           <div class="services-category">
             <h3 class="category-title"><?php echo esc_html($category['title']); ?></h3>
             <?php if (!empty($category['tags'])) : ?>
@@ -130,52 +121,27 @@ $telegram_url = function_exists('carbon_get_theme_option') ? carbon_get_theme_op
             </div>
             <?php endif; ?>
           </div>
-          <?php endforeach; ?>
-        <?php else : ?>
-          <div class="services-category">
-            <h3 class="category-title">Product Design</h3>
-            <div class="services-tags">
-              <span class="service-tag">UX</span>
-              <span class="service-tag">UI</span>
-              <span class="service-tag">Design systems</span>
-              <span class="service-tag">Prototype</span>
-              <span class="service-tag">Strategy</span>
-              <span class="service-tag">Mobile apps</span>
-              <span class="service-tag">Execution</span>
-              <span class="service-tag">3D</span>
-            </div>
-          </div>
-          <div class="services-category">
-            <h3 class="category-title">Branding</h3>
-            <div class="services-tags">
-              <span class="service-tag">Brand and Communication</span>
-              <span class="service-tag">Marketing</span>
-              <span class="service-tag">Logo Design</span>
-            </div>
-          </div>
-          <div class="services-category">
-            <h3 class="category-title">Development</h3>
-            <div class="services-tags">
-              <span class="service-tag">Frontend</span>
-              <span class="service-tag">Backend</span>
-            </div>
-          </div>
-        <?php endif; ?>
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
 </section>
+<?php endif; ?>
 
+<?php if (!empty($process_title) || !empty($process_phases)) : ?>
 <section class="process container container-with_gradient">
   <div class="statement">
-    <h2><?php echo wp_kses_post($process_title ?: 'понятные <em>этапы разработки</em> и сроки сдачи'); ?></h2>
+    <h2><?php echo wp_kses_post($process_title); ?></h2>
   </div>
 
   <div class="breakdown-phases">
-    <?php if (!empty($process_phases)) : ?>
-      <?php foreach ($process_phases as $index => $phase) : ?>
+    <?php foreach ($process_phases as $index => $phase) : ?>
       <div class="phase-column">
-        <div class="phase-column__icon"></div>
+        <?php if (!empty($phase['icon'])) : ?>
+        <div class="phase-column__icon">
+          <?php echo reduck_get_phase_icon($phase['icon']); ?>
+        </div>
+        <?php endif; ?>
         <div class="phase-column__title">
           <span class="phase-number"><?php echo esc_html(str_pad($index + 1, 2, '0', STR_PAD_LEFT)); ?></span>
           <h5><?php echo esc_html($phase['title']); ?></h5>
@@ -200,65 +166,10 @@ $telegram_url = function_exists('carbon_get_theme_option') ? carbon_get_theme_op
         </div>
         <?php endif; ?>
       </div>
-      <?php endforeach; ?>
-    <?php else : ?>
-      <div class="phase-column">
-        <div class="phase-column__icon"></div>
-        <div class="phase-column__title">
-          <span class="phase-number">01</span>
-          <h5>Разбираемся в задаче</h5>
-        </div>
-        <p class="phase-description">Определяем ключевые метрики и показатели на которые хотим повлиять. Формируем ТЗ.</p>
-        <div class="phase-steps">
-          <div class="phase-step__item"><span class="phase-step__number">1</span><span class="phase-step__text">Strategy Workshop</span></div>
-          <div class="phase-step__item"><span class="phase-step__number">2</span><span class="phase-step__text">Idea Validation</span></div>
-          <div class="phase-step__item"><span class="phase-step__number">3</span><span class="phase-step__text">Market Research</span></div>
-          <div class="phase-step__item"><span class="phase-step__number">4</span><span class="phase-step__text">Product Positioning</span></div>
-          <div class="phase-step__item"><span class="phase-step__number">5</span><span class="phase-step__text">UX Research</span></div>
-          <div class="phase-step__item"><span class="phase-step__number">6</span><span class="phase-step__text">Functional Decomposition</span></div>
-        </div>
-      </div>
-      <div class="phase-column">
-        <div class="phase-column__icon"></div>
-        <div class="phase-column__title">
-          <span class="phase-number">02</span>
-          <h5>Анализ и стратегия</h5>
-        </div>
-        <p class="phase-description">Изучаем ваш рынок, конкурентов и клиентов, чтобы предложить эффективный план работ и сформировать сроки</p>
-        <div class="phase-steps">
-          <div class="phase-step__item"><span class="phase-step__number">7</span><span class="phase-step__text">User Flows</span></div>
-          <div class="phase-step__item"><span class="phase-step__number">8</span><span class="phase-step__text">Prototyping</span></div>
-        </div>
-      </div>
-      <div class="phase-column">
-        <div class="phase-column__icon"></div>
-        <div class="phase-column__title">
-          <span class="phase-number">03</span>
-          <h5>Дизайн и прототип</h5>
-        </div>
-        <p class="phase-description">Создаём дизайн-концепции и интерактивные прототипы. Продумываем визуальные решения и пользовательский опыт.</p>
-        <div class="phase-steps">
-          <div class="phase-step__item"><span class="phase-step__number">9</span><span class="phase-step__text">Moodboards</span></div>
-          <div class="phase-step__item"><span class="phase-step__number">10</span><span class="phase-step__text">Visual Design</span></div>
-          <div class="phase-step__item"><span class="phase-step__number">11</span><span class="phase-step__text">Hand-off</span></div>
-        </div>
-      </div>
-      <div class="phase-column">
-        <div class="phase-column__icon"></div>
-        <div class="phase-column__title">
-          <span class="phase-number">04</span>
-          <h5>Разработка и запуск</h5>
-        </div>
-        <p class="phase-description">Запускаем проект. Следим за его работой и помогаем с дальнейшими улучшениями.</p>
-        <div class="phase-steps">
-          <div class="phase-step__item"><span class="phase-step__number">12</span><span class="phase-step__text">Development</span></div>
-          <div class="phase-step__item"><span class="phase-step__number">13</span><span class="phase-step__text">Testing</span></div>
-          <div class="phase-step__item"><span class="phase-step__number">14</span><span class="phase-step__text">Launch</span></div>
-        </div>
-      </div>
-    <?php endif; ?>
+    <?php endforeach; ?>
   </div>
 </section>
+<?php endif; ?>
 
 <?php get_template_part('template-parts/components/contact-section'); ?>
 

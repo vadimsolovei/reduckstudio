@@ -25,6 +25,10 @@ function reduck_register_carbon_fields() {
                 ->set_default_value('EU, MD, Chisinau'),
         ])
         ->add_tab(__('Contact', 'reduck-theme'), [
+            Field::make('text', 'contact_title', __('Contact Section Title', 'reduck-theme'))
+                ->set_help_text('Используйте &lt;em&gt; для выделенного текста'),
+            Field::make('text', 'contact_status', __('Contact Status Text', 'reduck-theme'))
+                ->set_default_value('Ready for new projects'),
             Field::make('text', 'contact_email', __('Contact Email', 'reduck-theme'))
                 ->set_default_value('hello@reduck.studio'),
             Field::make('text', 'contact_phone', __('Contact Phone', 'reduck-theme'))
@@ -40,27 +44,14 @@ function reduck_register_carbon_fields() {
             Field::make('complex', 'form_services', __('Service Options', 'reduck-theme'))
                 ->set_layout('tabbed-horizontal')
                 ->add_fields([
-                    Field::make('text', 'value', __('Value', 'reduck-theme')),
+                    Field::make('text', 'option_value', __('Value', 'reduck-theme')),
                     Field::make('text', 'label', __('Label', 'reduck-theme')),
-                ])
-                ->set_default_value([
-                    ['value' => 'product-design', 'label' => 'Product design'],
-                    ['value' => 'website', 'label' => 'Website'],
-                    ['value' => 'development', 'label' => 'Development'],
-                    ['value' => 'branding', 'label' => 'Branding'],
-                    ['value' => 'marketing', 'label' => 'Marketing'],
                 ]),
             Field::make('complex', 'form_budgets', __('Budget Options', 'reduck-theme'))
                 ->set_layout('tabbed-horizontal')
                 ->add_fields([
-                    Field::make('text', 'value', __('Value', 'reduck-theme')),
+                    Field::make('text', 'option_value', __('Value', 'reduck-theme')),
                     Field::make('text', 'label', __('Label', 'reduck-theme')),
-                ])
-                ->set_default_value([
-                    ['value' => '1-5k', 'label' => '$1–5k'],
-                    ['value' => '5-10k', 'label' => '$5–10k'],
-                    ['value' => '10-50k', 'label' => '$10–50k'],
-                    ['value' => '50k+', 'label' => '$50k+'],
                 ]),
         ]);
 
@@ -78,12 +69,13 @@ function reduck_register_carbon_fields() {
     $homepage_container
         ->add_tab(__('Hero', 'reduck-theme'), [
             Field::make('rich_text', 'hero_title', __('Hero Title', 'reduck-theme'))
-                ->set_help_text('Use <em> tags for disabled color text'),
+                ->set_help_text('Используйте &lt;em&gt; для выделенного текста'),
             Field::make('textarea', 'hero_description', __('Hero Description', 'reduck-theme')),
         ])
         ->add_tab(__('Projects', 'reduck-theme'), [
             Field::make('text', 'projects_title', __('Section Title', 'reduck-theme'))
-                ->set_default_value('Проекты'),
+                ->set_default_value('Проекты')
+                ->set_help_text('Используйте &lt;em&gt; для выделенного текста'),
             Field::make('association', 'featured_projects', __('Featured Projects', 'reduck-theme'))
                 ->set_types([
                     ['type' => 'post', 'post_type' => 'project'],
@@ -91,7 +83,8 @@ function reduck_register_carbon_fields() {
                 ->set_help_text('Select projects to display on homepage'),
         ])
         ->add_tab(__('Services', 'reduck-theme'), [
-            Field::make('text', 'services_title', __('Section Title', 'reduck-theme')),
+            Field::make('text', 'services_title', __('Section Title', 'reduck-theme'))
+                ->set_help_text('Используйте &lt;em&gt; для выделенного текста'),
             Field::make('image', 'services_image', __('Services Image', 'reduck-theme')),
             Field::make('complex', 'services_categories', __('Service Categories', 'reduck-theme'))
                 ->set_layout('tabbed-vertical')
@@ -105,10 +98,19 @@ function reduck_register_carbon_fields() {
                 ]),
         ])
         ->add_tab(__('Process', 'reduck-theme'), [
-            Field::make('text', 'process_title', __('Section Title', 'reduck-theme')),
+            Field::make('text', 'process_title', __('Section Title', 'reduck-theme'))
+                ->set_help_text('Используйте &lt;em&gt; для выделенного текста'),
             Field::make('complex', 'process_phases', __('Phases', 'reduck-theme'))
                 ->set_layout('tabbed-vertical')
                 ->add_fields([
+                    Field::make('select', 'icon', __('Icon', 'reduck-theme'))
+                        ->set_options([
+                            ''       => __('None', 'reduck-theme'),
+                            'search' => __('Search', 'reduck-theme'),
+                            'pen'    => __('Pen', 'reduck-theme'),
+                            'list'   => __('List', 'reduck-theme'),
+                            'play'   => __('Play', 'reduck-theme'),
+                        ]),
                     Field::make('text', 'title', __('Phase Title', 'reduck-theme')),
                     Field::make('textarea', 'description', __('Phase Description', 'reduck-theme')),
                     Field::make('complex', 'steps', __('Steps', 'reduck-theme'))
@@ -220,7 +222,7 @@ function reduck_register_carbon_fields() {
         ->set_context('side')
         ->add_fields([
             Field::make('textarea', 'card_description', __('Card Description', 'reduck-theme'))
-                ->set_help_text('Short description for homepage card'),
+                ->set_help_text('Используйте &lt;em&gt; для выделенного текста'),
             Field::make('complex', 'card_tags', __('Card Tags', 'reduck-theme'))
                 ->set_layout('tabbed-horizontal')
                 ->add_fields([

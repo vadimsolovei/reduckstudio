@@ -11,5 +11,5 @@
       </clipPath>
     </defs>
   </svg>
-  <span><?php esc_html_e('Leave a', 'reduck-theme'); ?><br /><?php esc_html_e('request', 'reduck-theme'); ?></span>
+  <span><?php echo wp_kses(reduck_break_after_first(reduck_pll__('Submit a request')), ['br' => []]); ?></span>
 </button>

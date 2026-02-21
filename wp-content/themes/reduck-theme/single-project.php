@@ -27,7 +27,7 @@ while (have_posts()) :
 
     <section class="hero container"<?php if ($hero_bg_url) : ?> style="background-image: url('<?php echo esc_url($hero_bg_url); ?>')"<?php endif; ?>>
       <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="<?php echo esc_url(home_url('/#projects')); ?>" class="breadcrumb-link"><?php esc_html_e('works', 'reduck-theme'); ?></a>
+        <a href="<?php echo esc_url(home_url('/#projects')); ?>" class="breadcrumb-link"><?php reduck_pll_e('works'); ?></a>
         <span class="breadcrumb-separator">/</span>
         <span class="breadcrumb-current"><?php echo esc_html($project_title); ?></span>
       </nav>
@@ -70,7 +70,7 @@ while (have_posts()) :
                 <div class="project-meta">
                   <?php if (!empty($block['meta_industry'])) : ?>
                   <div class="project-meta-row">
-                    <h4 class="project-meta-label"><?php esc_html_e('Industry', 'reduck-theme'); ?></h4>
+                    <h4 class="project-meta-label"><?php reduck_pll_e('Industry'); ?></h4>
                     <div class="project-meta-tags">
                       <?php foreach ($block['meta_industry'] as $tag) : ?>
                       <span class="project-meta-tag"><?php echo esc_html($tag['tag']); ?></span>
@@ -81,7 +81,7 @@ while (have_posts()) :
 
                   <?php if (!empty($block['project_url'])) : ?>
                   <div class="project-meta-row">
-                    <h4 class="project-meta-label"><?php echo esc_html($block['project_url_text'] ?? __('Website', 'reduck-theme')); ?></h4>
+                    <h4 class="project-meta-label"><?php echo esc_html($block['project_url_text'] ?? reduck_pll__('Website')); ?></h4>
                     <div class="project-meta-content">
                       <a href="<?php echo esc_url($block['project_url']); ?>" class="project-meta-link" target="_blank" rel="noopener noreferrer">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +96,7 @@ while (have_posts()) :
 
                   <?php if (!empty($block['meta_services'])) : ?>
                   <div class="project-meta-row">
-                    <h4 class="project-meta-label"><?php esc_html_e('Services', 'reduck-theme'); ?></h4>
+                    <h4 class="project-meta-label"><?php reduck_pll_e('Services'); ?></h4>
                     <div class="project-meta-tags">
                       <?php foreach ($block['meta_services'] as $tag) : ?>
                       <span class="project-meta-tag"><?php echo esc_html($tag['tag']); ?></span>
@@ -107,7 +107,7 @@ while (have_posts()) :
 
                   <?php if (!empty($block['dev_url'])) : ?>
                   <div class="project-meta-row">
-                    <h4 class="project-meta-label"><?php echo esc_html($block['dev_url_text'] ?? __('Development', 'reduck-theme')); ?></h4>
+                    <h4 class="project-meta-label"><?php echo esc_html($block['dev_url_text'] ?? reduck_pll__('Development')); ?></h4>
                     <div class="project-meta-content">
                       <a href="<?php echo esc_url($block['dev_url']); ?>" class="project-meta-link" target="_blank" rel="noopener noreferrer">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -171,7 +171,7 @@ while (have_posts()) :
 
     <?php if (!empty($testimonial_quote)) : ?>
     <section class="client-testimonial container">
-      <p class="testimonial-label"><?php esc_html_e('From the client:', 'reduck-theme'); ?></p>
+      <p class="testimonial-label"><?php reduck_pll_e('From the client:'); ?></p>
       <div class="testimonial-content">
         <blockquote class="testimonial-quote"><?php echo esc_html($testimonial_quote); ?></blockquote>
 
@@ -204,7 +204,7 @@ while (have_posts()) :
           <?php endif; ?>
         </div>
         <div class="project-nav-info">
-          <span class="project-nav-label"><?php esc_html_e('Previous work', 'reduck-theme'); ?></span>
+          <span class="project-nav-label"><?php reduck_pll_e('Previous work'); ?></span>
           <h3 class="project-nav-title"><?php echo esc_html(get_the_title($prev_id)); ?></h3>
         </div>
       </a>
@@ -221,7 +221,7 @@ while (have_posts()) :
       ?>
       <a href="<?php echo esc_url(get_permalink($next_id)); ?>" class="project-nav-item project-nav-next">
         <div class="project-nav-info">
-          <span class="project-nav-label"><?php esc_html_e('Next work', 'reduck-theme'); ?></span>
+          <span class="project-nav-label"><?php reduck_pll_e('Next work'); ?></span>
           <h3 class="project-nav-title"><?php echo esc_html(get_the_title($next_id)); ?></h3>
         </div>
         <div class="project-logo">

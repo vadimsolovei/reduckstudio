@@ -40,7 +40,7 @@
       <?php endforeach;
     endif; ?>
     <button id="theme-switcher" class="nav-button" aria-label="<?php esc_attr_e('Toggle theme', 'reduck-theme'); ?>">
-      <span class="sr-only"><?php esc_html_e('Switch between light and dark theme', 'reduck-theme'); ?></span>
+      <span class="sr-only"><?php reduck_pll_e('Switch between light and dark theme'); ?></span>
       <div class="theme-icons">
         <svg
           class="theme-icon theme-icon--sun"

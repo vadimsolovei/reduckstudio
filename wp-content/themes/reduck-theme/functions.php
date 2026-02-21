@@ -69,6 +69,18 @@ function reduck_break_after_first($text) {
     return $text;
 }
 
+function reduck_get_phase_icon($icon) {
+    $allowed = ['search', 'pen', 'list', 'play'];
+    if (!in_array($icon, $allowed, true)) {
+        return '';
+    }
+    $file = REDUCK_THEME_DIR . '/assets/images/' . $icon . '.svg';
+    if (!file_exists($file)) {
+        return '';
+    }
+    return file_get_contents($file);
+}
+
 /**
  * Add custom body classes
  */

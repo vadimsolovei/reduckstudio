@@ -1,16 +1,18 @@
 <?php
-$telegram_url = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_url') : 'https://t.me/kristijanbinski';
-$telegram_name = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_name') : 'Kristijan Binski';
-$telegram_handle = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_handle') : '@kristijanbinski';
-$contact_email = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('contact_email') : 'hello@reduck.studio';
-$contact_phone = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('contact_phone') : '+ 373 022 235-334';
+$telegram_url = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_url') : '';
+$telegram_name = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_name') : '';
+$telegram_handle = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('telegram_handle') : '';
+$contact_email = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('contact_email') : '';
+$contact_phone = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('contact_phone') : '';
+$contact_title = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('contact_title') : '';
+$contact_status = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('contact_status') : '';
 
 $email_parts = explode('@', $contact_email);
 ?>
 <section class="contact-section container">
   <div class="statement">
     <h2>
-      <?php esc_html_e('Have a project?', 'reduck-theme'); ?> <em><br /><?php esc_html_e("Let's talk.", 'reduck-theme'); ?></em>
+      <?php echo wp_kses_post($contact_title); ?>
     </h2>
     <div class="contact-status">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +20,7 @@ $email_parts = explode('@', $contact_email);
         <path d="M12 16L16 12L12 8" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M8 12H16" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <span><?php esc_html_e('Ready for new projects', 'reduck-theme'); ?></span>
+      <span><?php echo esc_html($contact_status); ?></span>
     </div>
   </div>
 
@@ -38,13 +40,13 @@ $email_parts = explode('@', $contact_email);
           </clipPath>
         </defs>
       </svg>
-      <span><?php esc_html_e('Leave a', 'reduck-theme'); ?><br /><?php esc_html_e('request', 'reduck-theme'); ?></span>
+      <span><?php echo wp_kses(reduck_break_after_first(reduck_pll__('Submit a request')), ['br' => []]); ?></span>
     </button>
 
     <div class="contact-cta_footer">
       <div class="contact-methods">
         <div class="contact-method">
-          <h3><?php esc_html_e("Let's chat on Telegram", 'reduck-theme'); ?></h3>
+          <h3><?php reduck_pll_e("Let's chat on Telegram"); ?></h3>
           <a href="<?php echo esc_url($telegram_url); ?>" class="telegram-contact" target="_blank" rel="noopener noreferrer">
             <img src="<?php echo esc_url(REDUCK_THEME_URI . '/assets/images/avatar.png'); ?>" alt="<?php echo esc_attr($telegram_name); ?>" />
             <div class="contact-details">
@@ -63,20 +65,20 @@ $email_parts = explode('@', $contact_email);
 
         <div class="contact-options">
           <div class="contact-option">
-            <h4><?php esc_html_e('Call us', 'reduck-theme'); ?></h4>
-            <div class="contact-link">
+            <h4><?php reduck_pll_e('Call us'); ?></h4>
+            <a href="tel:<?php echo esc_attr(preg_replace('/[^+\d]/', '', $contact_phone)); ?>" class="contact-link">
               <div class="contact-link__icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18.3333 14.0999V16.5999C18.3343 16.832 18.2867 17.0617 18.1937 17.2744C18.1008 17.487 17.9644 17.6779 17.7934 17.8348C17.6224 17.9917 17.4205 18.1112 17.2006 18.1855C16.9808 18.2599 16.7478 18.2875 16.5167 18.2666C13.9523 17.988 11.4892 17.1117 9.32498 15.7083C7.31151 14.4288 5.60443 12.7217 4.32499 10.7083C2.91663 8.53426 2.04019 6.05908 1.76665 3.48325C1.74583 3.25281 1.77321 3.02055 1.84707 2.80127C1.92092 2.58199 2.03963 2.38049 2.19562 2.2096C2.35162 2.03871 2.54149 1.90218 2.75314 1.80869C2.9648 1.7152 3.1936 1.6668 3.42499 1.66658H5.92499C6.32941 1.6626 6.72148 1.80582 7.02812 2.06953C7.33476 2.33324 7.53505 2.69946 7.59165 3.09992C7.69717 3.89997 7.89286 4.68552 8.17499 5.44158C8.2871 5.73985 8.31137 6.06401 8.24491 6.37565C8.17844 6.68729 8.02404 6.97334 7.79998 7.19992L6.74165 8.25825C7.92795 10.3445 9.65536 12.072 11.7417 13.2583L12.8 12.1999C13.0266 11.9759 13.3126 11.8215 13.6243 11.755C13.9359 11.6885 14.26 11.7128 14.5583 11.8249C15.3144 12.107 16.0999 12.3027 16.9 12.4083C17.3048 12.4654 17.6745 12.6693 17.9388 12.9812C18.203 13.2931 18.3435 13.6912 18.3333 14.0999Z" stroke="var(--color-content-general-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
               <span><?php echo esc_html($contact_phone); ?></span>
-            </div>
+            </a>
           </div>
 
           <div class="contact-option">
-            <h4><?php esc_html_e('Email us', 'reduck-theme'); ?></h4>
-            <div class="contact-link">
+            <h4><?php reduck_pll_e('Email us'); ?></h4>
+            <a href="mailto:<?php echo esc_attr($contact_email); ?>" class="contact-link">
               <div class="contact-link__icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.33341 3.3335H16.6667C17.5834 3.3335 18.3334 4.0835 18.3334 5.00016V15.0002C18.3334 15.9168 17.5834 16.6668 16.6667 16.6668H3.33341C2.41675 16.6668 1.66675 15.9168 1.66675 15.0002V5.00016C1.66675 4.0835 2.41675 3.3335 3.33341 3.3335Z" stroke="var(--color-content-general-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -84,7 +86,7 @@ $email_parts = explode('@', $contact_email);
                 </svg>
               </div>
               <span><?php echo esc_html($email_parts[0]); ?><em>@<?php echo esc_html($email_parts[1] ?? ''); ?></em></span>
-            </div>
+            </a>
           </div>
         </div>
       </div>

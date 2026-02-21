@@ -100,8 +100,8 @@
   /* ~300px */
   --space-320: 22.22vw;
   /* 320px */
-  --space-340: 23.6vw;
-  /* ~339.8px */
+  --space-330: 22.9vw;
+  /* ~330px */
   --space-400: 27.78vw;
   /* 400px */
   --space-403: 28vw;
@@ -191,10 +191,12 @@ a,
 em,
 button,
 li,
-label {
+label,
+path {
   transition:
     color 0.2s ease,
-    background-color 0.2s ease;
+    background-color 0.2s ease,
+    stroke 0.2s ease;
 }
 
 @media (prefers-reduced-motion: no-preference) {

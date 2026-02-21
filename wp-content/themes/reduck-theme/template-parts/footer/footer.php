@@ -10,8 +10,8 @@ $location = function_exists('carbon_get_theme_option') ? carbon_get_theme_option
       <span><?php echo esc_html($location); ?></span>
     </div>
     <div class="footer-right">
-      <a href="#"><?php esc_html_e('Privacy Policy', 'reduck-theme'); ?></a>
-      <a href="#"><?php esc_html_e('Terms', 'reduck-theme'); ?></a>
+      <a href="#"><?php reduck_pll_e('Privacy Policy'); ?></a>
+      <a href="#"><?php reduck_pll_e('Terms'); ?></a>
     </div>
   </div>
 </footer>

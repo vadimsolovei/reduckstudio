@@ -36,6 +36,46 @@ add_action('init', function () {
     pll_register_string('service_development', 'Development', 'Reduck Theme');
     pll_register_string('service_branding', 'Branding', 'Reduck Theme');
     pll_register_string('service_marketing', 'Marketing', 'Reduck Theme');
+
+    // CTA button
+    pll_register_string('cta_button', 'Submit a request', 'Reduck Theme');
+
+    // Contact section
+    pll_register_string('lets_chat_telegram', "Let's chat on Telegram", 'Reduck Theme');
+    pll_register_string('call_us', 'Call us', 'Reduck Theme');
+    pll_register_string('email_us', 'Email us', 'Reduck Theme');
+
+    // Project page
+    pll_register_string('works', 'works', 'Reduck Theme');
+    pll_register_string('industry', 'Industry', 'Reduck Theme');
+    pll_register_string('services', 'Services', 'Reduck Theme');
+    pll_register_string('from_the_client', 'From the client:', 'Reduck Theme');
+    pll_register_string('previous_work', 'Previous work', 'Reduck Theme');
+    pll_register_string('next_work', 'Next work', 'Reduck Theme');
+
+    // Project meta fallbacks
+    pll_register_string('website', 'Website', 'Reduck Theme');
+    pll_register_string('development', 'Development', 'Reduck Theme');
+
+    // Footer
+    pll_register_string('privacy_policy', 'Privacy Policy', 'Reduck Theme');
+    pll_register_string('terms', 'Terms', 'Reduck Theme');
+
+    // Header
+    pll_register_string('theme_switcher_sr', 'Switch between light and dark theme', 'Reduck Theme');
+
+    // Contact form modal
+    pll_register_string('lets_start', "Let's start", 'Reduck Theme');
+    pll_register_string('awesome_project', 'an awesome project!', 'Reduck Theme');
+    pll_register_string('requirements', 'Requirements', 'Reduck Theme');
+    pll_register_string('budget', 'Budget', 'Reduck Theme');
+    pll_register_string('send_request', 'Send request', 'Reduck Theme');
+    pll_register_string('privacy_accept', 'By clicking send you accept our %s', 'Reduck Theme');
+    pll_register_string('privacy_policy_link', 'privacy policy', 'Reduck Theme');
+    pll_register_string('prefer_email', 'Prefer email?', 'Reduck Theme');
+    pll_register_string('placeholder_email', 'E-mail', 'Reduck Theme');
+    pll_register_string('placeholder_name', 'Full name', 'Reduck Theme');
+    pll_register_string('placeholder_message', 'Tell us briefly about your task', 'Reduck Theme');
 });
 
 /**
