@@ -197,7 +197,8 @@
   margin-bottom: var(--space-20);
 }
 
-.project-gallery-single img {
+.project-gallery-single img,
+.project-gallery-single video {
   width: 100%;
   height: var(--space-800);
   object-fit: cover;
@@ -209,7 +210,8 @@
   gap: var(--space-20);
 }
 
-.project-gallery-grid-4 img {
+.project-gallery-grid-4 img,
+.project-gallery-grid-4 video {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
@@ -221,7 +223,8 @@
   gap: var(--space-20);
 }
 
-.project-gallery-grid-2 img {
+.project-gallery-grid-2 img,
+.project-gallery-grid-2 video {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;

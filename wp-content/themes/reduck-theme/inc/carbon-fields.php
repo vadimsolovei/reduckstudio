@@ -44,13 +44,11 @@ function reduck_register_carbon_fields() {
             Field::make('complex', 'form_services', __('Service Options', 'reduck-theme'))
                 ->set_layout('tabbed-horizontal')
                 ->add_fields([
-                    Field::make('text', 'option_value', __('Value', 'reduck-theme')),
                     Field::make('text', 'label', __('Label', 'reduck-theme')),
                 ]),
             Field::make('complex', 'form_budgets', __('Budget Options', 'reduck-theme'))
                 ->set_layout('tabbed-horizontal')
                 ->add_fields([
-                    Field::make('text', 'option_value', __('Value', 'reduck-theme')),
                     Field::make('text', 'label', __('Label', 'reduck-theme')),
                 ]),
         ]);
@@ -169,7 +167,7 @@ function reduck_register_carbon_fields() {
                 ->add_fields([
                     Field::make('select', 'gallery_type', __('Gallery Type', 'reduck-theme'))
                         ->set_options([
-                            'single' => 'Single Image',
+                            'single' => 'Single Media',
                             'grid-2' => '2 Column Grid',
                             'grid-4' => '4 Column Grid',
                         ])
@@ -177,7 +175,9 @@ function reduck_register_carbon_fields() {
                     Field::make('text', 'position', __('Position After Block', 'reduck-theme'))
                         ->set_help_text('Enter the content block index (0-based) after which this gallery should appear')
                         ->set_default_value('0'),
-                    Field::make('image', 'single_image', __('Image', 'reduck-theme'))
+                    Field::make('file', 'single_image', __('Image / Video', 'reduck-theme'))
+                        ->set_type(['image', 'video'])
+                        ->set_help_text('Supported formats: JPG, PNG, WebP, MP4, WebM')
                         ->set_conditional_logic([
                             ['field' => 'gallery_type', 'value' => 'single'],
                         ]),
@@ -185,13 +185,13 @@ function reduck_register_carbon_fields() {
                         ->set_conditional_logic([
                             ['field' => 'gallery_type', 'value' => 'single'],
                         ]),
-                    Field::make('media_gallery', 'grid_2_images', __('Grid Images (2 columns)', 'reduck-theme'))
-                        ->set_type(['image'])
+                    Field::make('media_gallery', 'grid_2_images', __('Grid Media (2 columns)', 'reduck-theme'))
+                        ->set_type(['image', 'video'])
                         ->set_conditional_logic([
                             ['field' => 'gallery_type', 'value' => 'grid-2'],
                         ]),
-                    Field::make('media_gallery', 'grid_4_images', __('Grid Images (4 columns)', 'reduck-theme'))
-                        ->set_type(['image'])
+                    Field::make('media_gallery', 'grid_4_images', __('Grid Media (4 columns)', 'reduck-theme'))
+                        ->set_type(['image', 'video'])
                         ->set_conditional_logic([
                             ['field' => 'gallery_type', 'value' => 'grid-4'],
                         ]),
@@ -202,18 +202,6 @@ function reduck_register_carbon_fields() {
             Field::make('image', 'testimonial_avatar', __('Avatar', 'reduck-theme')),
             Field::make('text', 'testimonial_name', __('Client Name', 'reduck-theme')),
             Field::make('text', 'testimonial_role', __('Client Role', 'reduck-theme')),
-        ])
-        ->add_tab(__('Navigation', 'reduck-theme'), [
-            Field::make('association', 'nav_prev', __('Previous Project', 'reduck-theme'))
-                ->set_types([
-                    ['type' => 'post', 'post_type' => 'project'],
-                ])
-                ->set_max(1),
-            Field::make('association', 'nav_next', __('Next Project', 'reduck-theme'))
-                ->set_types([
-                    ['type' => 'post', 'post_type' => 'project'],
-                ])
-                ->set_max(1),
         ]);
 
     // Project Card Settings (for homepage display)

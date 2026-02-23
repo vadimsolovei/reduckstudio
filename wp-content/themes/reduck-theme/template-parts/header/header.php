@@ -1,5 +1,5 @@
 <header>
-  <div class="logo" role="img" aria-label="Reduck Studio">
+  <a href="<?php echo esc_url(home_url('/')); ?>" class="logo" role="img" aria-label="Reduck Studio">
     <svg
       class="logo-text logo-text--reduck"
       viewBox="0 13 57 17"
@@ -28,7 +28,7 @@
         fill-opacity="0.55"
       />
     </svg>
-  </div>
+  </a>
   <div class="nav-buttons">
     <?php if (function_exists('pll_the_languages')) :
       $languages = pll_the_languages(['raw' => 1]);

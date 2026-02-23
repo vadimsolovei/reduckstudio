@@ -107,19 +107,36 @@ bodyClass: productpage
   <div class="project-gallery">
     {% if gallery.type == "single" %}
     <div class="project-gallery-single">
+      {% if gallery.image.endsWith('.mp4') or gallery.image.endsWith('.webm') or
+      gallery.image.endsWith('.mov') %}
+      <video autoplay muted loop playsinline>
+        <source src="{{ gallery.image }}" />
+      </video>
+      {% else %}
       <img src="{{ gallery.image }}" alt="{{ gallery.alt }}" loading="lazy" />
+      {% endif %}
     </div>
     {% elif gallery.type == "grid-4" %}
     <div class="project-gallery-grid-4">
-      {% for img in gallery.images %}
+      {% for img in gallery.images %} {% if img.src.endsWith('.mp4') or img.src.endsWith('.webm') or
+      img.src.endsWith('.mov') %}
+      <video autoplay muted loop playsinline>
+        <source src="{{ img.src }}" />
+      </video>
+      {% else %}
       <img src="{{ img.src }}" alt="{{ img.alt }}" loading="lazy" />
-      {% endfor %}
+      {% endif %} {% endfor %}
     </div>
     {% elif gallery.type == "grid-2" %}
     <div class="project-gallery-grid-2">
-      {% for img in gallery.images %}
+      {% for img in gallery.images %} {% if img.src.endsWith('.mp4') or img.src.endsWith('.webm') or
+      img.src.endsWith('.mov') %}
+      <video autoplay muted loop playsinline>
+        <source src="{{ img.src }}" />
+      </video>
+      {% else %}
       <img src="{{ img.src }}" alt="{{ img.alt }}" loading="lazy" />
-      {% endfor %}
+      {% endif %} {% endfor %}
     </div>
     {% endif %}
   </div>

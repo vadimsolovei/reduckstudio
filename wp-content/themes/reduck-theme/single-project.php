@@ -18,8 +18,17 @@ while (have_posts()) :
     $testimonial_avatar_id = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('testimonial_avatar') : 0;
     $testimonial_name = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('testimonial_name') : '';
     $testimonial_role = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('testimonial_role') : '';
-    $nav_prev = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('nav_prev') : [];
-    $nav_next = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('nav_next') : [];
+    $prev_project = get_adjacent_post(false, '', true);
+    $next_project = get_adjacent_post(false, '', false);
+
+    if (!$prev_project) {
+        $all = get_posts(['post_type' => 'project', 'posts_per_page' => 1, 'orderby' => 'date', 'order' => 'DESC']);
+        $prev_project = $all ? $all[0] : null;
+    }
+    if (!$next_project) {
+        $all = get_posts(['post_type' => 'project', 'posts_per_page' => 1, 'orderby' => 'date', 'order' => 'ASC']);
+        $next_project = $all ? $all[0] : null;
+    }
 
     $hero_bg_url = $hero_bg_image_id ? wp_get_attachment_image_url($hero_bg_image_id, 'project-hero') : '';
     $project_title = get_the_title();
@@ -133,12 +142,24 @@ while (have_posts()) :
                           ?>
                           <div class="project-gallery">
                             <?php if ($gallery_type === 'single') :
-                                $single_image_url = !empty($gallery['single_image']) ? wp_get_attachment_image_url($gallery['single_image'], 'project-gallery') : '';
-                                if ($single_image_url) :
+                                $single_id = !empty($gallery['single_image']) ? $gallery['single_image'] : 0;
+                                if ($single_id) :
+                                    if (wp_attachment_is('video', $single_id)) :
+                                        $video_url = wp_get_attachment_url($single_id);
+                                        $video_mime = get_post_mime_type($single_id);
+                            ?>
+                              <div class="project-gallery-single">
+                                <video autoplay muted loop playsinline>
+                                  <source src="<?php echo esc_url($video_url); ?>" type="<?php echo esc_attr($video_mime); ?>" />
+                                </video>
+                              </div>
+                            <?php else :
+                                        $single_image_url = wp_get_attachment_image_url($single_id, 'project-gallery');
                             ?>
                               <div class="project-gallery-single">
                                 <img src="<?php echo esc_url($single_image_url); ?>" alt="<?php echo esc_attr($gallery['single_alt'] ?? ''); ?>" loading="lazy" />
                               </div>
+                            <?php endif; ?>
                             <?php endif; ?>
                             <?php elseif ($gallery_type === 'grid-4' || $gallery_type === 'grid-2') :
                                 $grid_images = $gallery_type === 'grid-2'
@@ -147,11 +168,22 @@ while (have_posts()) :
                                 if (!empty($grid_images)) :
                             ?>
                               <div class="project-gallery-<?php echo esc_attr($gallery_type); ?>">
-                                <?php foreach ($grid_images as $image_id) :
-                                    $image_url = wp_get_attachment_image_url($image_id, 'project-gallery');
+                                <?php foreach ($grid_images as $media_id) :
+                                    if (wp_attachment_is('video', $media_id)) :
+                                        $video_url = wp_get_attachment_url($media_id);
+                                        $video_mime = get_post_mime_type($media_id);
+                                        if ($video_url) :
+                                ?>
+                                <video autoplay muted loop playsinline>
+                                  <source src="<?php echo esc_url($video_url); ?>" type="<?php echo esc_attr($video_mime); ?>" />
+                                </video>
+                                <?php endif; ?>
+                                <?php else :
+                                    $image_url = wp_get_attachment_image_url($media_id, 'project-gallery');
                                     if ($image_url) :
                                 ?>
                                 <img src="<?php echo esc_url($image_url); ?>" alt="" loading="lazy" />
+                                <?php endif; ?>
                                 <?php endif; ?>
                                 <?php endforeach; ?>
                               </div>
@@ -190,10 +222,10 @@ while (have_posts()) :
     </section>
     <?php endif; ?>
 
-    <?php if (!empty($nav_prev) || !empty($nav_next)) : ?>
+    <?php if ($prev_project || $next_project) : ?>
     <section class="project-navigation">
-      <?php if (!empty($nav_prev) && isset($nav_prev[0]['id'])) :
-          $prev_id = $nav_prev[0]['id'];
+      <?php if ($prev_project) :
+          $prev_id = $prev_project->ID;
           $prev_thumb_id = get_post_thumbnail_id($prev_id);
           $prev_thumb_url = $prev_thumb_id ? wp_get_attachment_image_url($prev_thumb_id, 'project-thumb') : '';
       ?>
@@ -214,8 +246,8 @@ while (have_posts()) :
 
       <div class="project-nav-divider"></div>
 
-      <?php if (!empty($nav_next) && isset($nav_next[0]['id'])) :
-          $next_id = $nav_next[0]['id'];
+      <?php if ($next_project) :
+          $next_id = $next_project->ID;
           $next_thumb_id = get_post_thumbnail_id($next_id);
           $next_thumb_url = $next_thumb_id ? wp_get_attachment_image_url($next_thumb_id, 'project-thumb') : '';
       ?>

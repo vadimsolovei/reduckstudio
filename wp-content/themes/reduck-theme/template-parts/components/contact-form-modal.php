@@ -35,11 +35,11 @@ $form_budgets = function_exists('carbon_get_theme_option') ? carbon_get_theme_op
         <div class="form-section-label"><?php reduck_pll_e('Requirements'); ?></div>
         <div class="form-options" data-option-group="services">
           <?php foreach ($form_services as $service) : ?>
-          <button type="button" class="form-option" data-value="<?php echo esc_attr($service['option_value']); ?>">
+          <button type="button" class="form-option" data-value="<?php echo esc_attr($service['label']); ?>">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none">
               <path d="M20 6L9 17L4 12" stroke="var(--color-content-general-inverted-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <?php echo esc_html($service['label']); ?>
+            <?php echo esc_html(reduck_pll__($service['label'])); ?>
           </button>
           <?php endforeach; ?>
         </div>
@@ -49,8 +49,8 @@ $form_budgets = function_exists('carbon_get_theme_option') ? carbon_get_theme_op
         <div class="form-section-label"><?php reduck_pll_e('Budget'); ?></div>
         <div class="form-options" data-option-group="budget">
           <?php foreach ($form_budgets as $budget) : ?>
-          <button type="button" class="form-option" data-value="<?php echo esc_attr($budget['option_value']); ?>">
-            <?php echo esc_html($budget['label']); ?>
+          <button type="button" class="form-option" data-value="<?php echo esc_attr($budget['label']); ?>">
+            <?php echo esc_html(reduck_pll__($budget['label'])); ?>
           </button>
           <?php endforeach; ?>
         </div>

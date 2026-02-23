@@ -708,6 +708,7 @@
   padding: var(--space-24) var(--space-32);
   border: 1px solid var(--color-border-general-primary);
   border-radius: 999px;
+  white-space: nowrap;
 
   & span {
     font-size: var(--font-20);
