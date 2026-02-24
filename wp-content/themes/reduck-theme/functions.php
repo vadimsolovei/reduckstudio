@@ -54,6 +54,7 @@ require_once REDUCK_THEME_DIR . '/inc/enqueue.php';
 require_once REDUCK_THEME_DIR . '/inc/cpt-projects.php';
 require_once REDUCK_THEME_DIR . '/inc/carbon-fields.php';
 require_once REDUCK_THEME_DIR . '/inc/polylang.php';
+require_once REDUCK_THEME_DIR . '/inc/project-sync.php';
 
 /**
  * Helper function: Insert <br> after first word (replicates Nunjucks breakAfterFirst filter)

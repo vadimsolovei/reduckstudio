@@ -41,6 +41,8 @@ add_action('init', function () {
     pll_register_string('cta_button', 'Submit a request', 'Reduck Theme');
 
     // Contact section
+    pll_register_string('contact_title', 'Есть проект? <em>Давай поговорим.</em>', 'Reduck Theme');
+    pll_register_string('contact_status', 'Готовы к новым проектам', 'Reduck Theme');
     pll_register_string('lets_chat_telegram', "Let's chat on Telegram", 'Reduck Theme');
     pll_register_string('call_us', 'Call us', 'Reduck Theme');
     pll_register_string('email_us', 'Email us', 'Reduck Theme');

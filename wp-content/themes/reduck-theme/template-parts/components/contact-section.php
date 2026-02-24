@@ -12,7 +12,7 @@ $email_parts = explode('@', $contact_email);
 <section class="contact-section container">
   <div class="statement">
     <h2>
-      <?php echo wp_kses_post($contact_title); ?>
+      <?php echo wp_kses_post(str_replace('<em>', '<br><em>', reduck_pll__($contact_title))); ?>
     </h2>
     <div class="contact-status">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +20,7 @@ $email_parts = explode('@', $contact_email);
         <path d="M12 16L16 12L12 8" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M8 12H16" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <span><?php echo esc_html($contact_status); ?></span>
+      <span><?php echo esc_html(reduck_pll__($contact_status)); ?></span>
     </div>
   </div>
 
