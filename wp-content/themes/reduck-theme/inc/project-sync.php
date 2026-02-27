@@ -94,19 +94,8 @@ add_action('admin_post_reduck_clone_to_translation', function () {
             wp_die('Failed to create translation post.');
         }
 
-        // Set language and link translations
         pll_set_post_language($target_id, $target_lang);
-
-        $source_lang = pll_get_post_language($post_id);
-        $translations = pll_get_post_translations($post_id);
-        $translations[$source_lang] = $post_id;
-        $translations[$target_lang] = $target_id;
-
-        if (function_exists('pll_save_post_translations')) {
-            pll_save_post_translations($translations);
-        } elseif (function_exists('PLL')) {
-            PLL()->model->post->save_translations($post_id, $translations);
-        }
+        reduck_link_translations($post_id, $target_id, $target_lang);
     } else {
         $target_id = $existing_translation;
     }
@@ -140,6 +129,63 @@ add_action('admin_notices', function () {
 
     echo '<div class="notice notice-success is-dismissible"><p>Project fields synced successfully.</p></div>';
 });
+
+/**
+ * Link two posts as Polylang translations via the post_translations taxonomy
+ */
+function reduck_link_translations($source_id, $target_id, $target_lang) {
+    if (function_exists('pll_save_post_translations')) {
+        $source_lang = pll_get_post_language($source_id);
+        $translations = pll_get_post_translations($source_id);
+        $translations[$source_lang] = $source_id;
+        $translations[$target_lang] = $target_id;
+        pll_save_post_translations($translations);
+        return;
+    }
+
+    // Direct taxonomy fallback — works with any Polylang version
+    $source_lang = pll_get_post_language($source_id);
+    $slugs = [];
+
+    // Find existing translation group term for the source post
+    $terms = wp_get_object_terms($source_id, 'post_translations');
+    if (!empty($terms) && !is_wp_error($terms)) {
+        $term = $terms[0];
+        $slugs = maybe_unserialize($term->description);
+        if (!is_array($slugs)) {
+            $slugs = [];
+        }
+    }
+
+    $slugs[$source_lang] = $source_id;
+    $slugs[$target_lang] = $target_id;
+
+    // Remove old term associations
+    wp_delete_object_term_relationships($source_id, 'post_translations');
+    wp_delete_object_term_relationships($target_id, 'post_translations');
+
+    // Create or update the translation group term
+    $term_slug = 'pll_' . md5(serialize($slugs));
+    $existing_term = get_term_by('slug', $term_slug, 'post_translations');
+
+    if ($existing_term) {
+        wp_update_term($existing_term->term_id, 'post_translations', [
+            'description' => maybe_serialize($slugs),
+        ]);
+        $term_id = $existing_term->term_id;
+    } else {
+        $result = wp_insert_term($term_slug, 'post_translations', [
+            'description' => maybe_serialize($slugs),
+        ]);
+        if (is_wp_error($result)) {
+            return;
+        }
+        $term_id = $result['term_id'];
+    }
+
+    wp_set_object_terms($source_id, $term_id, 'post_translations');
+    wp_set_object_terms($target_id, $term_id, 'post_translations');
+}
 
 /**
  * Copy all post meta from source to target
