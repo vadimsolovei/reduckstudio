@@ -409,7 +409,8 @@
     color: var(--color-action-brand-active);
   }
 
-  &:hover img {
+  &:hover img,
+  &:hover video {
     transform: scale(1.05);
   }
 
@@ -423,10 +424,12 @@
   border-radius: var(--space-64);
   margin-bottom: var(--space-60);
 
-  & img {
+  & img,
+  & video {
     width: 100%;
     height: auto;
     transition: transform 0.3s ease;
+    display: block;
   }
 }
 

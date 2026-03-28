@@ -53,13 +53,38 @@ function reduck_register_carbon_fields() {
                 ]),
         ]);
 
-    // Homepage Fields
+    // Homepage Fields — show on front page and all its Polylang translations
     $front_page_id = get_option('page_on_front');
     $homepage_container = Container::make('post_meta', __('Homepage Settings', 'reduck-theme'))
         ->where('post_type', '=', 'page');
 
     if ($front_page_id) {
-        $homepage_container->where('post_id', '=', $front_page_id);
+        $front_page_ids = [$front_page_id];
+        if (function_exists('pll_get_post_translations')) {
+            $translations = pll_get_post_translations($front_page_id);
+            $front_page_ids = array_values($translations);
+        }
+
+        // Check if creating a new translation of the front page (Polylang passes from_post in URL)
+        $from_post = isset($_GET['from_post']) ? intval($_GET['from_post']) : 0;
+        $is_new_translation = $from_post && in_array($from_post, $front_page_ids);
+
+        if ($is_new_translation) {
+            $homepage_container->where('post_type', '=', 'page');
+        } else {
+            $homepage_container->where('post_id', 'IN', $front_page_ids);
+        }
+
+        // DEBUG: log to browser console
+        add_action('admin_footer', function () use ($front_page_id, $front_page_ids, $from_post, $is_new_translation) {
+            $current_post_id = isset($_GET['post']) ? intval($_GET['post']) : 0;
+            echo '<script>console.log("[Reduck Debug] front_page_id:", ' . json_encode($front_page_id) . ');';
+            echo 'console.log("[Reduck Debug] front_page_ids (with translations):", ' . json_encode($front_page_ids) . ');';
+            echo 'console.log("[Reduck Debug] current post ID:", ' . json_encode($current_post_id) . ');';
+            echo 'console.log("[Reduck Debug] from_post:", ' . json_encode($from_post) . ');';
+            echo 'console.log("[Reduck Debug] is_new_translation:", ' . json_encode($is_new_translation) . ');';
+            echo 'console.log("[Reduck Debug] match:", ' . json_encode($front_page_ids) . '.includes(' . json_encode($current_post_id) . ') || ' . json_encode($is_new_translation) . ');</script>';
+        });
     } else {
         $homepage_container->where('post_template', '=', 'front-page.php');
     }
@@ -123,8 +148,9 @@ function reduck_register_carbon_fields() {
     Container::make('post_meta', __('Project Details', 'reduck-theme'))
         ->where('post_type', '=', 'project')
         ->add_tab(__('Hero', 'reduck-theme'), [
-            Field::make('image', 'hero_bg_image', __('Hero Background Image', 'reduck-theme'))
-                ->set_help_text('Large background image for the hero section'),
+            Field::make('file', 'hero_bg_image', __('Hero Background Media', 'reduck-theme'))
+                ->set_type(['image', 'video'])
+                ->set_help_text('Large background image or video for the hero section. Supported: JPG, PNG, WebP, MP4, WebM.'),
         ])
         ->add_tab(__('Content Blocks', 'reduck-theme'), [
             Field::make('complex', 'content_blocks', __('Content Blocks', 'reduck-theme'))
@@ -209,6 +235,9 @@ function reduck_register_carbon_fields() {
         ->where('post_type', '=', 'project')
         ->set_context('side')
         ->add_fields([
+            Field::make('file', 'card_video', __('Card Video', 'reduck-theme'))
+                ->set_type(['video'])
+                ->set_help_text('Optional video for the card. Replaces featured image when set. Supported: MP4, WebM.'),
             Field::make('textarea', 'card_description', __('Card Description', 'reduck-theme'))
                 ->set_help_text('Используйте &lt;em&gt; для выделенного текста'),
             Field::make('complex', 'card_tags', __('Card Tags', 'reduck-theme'))

@@ -42,11 +42,14 @@ add_action('after_setup_theme', function () {
         'script',
     ]);
 
-    // Custom image sizes
-    add_image_size('project-hero', 1920, 760, true);
-    add_image_size('project-gallery', 1440, 800, true);
-    add_image_size('project-card', 800, 600, true);
-    add_image_size('project-thumb', 400, 300, true);
+    // Disable default WordPress image sizes to keep originals untouched
+    remove_image_size('medium_large');
+    remove_image_size('1536x1536');
+    remove_image_size('2048x2048');
+    add_filter('intermediate_image_sizes_advanced', function ($sizes) {
+        unset($sizes['thumbnail'], $sizes['medium'], $sizes['large']);
+        return $sizes;
+    });
 });
 
 // Include theme files

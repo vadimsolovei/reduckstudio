@@ -30,11 +30,19 @@ while (have_posts()) :
         $next_project = $all ? $all[0] : null;
     }
 
-    $hero_bg_url = $hero_bg_image_id ? wp_get_attachment_image_url($hero_bg_image_id, 'project-hero') : '';
+    $hero_bg_url = $hero_bg_image_id ? wp_get_attachment_image_url($hero_bg_image_id, 'full') : '';
+    $hero_is_video = $hero_bg_image_id && wp_attachment_is('video', $hero_bg_image_id);
+    $hero_video_url = $hero_is_video ? wp_get_attachment_url($hero_bg_image_id) : '';
+    $hero_video_mime = $hero_is_video ? get_post_mime_type($hero_bg_image_id) : '';
     $project_title = get_the_title();
     ?>
 
-    <section class="hero container"<?php if ($hero_bg_url) : ?> style="background-image: url('<?php echo esc_url($hero_bg_url); ?>')"<?php endif; ?>>
+    <section class="hero container<?php if ($hero_is_video) echo ' hero--video'; ?>"<?php if ($hero_bg_url && !$hero_is_video) : ?> style="background-image: url('<?php echo esc_url($hero_bg_url); ?>')"<?php endif; ?>>
+      <?php if ($hero_is_video && $hero_video_url) : ?>
+      <video class="hero-bg-video" autoplay muted loop playsinline>
+        <source src="<?php echo esc_url($hero_video_url); ?>" type="<?php echo esc_attr($hero_video_mime); ?>" />
+      </video>
+      <?php endif; ?>
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="<?php echo esc_url(home_url('/#projects')); ?>" class="breadcrumb-link"><?php reduck_pll_e('works'); ?></a>
         <span class="breadcrumb-separator">/</span>
@@ -154,7 +162,7 @@ while (have_posts()) :
                                 </video>
                               </div>
                             <?php else :
-                                        $single_image_url = wp_get_attachment_image_url($single_id, 'project-gallery');
+                                        $single_image_url = wp_get_attachment_image_url($single_id, 'full');
                             ?>
                               <div class="project-gallery-single">
                                 <img src="<?php echo esc_url($single_image_url); ?>" alt="<?php echo esc_attr($gallery['single_alt'] ?? ''); ?>" loading="lazy" />
@@ -179,7 +187,7 @@ while (have_posts()) :
                                 </video>
                                 <?php endif; ?>
                                 <?php else :
-                                    $image_url = wp_get_attachment_image_url($media_id, 'project-gallery');
+                                    $image_url = wp_get_attachment_image_url($media_id, 'full');
                                     if ($image_url) :
                                 ?>
                                 <img src="<?php echo esc_url($image_url); ?>" alt="" loading="lazy" />
@@ -227,7 +235,7 @@ while (have_posts()) :
       <?php if ($prev_project) :
           $prev_id = $prev_project->ID;
           $prev_thumb_id = get_post_thumbnail_id($prev_id);
-          $prev_thumb_url = $prev_thumb_id ? wp_get_attachment_image_url($prev_thumb_id, 'project-thumb') : '';
+          $prev_thumb_url = $prev_thumb_id ? wp_get_attachment_image_url($prev_thumb_id, 'full') : '';
       ?>
       <a href="<?php echo esc_url(get_permalink($prev_id)); ?>" class="project-nav-item project-nav-prev">
         <div class="project-logo">
@@ -249,7 +257,7 @@ while (have_posts()) :
       <?php if ($next_project) :
           $next_id = $next_project->ID;
           $next_thumb_id = get_post_thumbnail_id($next_id);
-          $next_thumb_url = $next_thumb_id ? wp_get_attachment_image_url($next_thumb_id, 'project-thumb') : '';
+          $next_thumb_url = $next_thumb_id ? wp_get_attachment_image_url($next_thumb_id, 'full') : '';
       ?>
       <a href="<?php echo esc_url(get_permalink($next_id)); ?>" class="project-nav-item project-nav-next">
         <div class="project-nav-info">
